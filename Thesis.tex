@@ -9,12 +9,15 @@
 
 \documentclass[15pt]{article}
 \renewcommand{\familydefault}{\sfdefault}
-\renewcommand{\baselinestretch}{1.3}
+\renewcommand{\baselinestretch}{1.4}
 
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[nottoc,numbib]{tocbibind}
 \usepackage{url}
+\usepackage{dirtytalk}
 \usepackage[colorinlistoftodos]{todonotes}
 
 \begin{document}
@@ -36,18 +39,24 @@
 \newpage
 
 %----------------------------------------------------------------------------------------
+%   Abstract
+%----------------------------------------------------------------------------------------
+\include{TheoreticalFramework/TheoreticalFramework}
+
+%----------------------------------------------------------------------------------------
 %   Initial Layout
 %----------------------------------------------------------------------------------------
 
 
 \section{Introduction}
   \subsection{Problem Statement}
+  Here I'll try to state problems per domain as widely as possible.
     \subsubsection{Service domain}
     \subsubsection{Technical domain}
     \subsubsection{Organizational domain}
     \subsubsection{Financial domain}
   \subsection{Objectives}
-  	Setting up clear and concise questions to answer -- aka, objectives.
+  	Here I'll try to deform those problem statements to actual researchable objectives.
   	\subsubsection{Main Objective}
   	Broad Research question
   	\subsubsection{Service objectives}
@@ -66,19 +75,23 @@
 	    \subsubsection{Financial objectives}
     \subsection{Experimental}
     Explanation of experimental research related to loading times / browser compatibility goes here
-    \subsection{Empirical}
+    \subsection{Literature}
     Explanation for empirical evidence based research goes here
+    \subsection{Interviews}
+    Here I'll try to find ways to interview larger companies on the matter and see if they would be interested in a pilot project.
     \subsection{Research Validation \& Critical Notes}
     
     
 \section{Research Findings}
+Here I'll state the findings on the research per domain objectives, with a research conclusion in the end.
 	\subsection{Service objectives}
     \subsection{Technical objectives}
     \subsection{Organizational objectives}
     \subsection{Financial objectives}
 	\subsection{Research Conclusion}
+	This will contain a go / no go moment, in which shall be decided if the building section shall be finished within this research.
 	
-\section{Building}
+\section{Building -- Optional}
 	\subsection{Introduction to Single Page Web-Applications}
 		\subsubsection{Single Page Concept}
 		\subsubsection{Design Patterns}
@@ -108,8 +121,11 @@
 
 \section{Further Recommendations}
 
-\section{Bibliography}
-
 \section{Attachments}
+
+%----------------------------------------------------------------------------------------
+%   Abstract
+%----------------------------------------------------------------------------------------
+\include{Bibliography/Bibliography}
 
 \end{document}
