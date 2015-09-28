@@ -2,8 +2,7 @@
 \section{Theoretical Framework}
 \subsection{Introduction}
 
-To set our perspective, a couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific parts we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally, the method we'll be using to analyse all these domains, on which we shall base our conclusion.
-Finally, we shall state an hypothesis that can be tested in this research.
+A couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific issues we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally, the method we will be using to analyse all these domains, on which we shall base our conclusion.
 
 \subsection{OpenGL \& WebGL}
 \say{
@@ -14,7 +13,7 @@ The final WebGL 1.0 specification was frozen in March 2011, and WebGL support is
 \cite{Andreas Anyuru}
 \newline
 
-At the time of Andreas' writing, WebGL was very much in its early development stage. Anno 2015 though, WebGL has found its way into mainstream browsers with Internet Explorer and Android support lacking for versions earlier than its absolute latest \cite{Can I Use}, with an adoption rate of nearly 81\%. The most interesting part of using WebGL is the "low-level acceleration". Which means that on the stack of available hardware and software to render graphics, WebGL and OpenGL are on the lower ones (or closer to hardware level). This makes using WebGL and OpenGL insanely fast when compared to software / browser acceleration, which is very high-level.
+At the time of Andreas' writing, WebGL was very much in its early development stage. Anno 2015 though, WebGL has found its way into mainstream browsers with Internet Explorer and Android support lacking for versions earlier than its absolute latest \cite{Can I Use}. It currently has a total adoption rate of nearly 81\%. The most interesting part of using WebGL is the "low-level acceleration". Which means that on the stack of available hardware and software to render graphics, WebGL and OpenGL are on the lower ones (or closer to hardware level). This makes using WebGL and OpenGL insanely fast when compared to software / browser acceleration, which is very high-level.
 The main bottleneck for using said low-level acceleration, is that when there is no low-level graphics processing unit (GPU) available, the computing needs to be done with high-level software, which is ultimately directed (through several levels of architecture) to the CPU of the device and some tasks are great for CPU calculations, however, some are not.
 \newline
 
