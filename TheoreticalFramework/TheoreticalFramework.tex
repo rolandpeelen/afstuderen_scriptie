@@ -2,7 +2,7 @@
 \chapter{Theoretical Framework}
 \section{Introduction}
 
-A couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific issues we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally, the method we will be using to analyse all these domains, on which we shall base our conclusion.
+A couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific issues we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally.
 
 \section{OpenGL \& WebGL}
 \say{
@@ -13,9 +13,9 @@ The final WebGL 1.0 specification was frozen in March 2011, and WebGL support is
 \cite{Andreas Anyuru}
 \newline
 
-At the time of Andreas' writing, WebGL was very much in its early development stage. Anno 2015 though, WebGL has found its way into mainstream browsers with Internet Explorer and Android support lacking for versions earlier than its absolute latest \cite{Can I Use}. It currently has a total adoption rate of nearly 81\%. The most interesting part of using WebGL is the "low-level acceleration". Which means that on the stack of available hardware and software to render graphics, WebGL and OpenGL are on the lower ones (or closer to hardware level). This makes using WebGL and OpenGL insanely fast when compared to software / browser acceleration, which is very high-level.
-The main bottleneck for using said low-level acceleration, is that when there is no low-level graphics processing unit (GPU) available, the computing needs to be done with high-level software, which is ultimately directed (through several levels of architecture) to the CPU of the device and some tasks are great for CPU calculations, however, some are not.
-\newline
+At the time of Andreas' writing, WebGL was very much in its early development stage. Anno 2015 though, WebGL has found its way into mainstream browsers with Internet Explorer and Android support lacking for versions earlier than its absolute latest \cite{Can I Use}. It currently has a total adoption rate of nearly 81\%. The most interesting part of using WebGL is the "low-level acceleration". Which means that on the stack of available hardware and software to render graphics, WebGL and OpenGL are closer to hardware level. This makes using WebGL and OpenGL insanely fast when compared to software / browser acceleration, which doesn't operate anywhere near hardware level.
+The main bottleneck for using said low-level acceleration, is that when there is no low-level graphics processing unit (GPU) available, the computing needs to be done with high-level software, which is ultimately directed (through several levels of architecture) to the CPU of the device and while some tasks are great for CPU calculations, some are not.
+\newline 
 
 \say{
 Both CPU and GPU possess distinct architectural features. Modern multicore CPUs use up to a few tens of cores, which are typically out-of-order, multi-instruction issue cores. Also, CPU cores run at high-frequency and use large sized caches to minimize the latency of a single-thread. Clearly, CPUs are suited for latency-critical applications. In contrast, GPUs use much larger number of cores, which are in-order cores that share their con-trol unit. Also, GPU cores use lower frequency,and smaller sized caches[Mittal 2014a].Thus, GPUs are suited for throughput-critical applications.
@@ -25,6 +25,9 @@ Both CPU and GPU possess distinct architectural features. Modern multicore CPUs 
 
 As stated by Mittal and Vetter \cite{Heterogeneous Computing Techniques}, the CPU is designed to handle a variety of calculations thrown at it, while the GPU is designed to be more special purpose.
 The importance of the CPU vs GPU is that WebGL makes use of the low-level acceleration of the GPU and more importantly, most modern smartphones these days have a GPU, making a potential adoption rate for the configuration platform much higher as end-users might well be able to use them on the go as well.
+
+
+The focus of the thesis regarding the issues stated above will mainly concern the speed of the GPU on devices varying from desktop to mobile. Or in other words, if the computational power of mobile and desktop GPU's can handle high fidelity 3d models without compromising the user experience.
 
 \section{Current State of Product Configurators}
 
