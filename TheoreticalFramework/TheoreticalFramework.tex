@@ -31,6 +31,22 @@ The focus of the thesis regarding the issues stated above will mainly concern th
 
 \section{Current State of Product Configurators}
 
+Instead of diving into literature here, shown below is a dissection of a great product configurator built for Bugaboo.
 
+\subsection{Bugaboo}
+The configurator for Bugaboo \cite{Bugaboo} was designed by Momkai and the 3d images were built by 3Dimerce \cite{iRayBlog}. There are three things that stand out when analyzing this particular configurator: The user interface, the images and the speed.
+The user interface is very clear, it sets the stroller directly in view and the options are small until you need them. This creates a lot of negative space around the stroller, making it very easy for the user to discern the most important elements, and thus, to help them understand the interface more easily.
+The images used aren't exactly photo-real, but are convincing enough for the untrained eye to be believable. More importantly though, dissecting the api revealed the configurator used 50 frames for the full 360. The change in angle is so small per frame that the experience feels incredibly smooth.
+Finally, the speed. By default, there are three different options directly in view (one can also add accessories to the buggy, which are also shown). From a technical point-of-view, those layers are pre-rendered individually and later put together. Momkai and 3dimerce \cite{iRayBlog} did something very clever here. Merging the layers client-side will bring along extra http request \cite{latency}, which until http2 comes along will be penalised with a possible, albeit temporary, blockage of the page-load due to the latency an http-request brings with it. So, they decided to serve the images from an API. Instead of merging the images client-side, they merged them on the server and served a single image to the front-end. This not only makes it less prone to loading errors, but also makes the front-end application way easier to build. Next to that it will reek the speed benefits.
+
+\linebreak
+Now, while this is a prime example of a modern day configurator, both in looks and technology. There are 8 fabrics, 7 frame colours, and 2 seat colours just for their Chameleon model. Those options, at 50 frames per 360, means there are 5.600 renders. At another 22 accessories that have 2 point-of views, and the total rendered frame combinations are 5.644. 3dimerce stated the rendering of these took about 3 minutes. Which means that just in computational power, there where nearly 100 hours involved. Not to mention there were 4 strollers involved in the project.
+Next to the rendering, 3d models had to be made, lit, shaded and textured. The head 3d'er had to write a script to make sure the proces of rendering all separate layers went smoothly.
+Finally, there would have been quite a bit of work building up the API to handle the dynamic image generation, and the front-end where all those options came together and they had to link it up to an inventory system.
+This would have been a costly endeavour.
+
+\subsection{Conclusion}
+Looking at both OpenGL and its subsidiary WegGL, the technology has matured enough to be used by the public. While not massively adopted, the increase in speed in GPU's on mobile devices will allow for this technology to flourish.
+As far as the current state of product configurators. We've looked at and directed two examples of modern product configurators. Both of which use imagery for their media elements. As we dived into the details of the configurator and split up both the 3d and web side, the only logical conclusion to be made is that building these with imagery is a very costly endeavour and might be a lot cheaper when using a WebGL product configurator.
 
 \newpage
