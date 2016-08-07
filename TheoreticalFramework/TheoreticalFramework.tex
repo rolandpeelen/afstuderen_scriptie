@@ -1,51 +1,67 @@
 \newpage
-\chapter{Theoretical Framework}
+\chapter{Current state}
 \section{Introduction}
 
-Two things need to be touched before we can continue. Firstly, OpenGL (and it's derivate for the web, WebGL) to assess why it might be suitable for use in a project like this. Secondly, actual product configurators.
+A couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific issues we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally.
 
-\section{OpenGL \& WebGL}
-\say{
-WebGL is an application programming interface (API) for advanced 3d graphics on the web. It is based on OpenGL ES 2.0, and provides similar rendering functionality, but in an HTML and JavaScript context. The rendering surface that is used for WebGL is the HTML5 canvas element, which was originally introduced by Apple in the WebKit open-source browser engine. The reason for introducing the HTML5 canvas was to be able to render 2D graphics in applications such as Dashboard widgets and in the Safari browser on the Apple Mac OS X operating system.
-Based on the canvas element, Vladimir Vukicevic at Mozilla started experimenting with 3d graphics for the canvas element. He called the initial prototype canvas 3d. In 2009 the Khronos Group started a new WebGL working group, which now consists of several major browser vendors, including Apple, Google, Mozilla, and Opera. The Khronos Group is a non-profit industry consortium that creates open standards and royalty-free APIs. It was founded in January 200 and is behind a number of other APIs and technologies such as OpenGL ES for 3d graphics for embedded devices, OpenCL for por parallel programming, OpenVG for low-level acceleration of vector graphics and OpenMAX for accelerated multimedia components. Since 2006 the Khronos Group has aso controlled and promoted OpenGL, which is a 3d graphics API for desktops.
-The final WebGL 1.0 specification was frozen in March 2011, and WebGL support is implemented in several browsers, including Google Chrome, Mozilla Firefox, and (at the time of this writing) in the development releases of Safari and Opera.
-}
-\cite{Andreas Anyuru}
+\section{Service Domain}
+
+\section{Technical Domain}
+Part of why this thesis is written, is the way these projects are handled currently. Peppr has done these projects in the past and states that the usual way of producing these consists of two sub projects; 3d renders, and software. In the outline below follows a small description of how the process is currently done. After that an introduction on OpenGL and WebGL.
 \newline
-
-At the time of Andreas' writing, WebGL was very much in its early development stage. Anno 2015 though, WebGL has found its way into mainstream browsers with Internet Explorer and Android support lacking for versions earlier than its absolute latest \cite{Can I Use}. It currently has a total adoption rate of nearly 81\%. The most interesting part of using WebGL is the "low-level acceleration". Which means that on the stack of available hardware and software to render graphics, WebGL and OpenGL are closer to hardware level. This makes using WebGL and OpenGL insanely fast when compared to software / browser acceleration, which doesn't operate anywhere near hardware level.
-The main bottleneck for using said low-level acceleration, is that when there is no low-level graphics processing unit (GPU) available, the computing needs to be done with high-level software, which is ultimately directed (through several levels of architecture) to the CPU of the device and while some tasks are great for CPU calculations, some are not.
-\newline 
-
 \say{
-Both CPU and GPU possess distinct architectural features. Modern multicore CPUs use up to a few tens of cores, which are typically out-of-order, multi-instruction issue cores. Also, CPU cores run at high-frequency and use large sized caches to minimize the latency of a single-thread. Clearly, CPUs are suited for latency-critical applications. In contrast, GPUs use much larger number of cores, which are in-order cores that share their con-trol unit. Also, GPU cores use lower frequency,and smaller sized caches[Mittal 2014a].Thus, GPUs are suited for throughput-critical applications.
+A chair manufacturer wants a product configurator for one of their most popular chairs. It can be delivered in 25 different colours and has 4 different subframes. Two of the subframes are fully made from steel and can be delivered in either black or plain steel, the other two have wooden elements and have four different wood colour options.
 }
-\cite{Heterogeneous Computing Techniques}
-\newline
 
-As stated by Mittal and Vetter \cite{Heterogeneous Computing Techniques}, the CPU is designed to handle a variety of calculations thrown at it, while the GPU is designed to be more special purpose.
-The importance of the CPU vs GPU is that WebGL makes use of the low-level acceleration of the GPU and more importantly, most modern smartphones these days have a GPU, making a potential adoption rate for the configuration platform much higher as end-users might well be able to use them on the go as well.
+\subsection{3d Department}
+\subsubsection{Image Planning}
+Production configurators often have semi-exponential expanding set of properties. Below a summary of the full option set split so we can start calculating how many images will be necessary.
+\begin{itemize}
+	\item 25 colours (\( \alpha \))
+	\item 2 steel frames (\( \beta \))
+	\item 2 frame colours (\( \gamma \))
+	\item 2 wood frames (\( \delta \))
+	\item 4 wood colours (\( \epsilon \))
+\end{itemize}
 
+To calculate the full amount of options ($x$), we can use the following formula:
+ 
+\[ f(x) = (\alpha \cdot \beta \cdot \gamma) + (\alpha \cdot \delta \cdot \beta \cdot \epsilon)\]
+\[ f(x) = (25 \cdot 2 \cdot 2) + (25 \cdot 2 \cdot 2 \cdot 4)\]
+\[ f(x) = 500\]
 
-The focus of the thesis regarding the issues stated above will mainly concern the speed of the GPU on devices varying from desktop to mobile. Or in other words, if the computational power of mobile and desktop GPU's can handle high fidelity 3d models without compromising the user experience.
+Going with just 1 colour more adds 20 extra renders. So while the option set might not seem like much, adding extra options is costly. In some cases, you might be able to get around it using layers.
+Splitting up this case into a seat and frame layer will get us the following formula:
 
-\section{Current State of Product Configurators}
+\[ f(x) = (\alpha) + (\cdot \beta \cdot \gamma) + (\cdot \delta \cdot \beta \cdot \epsilon)\]
+\[ f(x) = (25) + (2 \cdot 2) + (2 \cdot 2 \cdot 4)\]
+\[ f(x) = 116\]
 
-Instead of diving into literature here, shown below is a dissection of a great product configurator built for Bugaboo.
+This decreases the amount of renders by around 65\% - 70\%. Unfortunately, this is not possible in all cases (due to the fact that a layer might be both in front and to the back of something simultaneously, making it extremely difficult to 'mask'), and creating new layers does add complexity, not only in the following processes but also in the software department, having to create either an API that serves those layers as one image or a front-end that can layer multiple images in a correct way. In the lather case, the user will directly notice this option as it adds at leaste one more http-request.
 
-\subsection{Bugaboo}
-The configurator for Bugaboo \cite{Bugaboo} was designed by Momkai and the 3d images were built by 3Dimerce \cite{iRayBlog}. There are three things that stand out when analyzing this particular configurator: The user interface, the images and the speed.
-The user interface is very clear, it sets the stroller directly in view and the options are small until you need them. This creates a lot of negative space around the stroller, making it very easy for the user to discern the most important elements, and thus, to help them understand the interface more easily.
-The images used aren't exactly photo-real, but are convincing enough for the untrained eye to be believable. More importantly though, dissecting the api revealed the configurator used 50 frames for the full 360. The change in angle is so small per frame that the experience feels incredibly smooth.
-Finally, the speed. By default, there are three different options directly in view (one can also add accessories to the buggy, which are also shown). From a technical point-of-view, those layers are pre-rendered individually and later put together. Momkai and 3dimerce \cite{iRayBlog} did something very clever here. Merging the layers client-side will bring along extra http request \cite{latency}, which until http2 comes along will be penalised with a possible, albeit temporary, blockage of the page-load due to the latency an http-request brings with it. So, they decided to serve the images from an API. Instead of merging the images client-side, they merged them on the server and served a single image to the front-end. This not only makes it less prone to loading errors, but also makes the front-end application way easier to build. Next to that it will reek the speed benefits.
+\subsubsection{Modeling}
+Step two in the chain is the modeling proces whereby a virtual model is being created, either from scratch, or by 3d scanning real-life objects. If the choice to go for layers in the renders have been made, the modeler must make sure that there are clear creases where the cuts of those layers go so there is no overlapping geometry.
+\subsubsection{Lighting \& Shading}
+In the lighting department, the model is being put into a suitable environment (mostly studio like setups), where it is lit and shaded (process of creating a life-like material) to perfection. The lighter must make sure that when there are layers involved, there is no unwanted shadow casting because when hiding certain layers for rendering.
+\subsubsection{Render}
+This is where things get together and the calculation from 3d model to actual image start. Depending on the configuration and setup, one renders the entire sequence, if < 100 renders and only one point of view for instance, one might swap out the model at certain frames. If one needs to render 360's, rendering one file at at time is better suitable.
+\subsubsection{Post Production}
+Every 3d model needs a bit of post production to make it look better. Also, if the model was split out into different layers but these were rendered as masks (an option to overcome overlapping images), this is where they would be split out into the different layers.
+\subsubsection{Compression}
+Using images of the web, especially on @2x or @3x resolution devices, mostly phones and tablets which get their date through mobile networks, compression is extremely important. Laying a 50mb burden upon the user when opening a site is not a good idea.
 
-Now, while this is a prime example of a modern day configurator, both in looks and technology. There are 8 fabrics, 7 frame colours, and 2 seat colours just for their Chameleon model. Those options, at 50 frames per 360, means there are 5.600 renders. At another 22 accessories that have 2 point-of views, and the total rendered frame combinations are 5.644. 3dimerce stated the rendering of these took about 3 minutes. Which means that just in computational power, there where nearly 100 hours involved. Not to mention there were 4 strollers involved in the project.
-Next to the rendering, 3d models had to be made, lit, shaded and textured. The head 3d'er had to write a script to make sure the proces of rendering all separate layers went smoothly.
-Finally, there would have been quite a bit of work building up the API to handle the dynamic image generation, and the front-end where all those options came together and they had to link it up to an inventory system.
-This would have been a costly endeavour.
+\subsection{Software}
+\subsubsection{Requirements}
+Starting a software project should start with working out both functional and technical requirements. These will form a base to develop an API and front-end in a way that does not (should not) surprise the makers.
+\subsubsection{To CMS or not to CMS}
+This is a question that is tricky to answer. A content management system has basic functionality built in (user management, file handling, basic front-end), but it does require to work in the way that system is meant to be worked in. The other option, going with a from the ground up written system, will be much leaner and quicker when deployed, but will not be as mature as a popular CMS, which might result in a buggy experience for the end user.
+\subsubsection{API Planning}
+If 
+\subsubsection{UX Development}
+\subsubsection{Front-End Development}
 
-\section{Conclusion}
-Looking at both OpenGL and its subsidiary WegGL, the technology has matured enough to be used by the public. While not massively adopted, the increase in speed in GPU's on mobile devices will allow for this technology to flourish.
-As far as the current state of product configurators. We've looked at and directed two examples of modern product configurators. Both of which use imagery for their media elements. As we dived into the details of the configurator and split up both the 3d and web side, the only logical conclusion to be made is that building these with imagery is a very costly endeavour and might be a lot cheaper when using a WebGL product configurator.
+\section{Operational Domain}
+
+\section{Financial Domain}
 
 \newpage
