@@ -1,67 +1,63 @@
 \newpage
-\chapter{Current state}
+\chapter{Current State}
 \section{Introduction}
 
-A couple of subjects need to be touched to set a proper perspective. Starting with the underlying technology that might make these kind of projects succeed; WebGL and OpenGL. After that there are numerous market specific issues we need to address, starting with the current state of product configurators, Gartners Hypecycle (and wether or not he has spoken about such hypes) and finally.
 
-\section{Service Domain}
-
-\section{Technical Domain}
-Part of why this thesis is written, is the way these projects are handled currently. Peppr has done these projects in the past and states that the usual way of producing these consists of two sub projects; 3d renders, and software. In the outline below follows a small description of how the process is currently done. After that an introduction on OpenGL and WebGL.
+Peppr has done these projects in the past and states that the usual way of producing configurators consists of two sub-projects; the images, and the software. In the outline below follows a brief description of how the process is currently done at Peppr. Next, some new technologies that might make another way of doing these configurators possible.
+For this introduction, the following example project shall be used. Please note that the following process is the way Peppr would handle a project like this.
 \newline
 \say{
 A chair manufacturer wants a product configurator for one of their most popular chairs. It can be delivered in 25 different colours and has 4 different subframes. Two of the subframes are fully made from steel and can be delivered in either black or plain steel, the other two have wooden elements and have four different wood colour options.
 }
 
-\subsection{3d Department}
-\subsubsection{Image Planning}
-Production configurators often have semi-exponential expanding set of properties. Below a summary of the full option set split so we can start calculating how many images will be necessary.
+
+\section{3d Department}
+\subsection{Image Planning}
+Product configurators possibly have to deal with an exponentially growing set of options. To properly plan and see wether or not, Peppr believes it is good practice to see if these images can be split into separate components that make the set easier to maintain. Below is a summary of the full option set, split per item so we can start calculating how many images will be necessary.
 \begin{itemize}
-	\item 25 colours (\( \alpha \))
-	\item 2 steel frames (\( \beta \))
-	\item 2 frame colours (\( \gamma \))
-	\item 2 wood frames (\( \delta \))
-	\item 4 wood colours (\( \epsilon \))
+	\item 25 colours - \textbf{(\( \alpha \))}
+	\item 2 steel frames - \textbf{(\( \beta \))}
+	\item 2 frame colours - \textbf{(\( \gamma \))}
+	\item 2 wood frames - \textbf{(\( \delta \))}
+	\item 4 wood colours - \textbf{(\( \epsilon \))}
 \end{itemize}
 
-To calculate the full amount of options ($x$), we can use the following formula:
+In this case, any seat has a pick of several frame options, and several colours. But steel frames have two colours and wood frames have four colours. To calculate the full amount of options ($x$), we can use the following formula:
  
-\[ f(x) = (\alpha \cdot \beta \cdot \gamma) + (\alpha \cdot \delta \cdot \beta \cdot \epsilon)\]
-\[ f(x) = (25 \cdot 2 \cdot 2) + (25 \cdot 2 \cdot 2 \cdot 4)\]
-\[ f(x) = 500\]
+\[ f(x) = (\alpha \cdot \beta \cdot \gamma) + (\alpha \cdot \delta \cdot \epsilon)\]
+\[ f(x) = (25 \cdot 2 \cdot 2) + (25 \cdot 2 \cdot 4)\]
+\[ f(x) = 300\]
 
-Going with just 1 colour more adds 20 extra renders. So while the option set might not seem like much, adding extra options is costly. In some cases, you might be able to get around it using layers.
-Splitting up this case into a seat and frame layer will get us the following formula:
+Going with just 1 colour more adds 12 extra renders. While this may not seem like much, more often than not these renders need to be build from several different files. This means an artist will have some setup time to produce another option. So while the option set in itself might not seem like much, adding extra options is costly. 
+Fortunately, in some cases, you might be able to get around it using layers. In this case, splitting up the chair into a seat and frame layer will get us the following formula:
 
-\[ f(x) = (\alpha) + (\cdot \beta \cdot \gamma) + (\cdot \delta \cdot \beta \cdot \epsilon)\]
-\[ f(x) = (25) + (2 \cdot 2) + (2 \cdot 2 \cdot 4)\]
-\[ f(x) = 116\]
+\[ f(x) = (\alpha) + (\cdot \beta \cdot \gamma) + (\cdot \delta \cdot \epsilon)\]
+\[ f(x) = (25) + (2 \cdot 2) + (2 \cdot 4)\]
+\[ f(x) = 37\]
 
-This decreases the amount of renders by around 65\% - 70\%. Unfortunately, this is not possible in all cases (due to the fact that a layer might be both in front and to the back of something simultaneously, making it extremely difficult to 'mask'), and creating new layers does add complexity, not only in the following processes but also in the software department, having to create either an API that serves those layers as one image or a front-end that can layer multiple images in a correct way. In the lather case, the user will directly notice this option as it adds at leaste one more http-request.
+This decreases the amount of renders by almost tenfold. Unfortunately, this is not possible in all cases due to the fact that a layer might be both in front and to the back of something simultaneously, making it extremely difficult to 'mask'. Next to that, creating new layers does add complexity and constraints. Adding new options / layers later on might prove extremely difficult if they were to overlap in with existing layers.
+\newline
+Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves those layers as one image (Like the Bugaboo configurator \cite{Bugaboo} ) or a front-end that can layer multiple images in a correct way. In the lather case, the user will directly notice this option as it adds more http latency, this should be resolved with the adoption of HTTP 2.0 and the pipelining of http-requests (\cite{latency}).
 
-\subsubsection{Modeling}
+\subsection{Modeling}
 Step two in the chain is the modeling proces whereby a virtual model is being created, either from scratch, or by 3d scanning real-life objects. If the choice to go for layers in the renders have been made, the modeler must make sure that there are clear creases where the cuts of those layers go so there is no overlapping geometry.
-\subsubsection{Lighting \& Shading}
+\subsection{Lighting \& Shading}
 In the lighting department, the model is being put into a suitable environment (mostly studio like setups), where it is lit and shaded (process of creating a life-like material) to perfection. The lighter must make sure that when there are layers involved, there is no unwanted shadow casting because when hiding certain layers for rendering.
-\subsubsection{Render}
+\subsection{Render}
 This is where things get together and the calculation from 3d model to actual image start. Depending on the configuration and setup, one renders the entire sequence, if < 100 renders and only one point of view for instance, one might swap out the model at certain frames. If one needs to render 360's, rendering one file at at time is better suitable.
-\subsubsection{Post Production}
+\subsection{Post Production}
 Every 3d model needs a bit of post production to make it look better. Also, if the model was split out into different layers but these were rendered as masks (an option to overcome overlapping images), this is where they would be split out into the different layers.
-\subsubsection{Compression}
-Using images of the web, especially on @2x or @3x resolution devices, mostly phones and tablets which get their date through mobile networks, compression is extremely important. Laying a 50mb burden upon the user when opening a site is not a good idea.
+\subsection{Compression}
+Using images of the web, especially on @2x or @3x resolution devices, mostly phones and tablets which get their date through mobile networks, compression is extremely important. With current mobile data speeds and capped contracts, laying a 50mb burden upon the user when opening a site is not a good idea.
 
-\subsection{Software}
-\subsubsection{Requirements}
-Starting a software project should start with working out both functional and technical requirements. These will form a base to develop an API and front-end in a way that does not (should not) surprise the makers.
-\subsubsection{To CMS or not to CMS}
+\section{Software}
+\subsection{Requirements}
+Peppr starts out a software project by working out both functional and technical requirements. These will form a base to develop an API and front-end in a way that does not (should not) surprise the makers.
+\subsection{To CMS or not to CMS}
 This is a question that is tricky to answer. A content management system has basic functionality built in (user management, file handling, basic front-end), but it does require to work in the way that system is meant to be worked in. The other option, going with a from the ground up written system, will be much leaner and quicker when deployed, but will not be as mature as a popular CMS, which might result in a buggy experience for the end user.
-\subsubsection{API Planning}
+\subsection{API Planning}
 If 
-\subsubsection{UX Development}
-\subsubsection{Front-End Development}
-
-\section{Operational Domain}
-
-\section{Financial Domain}
+\subsection{UX Development}
+\subsection{Front-End Development}
 
 \newpage
