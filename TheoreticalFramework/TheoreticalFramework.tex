@@ -28,19 +28,19 @@ In this case, any seat has a pick of several frame options, and several colours.
 \[ f(x) = (25 \cdot 2 \cdot 2) + (25 \cdot 2 \cdot 4)\]
 \[ f(x) = 300\]
 
-Going with just 1 colour more adds 12 extra renders. While this may not seem like much, more often than not these renders need to be build from several different files. This means an artist will have some setup time to produce another option. So while the option set in itself might not seem like much, adding extra options is costly. 
+Going with just 1 colour more adds 12 extra renders. While this may not seem like much, more often than not, these renders need to be build from several different files. This means an artist has to open 12 different files, and do the edit 12 times.
 Fortunately, in some cases, you might be able to get around it using layers. In this case, splitting up the chair into a seat and frame layer will get us the following formula:
 
 \[ f(x) = (\alpha) + (\cdot \beta \cdot \gamma) + (\cdot \delta \cdot \epsilon)\]
 \[ f(x) = (25) + (2 \cdot 2) + (2 \cdot 4)\]
 \[ f(x) = 37\]
 
-This decreases the amount of renders by almost tenfold. Unfortunately, this is not possible in all cases due to the fact that a layer might be both in front and to the back of something simultaneously, making it extremely difficult to 'mask'. Next to that, creating new layers does add complexity and constraints. Adding new options / layers later on might prove extremely difficult if they were to overlap in with existing layers.
+This decreases the amount of renders by almost tenfold. Unfortunately, while this may work in this case, in some cases this is not possible because the object is being obstructed in its view, making it extremely difficult to 'mask'. Next to that, creating new layers does add complexity and constraints. Adding new options / layers later on might prove extremely difficult if they were to overlap with existing layers.
 \newline
-Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves those layers as one image (Like the Bugaboo configurator \cite{Bugaboo} ) or a front-end that can layer multiple images in a correct way. In the lather case, the user will directly notice this option as it adds more http latency, this should be resolved with the adoption of HTTP 2.0 and the pipelining of http-requests (\cite{latency}).
+Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves those layers as one image (Like the Bugaboo configurator \cite{Bugaboo} ) or a front-end that can layer multiple images in a correct way. In the lather case, the user will directly notice this option as it adds more http latency, this should be resolved with the adoption of HTTP 2.0 and the pipelining of http-requests (\cite{latency}), though added sizes might still be a problem.
 
 \subsection{Modeling}
-Step two in the chain is the modeling proces whereby a virtual model is being created, either from scratch, or by 3d scanning real-life objects. If the choice to go for layers in the renders have been made, the modeler must make sure that there are clear creases where the cuts of those layers go so there is no overlapping geometry.
+Step two in the chain is the modelling proces whereby a virtual model is being created, either from scratch, or by 3d scanning real-life objects. If the choice to go for layers in the renders have been made, the modeller make sure he keeps this in mind.
 \subsection{Lighting \& Shading}
 In the lighting department, the model is being put into a suitable environment (mostly studio like setups), where it is lit and shaded (process of creating a life-like material) to perfection. The lighter must make sure that when there are layers involved, there is no unwanted shadow casting because when hiding certain layers for rendering.
 \subsection{Render}
@@ -48,16 +48,45 @@ This is where things get together and the calculation from 3d model to actual im
 \subsection{Post Production}
 Every 3d model needs a bit of post production to make it look better. Also, if the model was split out into different layers but these were rendered as masks (an option to overcome overlapping images), this is where they would be split out into the different layers.
 \subsection{Compression}
-Using images of the web, especially on @2x or @3x resolution devices, mostly phones and tablets which get their date through mobile networks, compression is extremely important. With current mobile data speeds and capped contracts, laying a 50mb burden upon the user when opening a site is not a good idea.
+Using images of the web, especially on @2x or @3x resolution devices, mostly phones and tablets which get their data through mobile networks, compression is extremely important. With current mobile data speeds and capped contracts, laying a 50mb burden upon the user when opening a site is not a good idea.
 
 \section{Software}
 \subsection{Requirements}
-Peppr starts out a software project by working out both functional and technical requirements. These will form a base to develop an API and front-end in a way that does not (should not) surprise the makers.
-\subsection{To CMS or not to CMS}
-This is a question that is tricky to answer. A content management system has basic functionality built in (user management, file handling, basic front-end), but it does require to work in the way that system is meant to be worked in. The other option, going with a from the ground up written system, will be much leaner and quicker when deployed, but will not be as mature as a popular CMS, which might result in a buggy experience for the end user.
-\subsection{API Planning}
-If 
+Peppr generally starts out a software project by working out both functional and technical requirements.
+
+\subsubsection{Functional Requirements}
+Functional requirements are used to map out the required functionality of the application. In an agile \cite{Agile: User Stories} working environment, these would be referred to as 'user stories', but Peppr prefers the term requirements. They do generally use the same notation.\newline
+
+\say{\textit{As a <type of user>, I want <some goal>, so that <some reason>}}\newline
+
+In the context of the configurator specified above, a requirement could be: \newline
+
+\say{\textit{As a \textbf{User}, I want \textbf{to be able to save my configuration}, so that \textbf{I can later continue were I left off with my configuration}}}\newline
+
+\subsubsection{Technical Requirements}
+Contrary to popular belief, technical requirements are not the technical implementation details of the functional requirements, but they are the requirements the system itself needs to fulfil with regards to things as performance, availability and security. Some simply put these in a list \cite{Agile: Technical Requirements}, but Peppr handles the same format as the user stories.\newline
+
+\say{\textit{As a <type of \textbf{system}>, I want <some goal>, so that <some reason>}}\newline
+
+This way, Peppr is able to differentiate between different systems like an API or a Front-End web application. An example of a technical requirement where we want to limit the API's response time (\cite{Response Times})\newline
+
+\say{\textit{As an \textbf{API}, I want \textbf{to respond within 300ms}, so that \textbf{the user feels in control of the application at all times}}}\newline
+
+\subsection{CMS}
+A content management system has basic functionality built in (user management, file handling, basic front-end), but it does require to work in the way that system is meant to be worked in. The other option, going with a from the ground up written system, will be much leaner and quicker when deployed, but will not be as mature as a popular CMS, which, if the system is not built properly, might result in a buggy experience for the end user. In Peppr's case, a CMS called Magento was used for the implementation. In case of a fully custom application, a back-end needs to be developed as well.
+
 \subsection{UX Development}
+While this term gets thrown around a lot, the UX (User Experience) covers not only the UI of the application, but is a broader term to describe how users undergo the experience of customising a product. How they learn to use the product configurator, and how the application can help the user in the best possible way to do so. Don Normal (\cite{User Experience}) says: \newline
+\say{\textit{The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features.}} \newline
+In other words, UX is not only helping the user to meet his or her goal, but to go beyond that, and make the experience joyful.
+
+\subsection{Back-End Development}
+According to Techopedia (\cite{Back-End Developer Definition}), a back-end developer's primary task is to develop and maintain a logical or computational back-end for a website. Typically focussing in on C++, C\#, Java, or another high-level programming language.
+Another Definition (\cite{Back-End Developer Definition 02}) states back-ends are mostly developed using either Ruby or Python.
+In reality however, any and all programming languages that can interact with any and all databases and serve that data can act as a back-end. For instance, the 'Dollar Shave Club' uses 6 different languages across their back-end infrastructure (\cite{Dollar Shave Club back-end}), while Uber uses a completely different stack (\cite{Uber back-end}).
+Peppr generally uses a microservices architecture for their apps (\cite{Microservices}). This pattern allows the use of multiple applications, so Peppr can build each application using a specific language and with a specific target in mind. For example, Peppr can opt to handle real-time data (like a real-time help chat in a configurator) using a service called Firebase (\cite{Firebase}), which easily implements directly into front-ends, while handling other tasks that need high concurrency and scalability (like stacking the layers in a back-end to a complete image and delivering them to the front-end) with an Elixer server (\cite{Elixr})
+
 \subsection{Front-End Development}
+
 
 \newpage
