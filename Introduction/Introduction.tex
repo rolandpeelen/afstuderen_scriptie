@@ -9,7 +9,7 @@ The customer requested 25 colors, 2 perspectives, 7 types of collars, 6 types of
 
 Apart from the images, Peppr encountered a problem with regards to software. For every configurator, the user needs to be able to view and edit a configuration in a simple way. Unfortunately, this means something different for all configurators. Combined with branding, creating a universal and re-usable configurator is difficult.
 
-In their research, Peppr stumbled upon a technology called OpenGL. The first version released March 2011 (\cite{OpenGL Website}). WebGL technology renders from the video processor and opens up the web to a whole new way of using 3d models. Using 3d models instead of images could make configurators easier to build and maintain. Unfortunately, the adoption rate of WebGL has always been low. Only the latest browser versions would have the technology. Next to that, there are hardware limitations on mobile phones. Anno 2016 though, the playing field has changed. With more browsers supporting the technology, timing might be perfect to start using it.
+In their research, Peppr stumbled upon a technology called OpenGL. The first version released March 2011 (\citet{OpenGL Website}). WebGL technology renders from the video processor and opens up the web to a whole new way of using 3d models. Using 3d models instead of images could make configurators easier to build and maintain. Unfortunately, the adoption rate of WebGL has always been low. Only the latest browser versions would have the technology. Next to that, there are hardware limitations on mobile phones. Anno 2016 though, the playing field has changed. With more browsers supporting the technology, timing might be perfect to start using it.
 
 Peppr has done these projects and states that the usual way of business consist of two parts. One being the images, the other, the software. In the outline below follows a brief description of how the process is currently done. 
 
@@ -52,7 +52,7 @@ In some cases, you might be able to get around it using layers. In this case, sp
 
 This decreases the amount of renders. Unfortunately, while this works here, in some cases this is not possible. Sometimes, one of the objects is both in front and behind other objects. This makes it difficult to 'mask'. Also, creating new layers does add complexity and constraints. Adding new options and layers might prove difficult when they overlap with existing layers.
 \newline
-Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves the layers as one image (\cite{Bugaboo} ), or by stacking the images client-side. The user will notice this option though, as it slows things down. This is fixed with the adoption of HTTP 2.0. This pipelines the http-requests, reducing latency (\cite{latency}).
+Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves the layers as one image (\citet{Bugaboo} ), or by stacking the images client-side. The user will notice this option though, as it slows things down. This is fixed with the adoption of HTTP 2.0. This pipelines the http-requests, reducing latency (\citet{latency}).
 
 %----------------------------------------------------------------------------------------
 %   Modeling
@@ -98,7 +98,7 @@ Peppr starts out a software project by working out both functional and technical
 %   Functional Requirements
 %----------------------------------------------------------------------------------------
 \subsubsection{Functional Requirements}
-Functional requirements help map out required functionality of an application. In an agile (\cite{Agile: User Stories}) working environment, these are 'user stories'. Peppr prefers the term requirements. They do generally use the same notation. \newline
+Functional requirements help map out required functionality of an application. In an agile (\citet{Agile: User Stories}) working environment, these are 'user stories'. Peppr prefers the term requirements. They do generally use the same notation. \newline
 
 \say{\textit{As a <type of user>, I want <some goal>, so that <some reason>}}\newline
 
@@ -110,11 +110,11 @@ In the context of the configurator specified above, a requirement could be: \new
 %   Technical Requirements
 %----------------------------------------------------------------------------------------
 \subsubsection{Technical Requirements}
-Contrary to popular belief, these requirements are not the implementation details of the functional requirements. They are the requirements the system itself. The technical requirements handle things like performance, availability and security. Some put these in a list \cite{Agile: Technical Requirements}, but Peppr uses the same format as the user stories. \newline
+Contrary to popular belief, these requirements are not the implementation details of the functional requirements. They are the requirements the system itself. The technical requirements handle things like performance, availability and security. Some put these in a list \citet{Agile: Technical Requirements}, but Peppr uses the same format as the user stories. \newline
 
 \say{\textit{As a <type of \textbf{system}>, I want <some goal>, so that <some reason>}}\newline
 
-Peppr uses this to differentiate between different types of systems. An example of a technical requirement can be found below. This specific one has to do with limiting an API's response time (\cite{Response Times}).
+Peppr uses this to differentiate between different types of systems. An example of a technical requirement can be found below. This specific one has to do with limiting an API's response time (\citet{Response Times}).
 
 \say{\textit{As an \textbf{API}, I want \textbf{to respond within 300ms}, so that \textbf{the user feels in control of the application at all times}}}\newline
 
@@ -127,7 +127,7 @@ A content management system has basic functionality built in (like user manageme
 %   UX Development
 %----------------------------------------------------------------------------------------
 \subsection{UX Development}
-While this term gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of customising a product. Itis how they learn to use the product configurator. How the application can help the user in the best possible way to do so. Don Normal (\cite{User Experience}) says: \newline
+While this term gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of customising a product. Itis how they learn to use the product configurator. How the application can help the user in the best possible way to do so. Don Normal (\citet{User Experience}) says: \newline
 \say{\textit{The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features.}} \newline
 In other words, UX is not only helping the user to meet his or her goal. It is to go beyond that, and make the experience joyful.
 
@@ -135,16 +135,16 @@ In other words, UX is not only helping the user to meet his or her goal. It is t
 %   Back-End Development
 %----------------------------------------------------------------------------------------
 \subsection{Back-End Development}
-Techopedia (\cite{Back-End Developer Definition}) states that a back-end developer's task is to develop and maintain a logical or computational back-end for a website. Focussing on C++, C\#, Java, or another high-level programming language.Another Definition (\cite{Back-End Developer Definition 02}) states back-ends are mostly developed using either Ruby or Python.
-In reality, any programming languages that can interact with a databases can act as a back-end. For instance, the 'Dollar Shave Club' uses 6 languages in their infrastructure (\cite{Dollar Shave Club back-end}). 'Uber', uses a completely different stack (\cite{Uber back-end}).
-Peppr generally uses a microservices architecture for their apps (\cite{Microservices}). This pattern allows the use of different applications. So, Peppr can build each application using a specific language and with a specific target in mind. So imagine a configurator needs to stack images but also needs a realtime chatbot. Peppr will be able to handle the high concurrency using something like Elixr. The realtime chatbot will then made with Firebase, a realtime service (\cite{Firebase}).
+Techopedia (\citet{Back-End Developer Definition}) states that a back-end developer's task is to develop and maintain a logical or computational back-end for a website. Focussing on C++, C\#, Java, or another high-level programming language.Another Definition (\citet{Back-End Developer Definition 02}) states back-ends are mostly developed using either Ruby or Python.
+In reality, any programming languages that can interact with a databases can act as a back-end. For instance, the 'Dollar Shave Club' uses 6 languages in their infrastructure (\citet{Dollar Shave Club back-end}). 'Uber', uses a completely different stack (\citet{Uber back-end}).
+Peppr generally uses a microservices architecture for their apps (\citet{Microservices}). This pattern allows the use of different applications. So, Peppr can build each application using a specific language and with a specific target in mind. So imagine a configurator needs to stack images but also needs a realtime chatbot. Peppr will be able to handle the high concurrency using something like Elixr. The realtime chatbot will then made with Firebase, a realtime service (\citet{Firebase}).
 
 %----------------------------------------------------------------------------------------
 %   Front-End Development
 %----------------------------------------------------------------------------------------
 \subsection{Front-End Development}
-According to Wikipedia, a Front-End Developer (\cite{Front-End Developer Definition}) produces the client-side interface. Wikipedia states that they use HTML, CSS and Javascript. However, anno 2016, Front-End Development has become quite a bit broader (\cite{Javascript Anno 2016}). For relatively complex projects like configurators, building a front-end can be a daunting task. More often than not, you will want to serve the changes to the user instantly, without a page refresh. Resulting in an asynchronous application.
-Building an asynchronous application can be done in many ways. The most convenient way is to build a Single-Page-Application (SPA). This gives the user a desktop-like experience (\cite{Single Page Applications}). As stated on Wikipedia, there are some caveats to this, like search engine optimisation, speed and browser history. Fortunately (and unfortunately), there are frameworks to help build an SPA. Anno 2016, the field of Front-End Development is clouded with frameworks to help build these types of applications. MeteorJS, React, Angular, Vue and many more (\cite{Front-End Javascript Frameworks} ).
+According to Wikipedia, a Front-End Developer (\citet{Front-End Developer Definition}) produces the client-side interface. Wikipedia states that they use HTML, CSS and Javascript. However, anno 2016, Front-End Development has become quite a bit broader (\citet{Javascript Anno 2016}). For relatively complex projects like configurators, building a front-end can be a daunting task. More often than not, you will want to serve the changes to the user instantly, without a page refresh. Resulting in an asynchronous application.
+Building an asynchronous application can be done in many ways. The most convenient way is to build a Single-Page-Application (SPA). This gives the user a desktop-like experience (\citet{Single Page Applications}). As stated on Wikipedia, there are some caveats to this, like search engine optimisation, speed and browser history. Fortunately (and unfortunately), there are frameworks to help build an SPA. Anno 2016, the field of Front-End Development is clouded with frameworks to help build these types of applications. MeteorJS, React, Angular, Vue and many more (\citet{Front-End Javascript Frameworks} ).
 Peppr develops most of their applications using Angular. They found that the code is easiest to maintain and the separation of concerns using a MVC type setup works well with Angular.
 
 \newpage
