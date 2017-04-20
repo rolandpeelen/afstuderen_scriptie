@@ -5,44 +5,22 @@
 \chapter{Theoretical Framework}
 
 %----------------------------------------------------------------------------------------
-%   OpenGL & WegGL
+%   Introduction
 %----------------------------------------------------------------------------------------
-\section{OpenGL \& WebGL}
-Peppr stated the technology that possibly holds the answer is OpenGL and its web counterpart; WebGL.
-The first version of OpenGL was released March 2011 (\cite{openGLsite}). It is a software interface to allow programmers to interact with graphics hardware (\cite{openGLSpecification}). It is essentially an API acting as a middle man between software and hardware. In practice, this means that programmers will need only little (or no) hardware knowledge wile still being able to tap into the hardwares calculation capacity. Normally, starting up an OpenGL application window, which ties into the graphics hardwares framebuffer (\cite{framebuffer}). That application window then holds a GL context, and the OpenGL commands can be used to modify and interact with the contents.
-
-To use OpenGL on the web, one needs an API that interacts with OpenGL. This can be done server-side, with the result of the graphics hardware framebuffer being sent to the user (\cite{CRRS}). This means that any language parse-able on a server that can send data out (and has an OpenGL enabled graphics card), can be used. Even though this article stems from 2008, the problems stated with latency still exist today, even while considering their suggested and tested optimisations. Next to that, servers that have graphics cards are relatively expensive. Another option is client-side rendering. With the increase in speed for customer technology and the rise of smartphone usage, the amount of devices that has a graphics card and can use this technology increases. Unfortunately, it is not possible for (most) webbrowsers to directly communicate with the OpenGL framebuffer. Fortunately, there is a solution; WebGL.
-
-\say{WebGL is a cross-platform, royalty-free web standard for a low-level 3D graphics API based on OpenGL ES 2.0, exposed through the HTML5 Canvas element as Document Object Model interfaces.}
-\cite{webGL}
-
-WebGL technology renders from the graphics hardware (just like OpenGL). The key difference is that the API is exposed to an HTML5 canvas element. This means the framebuffer is not opened into an application window, but into an HTML5 canvas element. While this solves the issue of running GL content client-side, GLSL (the language used to interact with WebGL \& OpenGL) does not make it into the Stack Overflows Annual Survey (\cite{stackoverflowDeveloperSurvey}). This does imply it would be hard (and expensive) to find competent developers that can built an application using this technology.
-Fortunately, Peppr found a library for this. It uses the most popular language in the survey (Javascript). "Three.js", as the library is called, filled the last gap in client-side OpenGL / WebGL content. The question remains, while javascript is adopted in most modern browsers (\cite{javascriptSupport}), will it work in the by Peppr required context.
-
-Research subquestion
-\begin{enumerate}
-	\item What is the development cost difference both in time and money? \textit{While the technology uses a Javascript wrapper, it might not mean that any javascript developer will know how to work with it. Next to that, for a site or Vanilla Javascript application, development cycles and workflows are known. It might mean that reinventing the wheel for these sort of applications because of the use of WebGL might lead to more development time.}
-	\item How easy is it to maintain the application compared to existing configurators? \textit{For current web technology, a lot has been done to make it easy to maintain (package managers, dedicated servers), but going with a proprietary system that uses OpenGL via WebGL via a Javascript wrapper, might mean that some of these existing solutions will not work. This might mean that the application will be very hard to maintain}
-\end{enumerate}
-%----------------------------------------------------------------------------------------
-%   Technology
-%----------------------------------------------------------------------------------------
-\section{Technology Usage}
-(Bij de probleemanalyse wordt gebruik gemaakt van relevante theorieën en werkmodellen.)
-Technology Acceptance Model
-Hypecycle
+\section{Introduction}
+To properly determine needed requirements and possible research angles, and in-depth review of Peppr's current workflow is needed. Below is a deep-dive into the process currently used, split into a graphics and software section. A detailed outline of the 3d process will be described in the graphics section, while a peek into the software development process will be described in the software section.
+Apart from the current workflow, a basic understanding of possible new technologies needs to be looked at, as well as the current market position with regards to technologies hype-cycle and acceptance.
 
 %----------------------------------------------------------------------------------------
-%   Visuals
+%   Workflow
 %----------------------------------------------------------------------------------------
 \section{Workflows}
-To properly determine needed requirements and possible research angles, and in-depth review of the current workflow and new workflow (as suggested by Peppr) will be stated below.
 Peppr has done these projects and states that the usual way of building consist of two main parts. One being the images, the other, the software. In the outline below follows a brief description of how the process is currently done. 
 
-For this thesis, we will use an example to show the differences. Please note that this process is the way Peppr handles projects like this, and, while they did try to optimise it, they in no means imply this is the perfect way to tackle such a project. 
+For this thesis, we will use an example to show the differences. Please note that this process is the way Peppr handles projects like this, and, while they did try to optimise it, they in no mean imply this is the perfect way to tackle such a project. 
 
 \say{
-A chair manufacturer wants a product configurator for one of their most popular chairs. It consists 25 different colours and has 4 different subframes. Two of the subframes are steel and can be either black or plain. The other two have wooden elements and have four wood colour options.
+A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 4 different subframes. Two of the subframes are steel and can be either black or plain. The other two have wooden elements and have four wood colour options.
 }
 
 
@@ -85,34 +63,64 @@ Apart to difficulties in the 3d process, these layers need to be build into the 
 %   Modeling
 %----------------------------------------------------------------------------------------
 \subsubsection{Modeling}
-Step two is the modelling proces where an artist makes a virtual model. Either from scratch, or by 3d scanning real-life objects. If the choice to go for layers in the renders has been made, the modeller make sure he keeps this in mind.
+Step two in the process is modelling, whereby an artist makes a virtual model. Mostly used at Peppr is a form of modelling called Polygonal modeling. This means the model will eventually be represented by an array of 3 dimensional points (or vertices). Al vertices are connected by lines and those lines make up the surface of the model. There are multiple ways of creating these models, an artist may choose to 'draw' those polygons from scratch, but may also use 3d scanning services or even simulations to build the 3d models.
+(NOTE -- INSERT IMAGE OF CHAIRS GRAY SHADED WIREFRAME)
 
 %----------------------------------------------------------------------------------------
 %   Lighting / Shading
 %----------------------------------------------------------------------------------------
 \subsubsection{Lighting \& Shading}
-Once in the lighting department, the model is placed into a suitable environment. Most of the time a studio setup. There it is lit and shaded (the process of creating a life-like material) to perfection. The artist makes sure that when there are layers involved, the shadows do not overlap the layers.
+Once in the lighting department, the model is placed into a virtual environment. Most of the time this environment will simulate a photography studio. There it is lit and shaded (the process of creating a life-like material) to perfection. The artist makes sure that when there are layers involved, the shadows do not overlap the layers.
 %----------------------------------------------------------------------------------------
 %   Rendering
 %----------------------------------------------------------------------------------------
 \subsubsection{Render}
-This is where things get together and the calculation from 3d model to actual image start. The actual rendering proces differs. Sometimes it is easier to render out the whole sequence with every configuration. Other times, it is easier to render just one point-of-view at a time.
+This is where things get together and the calculation from 3d model to actual image start. There are two sides to this, the technical settings of the render-engine used and the structure of the file / timeline.
+\newline
+\newline
+\textit{Render-engine}
+\newline
+Peppr opts to use third party render-engines for their projects, mostly due to the speed and quality optimizations. While more configurable, they are also more difficult to use. Many times, there is an equilibrium between quality and render-times. The high render-times have to do with the difficult nature of lights, reflections, refractions and the anti-aliasing of the image. Light for instance, obeys the 'inverse square law' (\cite{inverseLightLaw}), this means the intensity of light decays the further it gets from the point-of-origin. With one light this is quite easy, but imagine having 3 or 10 lights interacting at different intensities from different point-of-views. On top of that, light bounces around. The render-engine will calculate the point of impact, check the properties of the materials it hits and radiate the light back from the surface. The directionality of these light reflections is where things get tricky. The more straightforward the reflections, the easier. A mirror will reflect the light at the same angle of incidence, but when the material is rough, the rays get scattered. For this, the render-engine will sent out multiple rays (for example 50), up to a predefined amount of times. In practice, this may mean that when one ray bounces on a rough surface, it spawns 50 new rays. If all of those rays bounce off of a rough surface again, the rays will amount to 50 x 50. With every bounce, this will increase exponentially.
+(NOTE -- ADD IMAGE OF HEMISPHERICAL SUBDIVISION)
+
+Refractions makes these things even more tricky because of the Index of Refraction. This specifies change of angle in the lights ray when it goes from one material to another (\cite{refractiveIndex}). Water (at 20c) for instance, has an IOR of 1.333 (\cite{waterIOR}). This means that next to the light rays bouncing, they can also change direction.
+
+The third and last part that makes rendering images a painstakingly long task is anti-aliasing. Anti-aliasing is a way of making the images 'smooth'. It has to do with the square nature of pixels. A diagonal line will not look smooth if it is just one line of pixels. Instead, the pixels directly surrounding it get a semi-translucent fill, which makes the line look smooth. The blending of colours (while not overdoing it) is the anti-aliasing part.
+
+Peppr uses these intricate render-engines to fine-tune the render-settings. For studio setups, where direct lights are the most important light sources, Peppr might choose to use a set of settings where the secondary bounces of light are of lesser quality than for instance an interior, where most light comes from the light bouncing on the floor (mostly indirect).
+\newline
+\newline
+\textit{Automation}
+\newline
+Sometimes it is easier to render out the whole sequence with every configuration. Other times, it is easier to render just one point-of-view at a time. In the case of the shirt configurator, every shirt had loads of different collars, sleeves, buttons, but also colours. There are numerous ways of splitting this up, automating the process as much as possible. Most 3d applications allow for animations. By changing one aspect of the model for every rendered frame and rending it out as an image sequence, the rendering process can be automated (a bit). The problem with this is that it will always be a choice of lesser evils. While rendering the sequence, it is important to have the most changes possible rendered at once. In the shirt configurator case, this meant splitting it up so that there is a file for every colour. In that way, the file structure is somewhat logical (a file for every colour) and changing one aspect is relatively easy (changing it once, and applying it to the 25 different colours). Unfortunately, this is by no means ideal. Some changes have to be done 25 times (one for every colour).
 
 
 %----------------------------------------------------------------------------------------
 %   Post Production
 %----------------------------------------------------------------------------------------
 \subsubsection{Post Production}
-Every 3d model needs a bit of post production to make it look better. If the model has layers rendered as masks (an option to overcome overlapping images). This is the step where they would split them into the different layers.
+Every 3d model needs a bit of post production to make it look better. If the model has layers rendered as masks (an option to overcome overlapping images). This is the step where they would split them into the different layers. In case of the shirt configurator, this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure they would have one file per colour so they could easily copy changes from one set of colours to another.
+
 %----------------------------------------------------------------------------------------
 %   Compression
 %----------------------------------------------------------------------------------------
 \subsubsection{Compression}
-Using images on the web, especially on bigger resolution displays, small images are important. Current mobile data speeds and capped contracts are difficult. So laying a 50mb burden upon the user when opening a site is not a good idea. This is were compression comes in. Every images gets compressed for a fast download, while remaining a good quality.
+Using images on the web, especially on bigger resolution displays, small file sizes are important. Current mobile data speeds and capped contracts are difficult. So laying a 50mb burden upon the user when opening a site is not a good idea. According to the W3C guidelines, the file size should not exceed 20 kilobytes (\cite{pageFileSizeLimit}). This is were compression comes in. Every images gets compressed for a fast download, while remaining a good quality.
+
+%----------------------------------------------------------------------------------------
+%   Aims
+%----------------------------------------------------------------------------------------
+\subsubsection{Research aims}
+\begin{enumerate}
+	\item {Is it possible to eliminate all issues with regards to rendering?}
+	\item {How easy is it to add new options to the configurator compared to the existing configurators?}
+\end{enumerate}
+
 %----------------------------------------------------------------------------------------
 %   Software
 %----------------------------------------------------------------------------------------
 \subsection{Software}
+Now that the graphics process has been described. It is time to deep dive into the software development cycle. Mostly, the software and graphics development happen simultaneously with software and graphics working in tandem to make sure they work with each other properly when finished.
 ​
 %----------------------------------------------------------------------------------------
 %   Functional Requirements
@@ -147,7 +155,7 @@ A content management system has basic functionality built in (like user manageme
 %   UX Development
 %----------------------------------------------------------------------------------------
 \subsubsection{UX Development}
-While this term gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of customising a product. Itis how they learn to use the product configurator. How the application can help the user in the best possible way to do so. Don Normal (\cite{userExperience}) says: \newline
+While this term gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of customising a product. It is how they learn to use the product configurator. How the application can help the user in the best possible way to do so. Don Normal (\cite{userExperience}) says: \newline
 \say{\textit{The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features.}} \newline
 In other words, UX is not only helping the user to meet his or her goal. It is to go beyond that, and make the experience joyful.
 
@@ -166,6 +174,44 @@ Peppr generally uses a microservices architecture for their apps (\cite{microser
 According to Wikipedia, a Front-End Developer (\cite{frontEndDevDefinition}) produces the client-side interface. Wikipedia states that they use HTML, CSS and Javascript. However, anno 2016, Front-End Development has become quite a bit broader (\cite{javascriptAnno2016}). For relatively complex projects like configurators, building a front-end can be a daunting task. More often than not, you will want to serve the changes to the user instantly, without a page refresh. Resulting in an asynchronous application.
 Building an asynchronous application can be done in many ways. The most convenient way is to build a Single-Page-Application (SPA). This gives the user a desktop-like experience (\cite{singlePageApplications}). As stated on Wikipedia, there are some caveats to this, like search engine optimisation, speed and browser history. Fortunately (and unfortunately), there are frameworks to help build an SPA. Anno 2016, the field of Front-End Development is clouded with frameworks to help build these types of applications. MeteorJS, React, Angular, Vue and many more (\cite{frontEndJavascriptFrameworks} ).
 Peppr develops most of their applications using Angular. They found that the code is easiest to maintain and the separation of concerns using a MVC type setup works well with Angular.
+
+%----------------------------------------------------------------------------------------
+%   Aims
+%----------------------------------------------------------------------------------------
+\subsubsection{Research aims}
+\begin{enumerate}
+	\item {What are the differences in Workflows (both software and hardware)}
+	\item {Is the end-result flexible enough to be re-used for other clients?}
+	\item {Is the new technology small enough?}
+	\item {Is the new technology quick enough?}
+\end{enumerate}
+
+
+%----------------------------------------------------------------------------------------
+%   OpenGL & WegGL
+%----------------------------------------------------------------------------------------
+\section{OpenGL \& WebGL}
+Peppr stated the technology that possibly holds the answer is OpenGL and its web counterpart; WebGL.
+The first version of OpenGL was released March 2011 (\cite{openGLsite}). It is a software interface to allow programmers to interact with graphics hardware (\cite{openGLSpecification}). It is essentially an API acting as a middle man between software and hardware. In practice, this means that programmers will need only little (to no) hardware knowledge wile still being able to tap into the hardwares calculation capacity. Normally, starting up an OpenGL application, it creates a window that ties into the framebuffer (\cite{framebuffer}), basically a piece of RAM memory containing the bitmap. The application then holds a GL context, and the OpenGL commands can be used to modify and interact with the contents.
+
+To use OpenGL on the web, one needs an API that interacts with OpenGL. This can be done server-side, with the result of the graphics hardware framebuffer being sent to the user (\cite{CRRS}). This means that any language parse-able on a server that can send data out (and has an OpenGL enabled graphics card), can be used. Even though this article stems from 2008, the problems stated with latency still exist today, even while considering their suggested and tested optimisations. Next to that, servers that have graphics cards are relatively expensive. Another option is client-side rendering. With the increase in speed for customer technology and the rise of smartphone usage, the amount of devices that has a graphics card and can use this technology increases. Unfortunately, it is not possible for (most) webbrowsers to directly communicate with the OpenGL framebuffer. Fortunately, there is a solution; WebGL.
+
+\say{WebGL is a cross-platform, royalty-free web standard for a low-level 3D graphics API based on OpenGL ES 2.0, exposed through the HTML5 Canvas element as Document Object Model interfaces.}
+\cite{webGL}
+
+WebGL technology renders from the graphics hardware (just like OpenGL). The key difference is that the API is exposed to an HTML5 canvas element. This means the framebuffer is not opened into an application window, but into an HTML5 canvas element. While this solves the issue of running GL content client-side, GLSL (the language used to interact with WebGL \& OpenGL) does not make it into the Stack Overflows Annual Survey (\cite{stackoverflowDeveloperSurvey}). This does imply it would be hard (and expensive) to find competent developers that can built an application using this technology.
+Fortunately, Peppr found a library for this. It uses the most popular language in the survey (Javascript). "Three.js", as the library is called, filled the last gap in client-side OpenGL / WebGL content. The question remains, while javascript is adopted in most modern browsers (\cite{javascriptSupport}), will it work in the by Peppr required context?
+
+%----------------------------------------------------------------------------------------
+%   Aims
+%----------------------------------------------------------------------------------------
+\subsubsection{Research aims}
+\begin{enumerate}
+	\item {Is the technology compatible with the users browsing preferences?}
+	\item {What is the development cost difference both in time and money? \textit{While the technology uses a Javascript wrapper, it might not mean that any javascript developer will know how to work with it. Next to that, for a site or Vanilla Javascript application, development cycles and workflows are known. It might mean that reinventing the wheel for these sort of applications because of the use of WebGL might lead to more development time.}}
+	\item {How easy is it to maintain the application compared to existing configurators? \textit{For current web technology, a lot has been done to make it easy to maintain (package managers, dedicated servers), but going with a proprietary system that uses OpenGL via WebGL via a Javascript wrapper, might mean that some of these existing solutions will not work. This might mean that the application will be very hard to maintain}}
+\end{enumerate}
+
 
 \newpage
 
