@@ -8,8 +8,8 @@
 %   Introduction
 %----------------------------------------------------------------------------------------
 \section{Introduction}
-To properly determine needed requirements and possible research angles, and in-depth review of Peppr's current workflow is needed. Below is a deep-dive into the process currently used, split into a graphics and software section. A detailed outline of the 3d process will be described in the graphics section, while a peek into the software development process will be described in the software section.
-Apart from the current workflow, a basic understanding of possible new technologies needs to be looked at, as well as the current market position with regards to technologies hype-cycle and acceptance.
+To determine the difference in workload, and in-depth review of Peppr's current workflow is needed. Below is a deep-dive into the process currently used, split into a graphics and software section. A detailed outline of the 3d process will be described in the graphics section, while a peek into the software development process will be described in the software section. The split into these components will make it easier to determine possible sections of improvement later on.
+Apart from the current workflow, a basic understanding of possible new technologies needs to be looked at, as well as the current market position with regards to the technologies hype-cycle and acceptance.
 
 %----------------------------------------------------------------------------------------
 %   Workflow
@@ -48,7 +48,7 @@ In this case, any seat has a pick of several frame options, and several colours.
 \[ f(x) = (25 \cdot 2 \cdot 2) + (25 \cdot 2 \cdot 4)\]
 \[ f(x) = 300\]
 
-Going with just 1 colour more adds 12 extra renders. While this does not seem like much, these renders are build from several different files. This means an artist has to open 12 different files, and do the edit 12 times.
+Going with just 1 colour more adds 12 extra renders. While this does not seem like much, these renders are built from several different files. This means an artist has to open 12 different files, and do the edit 12 times.
 In some cases, you might be able to get around it using layers. In this case, splitting up the chair into a seat and frame layer will get us the following formula:
 
 \[ f(x) = (\alpha) + (\cdot \beta \cdot \gamma) + (\cdot \delta \cdot \epsilon)\]
@@ -57,13 +57,13 @@ In some cases, you might be able to get around it using layers. In this case, sp
 
 This decreases the amount of renders. Unfortunately, while this works here, in some cases this is not possible. Sometimes, one of the objects is both in front and behind other objects. This makes it difficult to 'mask' and makes proper reflections tricky. Also, creating new layers does add complexity and constraints. Adding new options and layers might prove difficult when they overlap with existing layers.
 \newline
-Apart to difficulties in the 3d process, these layers need to be build into the software as well. Either by creating an API that serves the layers as one image (\cite{bugaboo} ), or by stacking the images client-side. The user will notice this option though, as it slows things down. This is fixed with the adoption of HTTP 2.0. This pipelines the http-requests, reducing latency (\cite{latency}).
+Apart from difficulties in the 3d process, these layers need to be added to the software as well. Either by creating an API that serves the layers as one image (\cite{bugaboo} ), or by stacking the images client-side. The user will notice this option though, as it slows things down. This is fixed with the adoption of HTTP 2.0. This pipelines the http-requests, reducing latency (\cite{latency}).
 
 %----------------------------------------------------------------------------------------
 %   Modeling
 %----------------------------------------------------------------------------------------
 \subsubsection{Modeling}
-Step two in the process is modelling, whereby an artist makes a virtual model. Mostly used at Peppr is a form of modelling called Polygonal modeling. This means the model will eventually be represented by an array of 3 dimensional points (or vertices). Al vertices are connected by lines and those lines make up the surface of the model. There are multiple ways of creating these models, an artist may choose to 'draw' those polygons from scratch, but may also use 3d scanning services or even simulations to build the 3d models.
+Step two in the process is modelling, whereby an artist makes a virtual model. Mostly used at Peppr is a form of modelling called Polygonal modeling. This means the model will eventually be represented by an array of 3 dimensional points (or vertices). All vertices are connected by lines and those lines make up the surface of the model. There are multiple ways of creating these models, an artist may choose to 'draw' those polygons from scratch, but may also use 3d scanning services or even simulations to build the 3d models.
 (NOTE -- INSERT IMAGE OF CHAIRS GRAY SHADED WIREFRAME)
 
 %----------------------------------------------------------------------------------------
