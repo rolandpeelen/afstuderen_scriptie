@@ -14,6 +14,7 @@ Apart from the current workflow, a basic understanding of possible new technolog
 %----------------------------------------------------------------------------------------
 %   Workflow
 %----------------------------------------------------------------------------------------
+\clearpage
 \section{Workflows}
 Peppr has done these projects and states that the usual way of building consist of two main parts. One being the images, the other, the software. In the outline below follows a brief description of how the process is currently done. 
 
@@ -63,25 +64,71 @@ Apart from difficulties in the 3d process, these layers need to be added to the 
 %   Modeling
 %----------------------------------------------------------------------------------------
 \subsubsection{Modeling}
-Step two in the process is modelling, whereby an artist makes a virtual model. Mostly used at Peppr is a form of modelling called Polygonal modeling. This means the model will eventually be represented by an array of 3 dimensional points (or vertices). All vertices are connected by lines and those lines make up the surface of the model. There are multiple ways of creating these models, an artist may choose to 'draw' those polygons from scratch, but may also use 3d scanning services or even simulations to build the 3d models.
-(NOTE -- INSERT IMAGE OF CHAIRS GRAY SHADED WIREFRAME)
+
+\begin{wrapfigure}[12]{r}{10cm}
+\vspace{-1cm}
+\centering
+\includegraphics[width=9cm]{images/modeling}
+\caption{Lighting Setup}
+\label{figure:modeling}
+\end{wrapfigure}
+
+
+Step two in the process is modeling, whereby an artist makes a virtual model. Mostly used at Peppr is a form of modeling called Polygonal modeling. This means the model will eventually be represented by an array of 3 dimensional points (or vertices). All vertices are connected by lines and those lines make up the surface of the model. There are multiple ways of creating these models, an artist may choose to 'draw' those polygons from scratch, but may also use 3d scanning services or even simulations to build the 3d models.
+As seen in \ref{figure:modeling}, every single square in that model is one of those polygons.
 
 %----------------------------------------------------------------------------------------
 %   Lighting / Shading
 %----------------------------------------------------------------------------------------
-\subsubsection{Lighting \& Shading}
-Once in the lighting department, the model is placed into a virtual environment. Most of the time this environment will simulate a photography studio. There it is lit and shaded (the process of creating a life-like material) to perfection. The artist makes sure that when there are layers involved, the shadows do not overlap the layers.
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[width=15cm]{images/lighting}
+\caption{Lighting Setup}
+\label{figure:lighting}
+\end{figure}
+
+
+\subsubsection{Lighting}
+
+\begin{wrapfigure}[12]{r}{10cm}
+\vspace{-1cm}
+\centering
+\includegraphics[width=9cm]{images/lighting_rendered}
+\caption{Rendered Lighting Setup}
+\label{figure:lighting_rendered}
+\end{wrapfigure}
+
+Once in the lighting department, the model is placed into a virtual environment. Most of the time this environment will simulate a photography studio. As seen in figure \ref{figure:lighting}, there are 5 lights in the current setup. One is a dome light that simulates the environment using a so-called 'High Dynamic Range' (HDR) range image. Current .JPG images are 24 bit. As an image is separated into a red, green and blue channel, every colour has 8 bits of information available. This means a jpg image is able to show 256 ($2^8$) shades per colour, so a normal JPG image has $16.777.216$ possible colours in total. \newline
+The HDR images are mostly encoded in a 32 bits per pixel option. In laymen terms, this means that an HDR image has more colours per pixel ($4.294.967.296$), than a JPG image has in total. In practice, this means that the extremely bright parts of the image can be used to extract lighting information. The HDR image is mapped onto a spherical dome, which results in the ability to mimic environments without the need for additional lighting. In this case, Peppr used an actual studio environment for that part.
+ The other four images are used to light the model to perfection. One on the back to light the background, one in front to have highlights and two diffuse boxes on the side to get the model to stand out from the background.
+
+%----------------------------------------------------------------------------------------
+%   Lighting / Shading
+%----------------------------------------------------------------------------------------
+
+\subsubsection{Shading}
+
+\begin{wrapfigure}[16]{r}{10cm}
+\vspace{-1cm}
+\centering
+\includegraphics[width=9cm]{images/rendering}
+\caption{Rendered image with shaders}
+\label{figure:lighting_rendered}
+\end{wrapfigure}
+
+Once properly lit, an artist will start shading the model. This is the process of adding life-like materials to the object and making it come to life. This process can be tricky as there are loads of variables involved. Diffuse colour, reflectivity, refractivity but also slight bumps and anisotropy have to be taken into consideration.
+
+
 %----------------------------------------------------------------------------------------
 %   Rendering
 %----------------------------------------------------------------------------------------
 \subsubsection{Render}
 This is where things get together and the calculation from 3d model to actual image start. There are two sides to this, the technical settings of the render-engine used and the structure of the file / timeline.
 \newline
-\newline
 \textit{Render-engine}
 \newline
 Peppr opts to use third party render-engines for their projects, mostly due to the speed and quality optimizations. While more configurable, they are also more difficult to use. Many times, there is an equilibrium between quality and render-times. The high render-times have to do with the difficult nature of lights, reflections, refractions and the anti-aliasing of the image. Light for instance, obeys the 'inverse square law' (\cite{inverseLightLaw}), this means the intensity of light decays the further it gets from the point-of-origin. With one light this is quite easy, but imagine having 3 or 10 lights interacting at different intensities from different point-of-views. On top of that, light bounces around. The render-engine will calculate the point of impact, check the properties of the materials it hits and radiate the light back from the surface. The directionality of these light reflections is where things get tricky. The more straightforward the reflections, the easier. A mirror will reflect the light at the same angle of incidence, but when the material is rough, the rays get scattered. For this, the render-engine will sent out multiple rays (for example 50), up to a predefined amount of times. In practice, this may mean that when one ray bounces on a rough surface, it spawns 50 new rays. If all of those rays bounce off of a rough surface again, the rays will amount to 50 x 50. With every bounce, this will increase exponentially.
-(NOTE -- ADD IMAGE OF HEMISPHERICAL SUBDIVISION)
 
 Refractions makes these things even more tricky because of the Index of Refraction. This specifies change of angle in the lights ray when it goes from one material to another (\cite{refractiveIndex}). Water (at 20c) for instance, has an IOR of 1.333 (\cite{waterIOR}). This means that next to the light rays bouncing, they can also change direction.
 
@@ -100,7 +147,7 @@ Sometimes it is easier to render out the whole sequence with every configuration
 %----------------------------------------------------------------------------------------
 \subsubsection{Post Production}
 Every 3d model needs a bit of post production to make it look better. If the model has layers rendered as masks (an option to overcome overlapping images). This is the step where they would split them into the different layers. In case of the shirt configurator, this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure they would have one file per colour so they could easily copy changes from one set of colours to another.
-
+\newline
 %----------------------------------------------------------------------------------------
 %   Compression
 %----------------------------------------------------------------------------------------
@@ -190,6 +237,7 @@ Peppr develops most of their applications using Angular. They found that the cod
 %----------------------------------------------------------------------------------------
 %   OpenGL & WegGL
 %----------------------------------------------------------------------------------------
+\clearpage
 \section{OpenGL \& WebGL}
 Peppr stated the technology that possibly holds the answer is OpenGL and its web counterpart; WebGL.
 The first version of OpenGL was released March 2011 (\cite{openGLsite}). It is a software interface to allow programmers to interact with graphics hardware (\cite{openGLSpecification}). It is essentially an API acting as a middle man between software and hardware. In practice, this means that programmers will need only little (to no) hardware knowledge wile still being able to tap into the hardwares calculation capacity. Normally, starting up an OpenGL application, it creates a window that ties into the framebuffer (\cite{framebuffer}), basically a piece of RAM memory containing the bitmap. The application then holds a GL context, and the OpenGL commands can be used to modify and interact with the contents.
