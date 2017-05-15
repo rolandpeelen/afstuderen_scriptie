@@ -109,7 +109,7 @@ The HDR images are mostly encoded in a 32 bits per pixel option. In laymen terms
 
 \subsubsection{Shading}
 
-\begin{wrapfigure}[16]{r}{10cm}
+\begin{wrapfigure}[19]{r}{10cm}
 \vspace{-1cm}
 \centering
 \includegraphics[width=9cm]{images/rendering}
@@ -117,13 +117,15 @@ The HDR images are mostly encoded in a 32 bits per pixel option. In laymen terms
 \label{figure:lighting_rendered}
 \end{wrapfigure}
 
-Once properly lit, an artist will start shading the model. This is the process of adding life-like materials to the object and making it come to life. This process can be tricky as there are loads of variables involved. Diffuse colour, reflectivity, refractivity but also slight bumps and anisotropy have to be taken into consideration.
+Once properly lit, an artist will start shading the model. This is the process of adding life-like materials to the object and making it come to life. This process can be tricky as there are loads of variables involved. Setting the colour is relatively straight-forward. But when it comes to reflections or refractions, things get tricky. Every material reflects in a different way. Not only the amount of reflectivity needs to be set properly, but also the amount the reflections are blurred. Next to that, materials more often than not reflect differently when observed from different angles. These values are directed by the materials Index Of Refraction (IOR \cite{refractiveIndex}, more on that in the render section (\ref{sec:render})). The Index Of Refraction is combined with Fresnel equations (\cite{fresnelEquations}) for a proper reflectivity per angle. The same thing counts for Refractions.
+Another thing highly important when defining materials is the objects texture. There are very little materials that are completely smooth. The plastic in figure \ref{figure:lighting_rendered} has an every so slight texture to it. This adds a tiny bit of extra realism.
 
 
 %----------------------------------------------------------------------------------------
 %   Rendering
 %----------------------------------------------------------------------------------------
 \subsubsection{Render}
+\label{sec:render}
 This is where things get together and the calculation from 3d model to actual image start. There are two sides to this, the technical settings of the render-engine used and the structure of the file / timeline.
 \newline
 \textit{Render-engine}
@@ -145,14 +147,23 @@ Sometimes it is easier to render out the whole sequence with every configuration
 %----------------------------------------------------------------------------------------
 %   Post Production
 %----------------------------------------------------------------------------------------
+\begin{figure}
+
 \subsubsection{Post Production}
-Every 3d model needs a bit of post production to make it look better. If the model has layers rendered as masks (an option to overcome overlapping images). This is the step where they would split them into the different layers. In case of the shirt configurator, this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure they would have one file per colour so they could easily copy changes from one set of colours to another.
+Every 3d model needs a bit of post production. One of the reasons is simply to make the image look better using colour corrections. Another is when the model has layers rendered as masks. This is the step where the images would be split into the different layers. In case of the shirt configurator, this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure they would have one file per colour so they could easily copy changes from one set of colours to another. In the case figure \ref{figure:post_production}, the background has been removed and some slight colour corrections have been made to make the colour stand out a bit more.
 \newline
+\centering
+\includegraphics[width=15cm]{images/post}
+\caption{The final rendered image with post-production}
+\label{figure:post_production}
+\end{figure}
 %----------------------------------------------------------------------------------------
 %   Compression
 %----------------------------------------------------------------------------------------
 \subsubsection{Compression}
-Using images on the web, especially on bigger resolution displays, small file sizes are important. Current mobile data speeds and capped contracts are difficult. So laying a 50mb burden upon the user when opening a site is not a good idea. According to the W3C guidelines, the file size should not exceed 20 kilobytes (\cite{pageFileSizeLimit}). This is were compression comes in. Every images gets compressed for a fast download, while remaining a good quality.
+Using images on the web, especially on bigger resolution displays, small file sizes are important. Current mobile data speeds and capped contracts are difficult. So laying a 50mb burden upon the user when opening a site is not a good idea. According to the W3C guidelines, the file size should not exceed 20 kilobytes (\cite{pageFileSizeLimit}). This is were compression comes in. Every images gets compressed for a fast download, while remaining of good quality. The 20kb's stated by the W3C guidelines are unfortunately out-of-question, but a best effort to make the images as tiny as possible is still required.
+A couple of things can be done to do this. First and foremost, the image should be the proper size. The rendered image is 2000 x 2000 pixels (w x h). The images for the shirt configurator by Peppr were only required to be 800 x 500. Making the image 800 x 800 reduced it from 445kb to 91kb. This is a massive save in itself, but with proper compression, this can be taken even further. Using an application like ImageOptim (\cite{imageOptim}) , the size is further reduced to a mere 68kb. This in itself is not much, but when there is an image set of hundreds, shaving 25\% off of the filesize counts.
+
 
 %----------------------------------------------------------------------------------------
 %   Aims
