@@ -128,19 +128,94 @@ The following section will house a thorough description of the application archi
 \subsection{ThreeJS}
 ThreeJS is an API that has some basic requirements to make it work (\cite{ThreeJSgettingStarted}). It is not much, but in the following sections we will outline the basic things we need to get started.
 \subsubsection{Scene}
-\subsubsection{Camera}
+A scene is the place that holds all of the other objects. Everything that is rendered by ThreeJS is placed inside the scene. The scene is eventually passed into the renderer. This also means there is only one scene that is rendered.
+\subsubsection{Camera \& Controls}
+The camera not only specifies the view, but just like a real camera, it also specifies things like the FOV (Field Of View) and focus distance. The controls are taken straight from the ThreeJS documentation (\cite{ThreeJSgettingStarted}) and control the panning speed, maximum distance, speed dampening factor, etc. These two things combined make sure the user can pan around an object and see it from every imaginable angle.
 \subsubsection{Renderer}
-\subsubsection{OBJ loader}
+The renderer get the scene and uses the WebGL context to convert is from a 3 dimensional state to a 2 dimensional state. Basically, it computes all lights, shadows, reflections and refractions in realtime and parses it into an image the user sees.
+\subsubsection{Object \& Material loader}
+The loaders are for the objects and materials. The '.OBJ' file format will be used to load 3d models and while the loader does support '.OBJ's accompanying '.MTL' material file format, the materials will be created on the fly so they can be tweaked easier.
+\newline
+The reason for highlighting these specific components is that these (amongst others) are split up into Angular Services for separation of concerns.
 
-\subsection{File Structure, Build and Automation}
+\subsection{Scaffolding, Build and Automation}
+This section highlights the overall structure of the project without going in too much depth with regards to the architecture or code.
 \subsubsection{Scaffolding}
+To scaffold the application with the correct folder structure and dependencies, a Yeoman (\cite{yeoman}) setup was used. Yeoman is the 'THE WEB'S SCAFFOLDING TOOL FOR MODERN WEBAPPS'. It can be used to startup projects and to maintain best practices with regards to the aforementioned. In this case, a scaffolding configuration that is inline with the in-official Angular Styleguide was used (\cite{johnPapa}). The basic file structure it creates is as following;
+
+\begin{lstlisting}[language=CSS]
+  bower.json --> Bower package management file
+  package.json --> Node package management file (NPM)
+  .bowerrc --> Bower configuration
+  .editorconfig --> Editor configuration for linting
+  protractor.conf.js --> Protractor configuration (integration testing)
+  e2e/.eslintrc --> Eslint configuration for testing
+  e2e/main.spec.js --> Example end-to-end test file
+  gulpfile.js --> Gulp main file
+  gulp/.eslintrc --> Gulp's eslint configuration file
+  gulp/e2e-tests.js --> Gulp's end-to-end test file
+  src/favicon.ico --> Favicon (from the template)
+  src/assets/images/yeoman.png --> For example content
+  .gitignore --> Files that Git (version control) should ignore
+  .eslintrc --> Overall Eslint configuration file
+  karma.conf.js --> Unit test configuration file
+  e2e/main.po.js --> Example end-to-end test file
+  gulp/conf.js --> Gulp configuration
+  gulp/build.js --> Gulp configuration for build process
+  gulp/inject.js --> Gulp configuration for injection files into the index.html
+  gulp/scripts.js --> Gulp configuration for script minification
+  gulp/styles.js --> Gulp configuration for style minification
+  gulp/watch.js --> Gulp file watcher for live reloads
+  gulp/server.js --> Gulp live reload server
+  gulp/unit-tests.js --> Gulp configuration for unit tests
+  src/app/index.module.js --> Angular's main modules
+  src/app/index.config.js --> Angular's main config
+  src/app/index.constants.js --> Angular's main constants (example)
+  src/app/index.run.js  --> Angular's main run file
+  src/index.html --> The main index file
+  src/app/main/main.controller.js --> The controller for the main page (example)
+  src/app/main/main.controller.spec.js --> The unit tests for the main page (example)
+  src/app/components/navbar/navbar.directive.js  --> example component
+  src/app/components/navbar/navbar.directive.spec.js  --> example component unit tests
+  src/app/components/malarkey/malarkey.directive.js  --> example component
+  src/app/components/malarkey/malarkey.directive.spec.js  --> example component unit tests
+  src/app/components/webDevTec/webDevTec.service.js --> example service
+  src/app/components/webDevTec/webDevTec.service.spec.js --> example service test
+  src/app/components/githubContributor/githubContributor.service.js --> example service
+  src/app/components/githubContributor/githubContributor.service.spec.js  --> example service test
+  src/assets/images/angular.png  --> example image
+  src/assets/images/browsersync.png  --> example image
+  src/assets/images/gulp.png  --> example image
+  src/assets/images/jasmine.png  --> example image
+  src/assets/images/karma.png  --> example image
+  src/assets/images/protractor.png  --> example image
+  src/assets/images/node-sass.png  --> example image
+  src/app/components/navbar/navbar.html  --> example navbar component html
+  src/app/main/main.html  --> main page html
+  src/app/index.scss  --> the main scss file
+  src/app/components/malarkey/malarkey.scss  --> example component css
+  src/app/components/navbar/navbar.scss   --> example component css
+  src/app/index.route.js   --> Base route file for Angular's UI-Router
+\end{lstlisting}
+
+Loads of these files can be removed as soon as the generator is finished. The most important part reason for using this generator is that the file structure itself and basic automation is setup.
 
 \subsubsection{Package Management}
-NPM & Bower
+To manage 'plugins' used both during the development cycle (to minify javascript files for instance) and during production (for a stylized popup window), package managers are being used. The most important reason for this, is that when the project is moved from one location to another (from developer to developer, or development to production) the proper packages can be installed. The packages themselves become quite large. So keeping a reference to the packages makes the setup quicker. Next to that, the version control software used does not have to keep track of the actual packages, just of the reference to the package.
+
 \subsubsection{Build Pipeline}
-Gulp
+Normally, development cycles have three stages; development, staging and production. In development, the developers work on a project from their machines on local networks and the whole web application is served from a local server running on the developers machine. This poses some possible issues once moving to production as, once things are running on production, there is a bug, it might be either the code that does it, but also the moving of the environment or even the build process itself. That is where the staging environment comes in. This is an intermediary environment, on the internet, which is used to test the product in a live-like environment. The environment uses the build files and the production server and database (albeit, an anonymized version running separate for obvious reasons).
+\newline
+The local development environment is fully built to be as quick as possible. All javascript files are loaded in the way they are typed, none of them are compressed or minified. As soon as the developer makes a change, the application notices a change in files, updates the build and refreshes the browser(s). In this case, the generator used Gulp for this part of the automation process.
+\newline
+When moving from the local environment to the staging or production environment, the set of javascript files are taken, minified and uglified and put into a separate 'build' or 'dist' (short for distribution) folder. The minifying removes all spaces and line-endings, while the uglyfying makes all variables shorter. This makes the files loads smaller and quicker to load. The same thing happens to the SCSS files.\newline
+The nature of the application in this case is that it is a so called SPA (Single Page Application). It uses a javascript router to detect for changes in URL or state and loads the corresponding HTML accordingly. In the build process, this needs a special treatment. All the HTML files are changed to inlined javascript files and made into one big template file for optimized caching.\newline
+Lastly, all these files need to be injected into the 'index.html' file so they are loaded. Gulp handles this as well and combines all javascript files into one, same for SCSS files and then injects them into the 'index.html'.\newline
+As soon as the build process is completed, it is ready for deployment on a webserver. In this case, the configurator was deployed to 'Heroku' (\cite{heroku}). Heroku takes a big chunk out of setting up a webserver for deployment. As they say: 'Setting up, operating and maintaining your own platform is not where the race is won. Avoid the risk and complexity, and dedicate your energy to what really matters: building great apps.'. In essence, their servers are split up and run applications for you. Heroku provides the developers with a command line interface to push their applications to the servers, or to connect with a version control system like Github for automatic deployments. The lather was used in this project. To serve the application itself, a tiny webserver application is still needed though. For the prototype, a Node based Express server was used.\newline
+From staging, the application can be tested. As soon as the tests are completed and the application is ready to go in production, the code from the staging or development branch is simply pushed over to the master (or production) branch in version control and Heroku takes it from there.
 
 \subsection{Architecture}
+
 
 %----------------------------------------------------------------------------------------
 %   Development
