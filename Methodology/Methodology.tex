@@ -111,16 +111,36 @@ $button-clr-success: #00ff00;
 \end{lstlisting}
 
 So for displaying the control components, SCSS and HTML 5 will do. For the 3d, ThreeJS will be used. The only component in this stack that is not accounted for, is data and data flow. How does the ThreeJS component know that an HTML 5 button was just pressed? There are loads of ways to handle data flow within an application, MVC, MVP, MVVM (\cite{MVCMVPMVVM}) and loads of Javascript front-end frameworks to choose from (\cite{javascriptAnno2016}). While the lather article explains the state of front-end development quite humorously, there is some truth to this. This means choosing a framework to use is tricky. In case of this prototype Peppr thought it would be best to use that which they are familiar with and have used in a variety of projects; Angular. At the time of writing Angular 2 has just been released out of beta, but support for it with the relatively quick upcoming version of Angular 4 (they skipped version 3) do not make it suitable for building this prototype.
-There is a bit of a learning curve to Angular and performance is one of the biggest short-comings. The performance troubles Angular deals with are mostly due to the data binding and DOM watching though. This is something the prototype will not be bottlenecking on. There will be little to no watchers as the frame buffer for the 3d output will be rendered to a Canvas element, in which there are no Angular watchers.
+There is a bit of a learning curve to Angular and performance is one of its biggest short-comings. The performance issues Angular deals with are mostly due to the data binding and DOM watching. This is something the prototype will not be bottlenecking on as there will be little to no required binding of data as the frame buffer for the 3d output will be rendered to a Canvas element, in which there are no Angular watchers.
 
 \subsubsection{Back-end}
 \label{subsub: backEnd}
+The back-end in the prototypal form only needs to deliver data. In normal use cases, Peppr builds a RESTful (or 'representational state transfer' \cite{RESTful} ) API (Application Programming Interface) that delivers a JSON response. So the front-end sends out a request (POST, PUT, GET or DELETE), the API handles that request, does what is asked from it and responses with either a response code, or requested data. The response is formatted in JSON. 
+For the prototype, the data will be mocked using Angular's 'Constants'. A constant in Angular is basically a javascript object from which data can be pulled. To remain working in an MVC style framework, dataproviders or services (in the frontend) will fetch the needed data from the constant and delivered it where it needs. The API response times will not affect loading times too much. If a simulation of said delay is needed, the services together with Angular's \$timeout will allow a delay to be programmed into the response.
 
 %----------------------------------------------------------------------------------------
 %   The Prototype
 %----------------------------------------------------------------------------------------
 \section{The prototype}
 \subsection{Introduction}
+The following section will house a thorough description of the application architecture. A brief look into the workings of ThreeJS and its requirements will be first, following with an overview of the applications file structure, build process and automation setup for development. Finally, a section describing the Architecture of the application.
+
+\subsection{ThreeJS}
+ThreeJS is an API that has some basic requirements to make it work (\cite{ThreeJSgettingStarted}). It is not much, but in the following sections we will outline the basic things we need to get started.
+\subsubsection{Scene}
+\subsubsection{Camera}
+\subsubsection{Renderer}
+\subsubsection{OBJ loader}
+
+\subsection{File Structure, Build and Automation}
+\subsubsection{Scaffolding}
+
+\subsubsection{Package Management}
+NPM & Bower
+\subsubsection{Build Pipeline}
+Gulp
+
+\subsection{Architecture}
 
 %----------------------------------------------------------------------------------------
 %   Development
