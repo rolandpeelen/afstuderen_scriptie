@@ -217,14 +217,14 @@ From staging, the application can be tested. As soon as the tests are completed 
 \subsection{Architecture}
 \subsubsection{Introduction}
 Angular uses a system of javascript objects with which applications can be built. Below is a small outline of some of the components.\newline
-\subsubsection{Directive \& Components}
+\subsubsection{Directive \& Components \& Controllers}
 The angular documentation (\cite{angularConcepts}) states the following about directives: \newline
 'At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS's HTML compiler (\$compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.'\newline
 And the following about components:\newline
 'In AngularJS, a Component is a special kind of directive that uses a simpler configuration which is suitable for a component-based application structure.'\newline
 
 At the time of prototype creation, Angular Components did not exist yet and they where simply called directives. An angular component or directive used in such a way is an isolated (separately scoped) element that has its own template. Building using components will make for a 'Component-based application architecture'. Every component has its own scope (control their own data and their own view) and have a well defined public API (the functions that can be triggered within the component from the outside). 
-The prototype has three directives;
+The prototype has three directives and one component
 \newline
 \textit{1. threeDirective} \newline
 This is the main component of the application. It initializes the data and configurator services (more on that later), creates / attaches the ThreeJS canvas element and detects hovering to stop the rotation of the object and start the mouse actions.
@@ -235,8 +235,11 @@ This is one of the two edit directives. As there may be multiple objects to be e
 \textit{3. editableMaterialDirective} \newline
 This directive is similar to the editableObjectDirective. The main difference is that it does not need to have an active 'name', which means it can see which colour or material is active without fetching the object from the database (the different colours are saved as an array of colours while the different objects are references or objectID's, not the actual objects). So, the boilerplate code is much smaller. Same thing for the replacing of the colour, it only has to set the active colour and alert its corresponding service.
 
+\textit{4. optionContainer} \newline
+The optionContainer is literally the container in which the editableMaterialDirective and editableObjectDirective are loaded. The optionContainer has a controller as well. This controller is used to control the steps. As soon as the controller is initialized, it subscribes to the 'getCurrentStep' function in the 'StepsConfService'. This is a promise (see next section). This promise is one that never resolves, just notifies. A notification means a change in step. As soon as that happens the controller fetches the new step with its properties and updates the view accordingly. This adding and removing needs to happen in a way that there are no duplicates in the view for any given material or object. This is reflected in the addEditableMaterial and addEditableObject methods.
+
 \subsubsection{Promises}
-When data is fetched from a server or api, it is done asynchronous. This means the data is not available instantly. This poses issues as javascript will keep running even though there is no data. A promise based architecture solve this (\cite{promiseBasedArchitecture}). A promise is in essence just that. It is literally a promise for data. The application will not do the next steps before the promise gets resolved (or rejected).
+When data is fetched from a server or api, it is done asynchronous. This means the data is not available instantly. This poses issues as javascript will keep running even though there is no data. A promise based architecture solve this (\cite{promiseBasedArchitecture}). A promise is in essence just that. It is literally a promise for data. The application will not do the next steps before the promise gets resolved (or rejected, or updated in notifications).
 
 \subsubsection{Services}
 The angular documentation states the following about services:\newline
@@ -298,27 +301,42 @@ This service holds the renderer for ThreeJS. It specifies the size and the prope
 The SceneConfService implements the scene data. It sets up lights and makes sure they are casting shadows. It also uses a GL shader for the skylight. Apart from the properties, the scene object itself is the one that holds all the 3d objects, cameras, and lights. As such, there are also methods to add things to the scene from the outside.\newline
 
 \textit{7. StepsConfService} \newline
-The StepsConfService is the only one that has nothing to do with ThreeJS itself. As the different options for the configurator are specified in steps, the application needs a way to keep track of those steps. This service holds, fetches, increases, and decreases the step. itemize
+The StepsConfService is the only one that has nothing to do with ThreeJS itself. As the different options for the configurator are specified in steps, the application needs a way to keep track of those steps. This service holds, fetches, increases, and decreases the step. 
 
-In essence, this adds a little overhead. Simply getting the promises for the data in the configurator services would make things run a little quicker. But for consistency and readability, these things are done separately.
+In essence, this adds a little overhead. Simply getting the promises for the data in the configurator services would make things run a little quicker. But with consistency and readability in mind, these things are done separately.
 
+\clearpage
 \subsubsection{Overview}
+\begin{figure}
+\centering
+\includegraphics[width=15cm]{images/dfd}
+\caption{Overview}
+\label{figure:dfd}
+\end{figure}
+Above is a diagram with the different components. Within each column, data can flow free and can even be binded to one another. Going between columns requires a data or action call. The important thing to not here is the separation of concerns with regards to the data. The DataServices talk to the ConfigurationServices and the Data, not to the Directives / Controllers. This restricts the flow a little meaning less flexibility, but it adds clarity and makes the application less prone to bugs.
 
 
 %----------------------------------------------------------------------------------------
 %   Development
 %----------------------------------------------------------------------------------------
 \section{Development}
+\subsection{Introduction}
+Following below is an outline of all aims. Per aim there is a small plan of action with an expectation of the way this question may be answered.
 
 %----------------------------------------------------------------------------------------
 %   Is it possible to eliminate all issues (time and automation) with regards to rendering?
 %----------------------------------------------------------------------------------------
 \subsection{Is it possible to eliminate all issues (time and automation) with regards to rendering?}
+This question was answered by combining the experience taken from building the prototype and the information given by Peppr. They helped outlining the current workflow so a good comparison between the current process and the hypothesized new process could be made.
 
 %----------------------------------------------------------------------------------------
 %   What is the cost differences for development?
 %----------------------------------------------------------------------------------------
 \subsection{What is the cost differences for development?}
+To answer this question properly, a division in setup / creation costs, maintenance costs, and upgrade costs (adding components) was made. To determine the setup / creation costs, a start was made by estimating the time needed on both projects. The previously used example was used for both estimates. Combining these estimates with the hourly rates as specified by Peppr (which they claim are inline with the market) for both the development of the visuals as the development of the application makes for an estimate in cost.\newline
+For the maintenance costs there were two major components that determined pricing. The first being the upgrade cycle for a CMS. The second being the upgrade cycle for a fully custom piece of software. To pin down the costs for the upgrade cycles, the average NPM and Bower upgrade cycle was checked. Combining those with average server / deployment costs which are both needed for a CMS configurator and custom software configurator, a conclusion with regards to those costs could be made.\newline
+Last but not least, as this is the place were Peppr anticipated the biggest wins in terms of costs, a costs difference for adding extra options to the configurator had to be made. This was done by comparing the time specified by Peppr to add an extra component to the configurator to the time it took them to create on in the new situation.\newline
+These three properties combined answered the question.
 % Estimate time for both projects
 % Find 3d pricing
 % Find developer pricing for CMS
