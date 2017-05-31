@@ -1,0 +1,34 @@
+%----------------------------------------------------------------------------------------
+%   Results
+%----------------------------------------------------------------------------------------
+    
+    
+\chapter{Results}
+
+\section{Development}
+Developing a product configurator is by any measure no easy feat. Building it with realtime 3d technology may be even harder. The following three questions should be answered in this thesis.
+​\begin{enumerate}
+\item {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
+\item {What are the differences in Workflows}
+
+\item {What is the development cost difference both in time and money?}
+\item {How easy is it to maintain the application compared to existing configurators?}
+\item {Is the end-result flexible enough to be re-used for other clients?}
+\item {How easy is it to add new options to the configurator compared to the existing configurators?}
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+%   User Experience
+%----------------------------------------------------------------------------------------
+\section{User Experience}
+Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.\begin{enumerate}
+\item {Is the technology compatible with the users browsing preferences?}
+\item {Is the technology new small enough?}
+\item {Is the technology new quick enough?}
+\end{enumerate}	
+
+
+
+
+With regards to the adapting and of adding of components, there was a conceptual difference in the workflows that needed to be understood as well. Eventually, the product configurators end result needs to correspond with a product number that identifies that specific configuration and / or product. This can be done quite easily by combining the numbers X-X-X (Chair Colour - Frame Number - Frame Colour). The nature of the new way of doing things means that configurations are hierarchical. A frame has to have a material and that defines the number and colour of the frame. The nature of having a property means that once adding another frame type, it can automatically inherit the property from the other frames. This means that if the chair colour and frame number and frame colour have the proper numbers, they can automatically generate a product number on the go, without specifying them.\newline
+In the old situation, there was one image per configuration. This means that every time a component was added, someone had to specify the product number. As such, all the product numbers had to be entered manually (either in the file name of the image, or in the back-end) which in turn meant that every single configuration had to exist as a product in the configurator. In this case, the observed configurator was the Slimfitted configurator Peppr made earlier which used Magento as a CMS to handle the products. The software could have been written differently to handle automation of product numbers, but this could also result in overfitting.\newline

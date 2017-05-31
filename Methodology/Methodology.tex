@@ -332,10 +332,10 @@ This question was answered by combining the experience taken from building the p
 %----------------------------------------------------------------------------------------
 %   What is the cost differences for development?
 %----------------------------------------------------------------------------------------
-\subsection{What is the cost differences for development?}
-To answer this question properly, a division in setup / creation costs, maintenance costs, and upgrade costs (adding components) was made. To determine the setup / creation costs, a start was made by estimating the time needed on both projects. The previously used example was used for both estimates. Combining these estimates with the hourly rates as specified by Peppr (which they claim are inline with the market) for both the development of the visuals as the development of the application makes for an estimate in cost.\newline
+\subsection{What are the cost differences for development?}
+To answer this question properly, a division in setup / creation costs, maintenance costs, and upgrade costs (adding components and adapting the configurator for other clients) was made. To determine the setup / creation costs, a start was made by estimating the time needed on both projects. The previously used example was used for both estimates. Combining these estimates with the hourly rates as specified by Peppr (which they claim are inline with the market) for both the development of the visuals as the development of the application makes for an estimate in cost.\newline
 For the maintenance costs there were two major components that determined pricing. The first being the upgrade cycle for a CMS. The second being the upgrade cycle for a fully custom piece of software. To pin down the costs for the upgrade cycles, the average NPM and Bower upgrade cycle was checked. Combining those with average server / deployment costs which are both needed for a CMS configurator and custom software configurator, a conclusion with regards to those costs could be made.\newline
-Last but not least, as this is the place were Peppr anticipated the biggest wins in terms of costs, a costs difference for adding extra options to the configurator had to be made. This was done by comparing the time specified by Peppr to add an extra component to the configurator to the time it took them to create on in the new situation.\newline
+Lastly, and this is the place were Peppr anticipated the biggest wins in terms of costs, a costs difference for adding extra options to the configurator and completely adapting it to a new situation had to be made. This was done by comparing the time specified by Peppr to add an extra component to the configurator to the time it took them to create on in the new situation. \newline
 These three properties combined answered the question.
 % Estimate time for both projects
 % Find 3d pricing
@@ -351,33 +351,7 @@ These three properties combined answered the question.
 %   What are the differences in Workflows
 %----------------------------------------------------------------------------------------
 \subsection{What are the differences in Workflows?}
-
-%----------------------------------------------------------------------------------------
-%   How flexible is the end result compared to previous generation configurators
-%----------------------------------------------------------------------------------------
-\subsection{How flexible is the end result compared to previous generation configurators}
-% Estimate time in old way
-% Find 3 different product configurators
-% See how far we get re-building them using the CMS
-% Estimate time in new way
-
-%----------------------------------------------------------------------------------------
-%   How easy is it so maintain the application compared to existing configurators?
-%----------------------------------------------------------------------------------------
-\subsection{How easy is it so maintain the application compared to existing configurators?}
-% Interview Frederick with regards to maintaining the application / costs (what is it like owning a setup like that)
-% --> from "What is the cost difference for development?"
-% Use CMS average upgrade cyclus
-% Use NPM package average upgrade cyclus
-% Use main NPM package upgrade cyclus
-
-%----------------------------------------------------------------------------------------
-%   How easy is it to add new options to the configurator compared to the existing configurators?
-%----------------------------------------------------------------------------------------
-\subsection{How easy is it to add new options to the configurator compared to the existing configurators?}
-% Estimate time in old way
-% Add new options to configurator
-% Estimate time in new way
+Dissecting the workflow as described by Peppr and combining that with the workflow used to create the prototype gave enough information to clearly state the differences.
 
 %----------------------------------------------------------------------------------------
 %   User Experience
@@ -386,16 +360,19 @@ These three properties combined answered the question.
 Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.
 
 %----------------------------------------------------------------------------------------
-%   Is the technology compatible with the users browsing preferences?
-%----------------------------------------------------------------------------------------
-\subsection{Is the technology compatible with the users browsing preferences?}
-% Scan 'caniuse.com' for theoretical problems
-% Setup domain with browserify and see how it renders
-
-%----------------------------------------------------------------------------------------
 %   Is the new technology small enough?
 %----------------------------------------------------------------------------------------
 \subsection{Is the new technology small enough?}
+This was done by recording network activity while loading the application for the SlimFitted configurator, and also for the OpenGL application. The browser used was Google Chrome, version 57.0.2987.110 with caches cleared. The following things were tested:
+\label{subsub:techSmall}
+​\begin{enumerate}
+\item {Initial Page Load}
+\item{5 colour changes (different)}
+\item {2 colour changes (switch back and forth) - This is to check how Chrome caches the objects}
+\item {2 component changes (different)}
+\item {2 component changes (switch back and forth) - This is to check how Chrome caches the objects}
+\end{enumerate}
+
 % Record network activity for three other product configurators that have a comparable setup
 % Record network activity for OpenGL version
 % Find average site size
@@ -405,8 +382,48 @@ Apart from the development cycle, the user experience is a huge part of whether 
 %   Is the new technology small enough?
 %----------------------------------------------------------------------------------------
 \subsection{Is the new technology quick enough?}
-% Old -- Record / time switching between 'models'
-% Old -- Record / time switching between 'materials'
-% New -- Record / time switching between 'models'
-% New -- Record / time switching between 'materials'
-% Use data from bandwidth to calculate average loading time per network type (2g, 3g, 4g, etc.)
+To check this, loading and rendering times were recorded in as described below. Instead of running the tests with throttling for every subcomponent / colour, the throttling was only done for the initial page load. The delay in time have be extrapolated to the other components using the information from \ref{subsub:techSmall}.
+​\begin{enumerate}
+\item {Initial Page Load (normal)}
+\item {Initial Page Load (throttled: "Regular 4G (20ms, 4.0Mb/s, 3.0Mb/s)")}
+\item {Initial Page Load (throttled: "Regular 3G (100ms, 750Kb/s, 250Kb/s)")}
+\item {Extrapolated page loading times with sizes specified in \ref{subsub:techSmall}}
+\end{enumerate}
+
+Another important factor for how quick the technology is, is the frames per second the graphics card can handle for the different devices. Testing this was done using a mobile low speed device (Apple iPhone 6 - 2014, retina display), a middle speed notebook (Apple Macbook - 2015, 1.1Ghz Intel Core M with Intel HD graphics, 2304 x 1440 resolution), and a high speed desktop computer (Apple Mac Pro 2013 - dual Xeon 2.7Ghz with dual AMD Firepro 500 graphics cards on two Dell 4k displays). ThreeJS statistics display was pulled from the ThreeJS example files to measure the FPS.
+​\begin{enumerate}
+\item {Frame 01 - Turntable}
+\item {Frame 01 - Interacting}
+\item {Frame 02 - Turntable}
+\item {Frame 02 - Interacting}
+\item {Frame 03 - Turntable}
+\item {Frame 03 - Interacting}
+\end{enumerate}
+
+
+%----------------------------------------------------------------------------------------
+%   Is the technology compatible with the users browsing preferences?
+%----------------------------------------------------------------------------------------
+\subsection{Is the technology compatible with the users browsing preferences?}
+To test this, a browser testing tool called 'Browserstack' was used. They have something called a 'live' feature, which lets one test an application while looking at an actual device screen, unfortunately, the iPhone 7 was not supported in this manner, but as it is the latest of Apple's smartphones, it had to be included in the test. The following browsers / devices were tested:
+​\begin{enumerate}
+\item {Android: Samsung Galaxy S7}
+\item {Android: Google Pixel}
+\item {Android: LG G5}
+\item {iOS: iPhone 7 --> Via iOS Simulator on 'Browserstack'}
+\item {iOS: iPhone 6s}
+\item {iOS: iPad Air 2}
+\item {Windows 10: Edge 15}
+\item {Windows 10: Firefox 53}
+\item {Windows 10: Chrome 58}
+\item {MacOS Sierra: Safari 10.1}
+\item {MacOS Sierra: Firefox 53}
+\item {MacOS Sierra: Chrome 58}
+\end{enumerate}
+
+The primary focus of the test was wether or not the application was compatible with the browsing preferences. The following things were tested for every device:
+​\begin{enumerate}
+\item {Did it render the chair?}
+\item {Is the user able to switch colours?}
+\item {Is the user able to switch frames?}
+\end{enumerate}
