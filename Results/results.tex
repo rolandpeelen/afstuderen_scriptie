@@ -16,10 +16,14 @@ WebGL renders the loaded models in realtime using software specified shaders. As
 
 \subsection{What are the cost differences for development?}
 \subsubsection{Creation}
-A breakdown of the time estimates can be found in attachment \ref{attachment:creationTime}. While massive savings are made in the graphics / 3d department, the software department will need to spend more time working on the application.
+A breakdown of the time estimates can be found in attachment \ref{attachment:creationTime}. While massive savings are made in the graphics / 3d department, the software department will need to spend more time working on the application. Doing everything internally at an hourly rate of €85, the total difference for the example application is €1260.83, a saving of 8.6\%. The interesting thing to note is the following: The more 3d work needs to be done, the more savings are made. In the example application there is not a whole lot of 3d modeling being done, so savings are relatively small. The software part will not be much bigger in another configurator with loads more 3d work, so the more complex the 3d part, the bigger the savings.
 
 \subsubsection{Maintenance}
-\subsubsection{Components & Colours}
+The average upgrade cycle for the CMS used in the SlimFitted configurator was 46 days (see \ref{attachment:magentoUpgradeCycle} - \cite{magentoReleaseHistory}). The average upgrade cycle for Angular was 31 days (see \ref{attachment:angularUpgradeCycle} - \cite{angularReleaseHistory}). This means slightly different things though. In the CMS version, this would mean that a technically inclined person (either from Peppr, or at the client) has to push an 'upgrade' button in the CMS. With non-breaking changes (i.e. changes in the subversions so the last X in X.X.X), this will not cause any issues. With breaking changes, they might pose an issue where a developer may have to enter and fix some things.\newline
+For the custom version, this means a different thing. While one could opt to only implement full version (i.e. X.X), this is generally considered to be a bad idea. Keeping software up-to-date is better. As such, a developer would have to look at the code ever month, upgrade the version, rebuild the application, test for bugs and bring it to production. Though the updates happen every month, the critical changes and breaking changes (whereby the application changes to such an extend that it may not work anymore) happening once very year or so (\ref{attachment:angularMajor}). This means every month a developer has to spend about an hour or two updating the application, and every year a bit more (4 to 8 hours).
+
+
+\subsubsection{Components \& Colours}
 
 \subsection {What are the differences in Workflows}
 \label{subsub:differencesInWorkflow}
