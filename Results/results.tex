@@ -5,30 +5,63 @@
     
 \chapter{Results}
 
+%----------------------------------------------------------------------------------------
+%   Development
+%----------------------------------------------------------------------------------------
 \section{Development}
 Developing a product configurator is by any measure no easy feat. Building it with realtime 3d technology may be even harder. The following three questions should be answered in this thesis.
-​\begin{enumerate}
-\item {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
-\item {What are the differences in Workflows}
 
-\item {What is the development cost difference both in time and money?}
-\item {How easy is it to maintain the application compared to existing configurators?}
-\item {Is the end-result flexible enough to be re-used for other clients?}
-\item {How easy is it to add new options to the configurator compared to the existing configurators?}
+\subsection {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
+WebGL renders the loaded models in realtime using software specified shaders. As seen in the analysis of the workflows in section \ref{subsub:differencesInWorkflow}, not only the rendering section disappeared in the workflow, but also the post production, compression and image planning. This meant the ability to eliminate all issues was there. There are some other points to consider though, which shall be discussed in detail in section \ref{discuss:developmentElimination}.
+
+\subsection{What are the cost differences for development?}
+\subsubsection{Creation}
+A breakdown of the time estimates can be found in attachment \ref{attachment:creationTime}. While massive savings are made in the graphics / 3d department, the software department will need to spend more time working on the application.
+
+\subsubsection{Maintenance}
+\subsubsection{Components & Colours}
+
+\subsection {What are the differences in Workflows}
+\label{subsub:differencesInWorkflow}
+Breaking down the old workflow into different sections gave the following:
+\begin{enumerate}
+	\item {\textit{Graphics}}
+	\item {Image Planning}
+	\item {Modeling}
+	\item {Lighting / Shading}
+	\item {Rendering}
+	\item {Post-Production}
+	\item {Compression}
+	\item {\textit{Software}}
+	\item {Functional Requirements}
+	\item {Technical Requirements}
+	\item {UX Development}
+	\item {Back-End Development}
+	\item {Front-End Development}
 \end{enumerate}
+
+While the new workflow gave us the following:
+\begin{enumerate}
+	\item {\textit{Graphics}}
+	\item {Modeling}
+	\item {\textit{Software}}
+	\item {Functional Requirements}
+	\item {Technical Requirements}
+	\item {UX Development}
+	\item {Back-End Development}
+	\item {Front-End Development}
+	\item {Lighting / Shading}
+\end{enumerate}
+
+The main differences looking at the surface are the Image Planning, Rendering, Post-Production and Compression. The software part remained quite similar, but the lighting / shading was added to the end of the software workflow in the WebGL variant. At first glance this seems a massive optimisation. But in the new workflow, there were some things that needed to be taken care of in a different way to counter those differences in workflow. Starting with the requirements and subsequently, the front-end and development. To show 3d models in browser, lots of extra time had to be spent developing a way to combine an implementation of ThreeJS and AngularJS (as seen in attachment \ref{attachment:creationTime}). The estimates not only show an increase in the time spent creating the front-end itself, but to create a fully fledged configurator with an administrative screen, the design as well as the implementation of such an application will cost more in terms of time.\newline
+As for the lighting / shading, the new workflow is different in that it is all done in software. This means that the shaders have to be programmatically implemented. While this may seem to cost more time, it actually does not. The shading and lighting can be viewed in realtime and as the possibilities within WebGL are not as great as they are in most 3d rendering packages, creating shaders is actually a lot quicker.
 
 %----------------------------------------------------------------------------------------
 %   User Experience
 %----------------------------------------------------------------------------------------
 \section{User Experience}
-Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.\begin{enumerate}
-\item {Is the technology compatible with the users browsing preferences?}
-\item {Is the technology new small enough?}
-\item {Is the technology new quick enough?}
-\end{enumerate}	
+Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.
 
-
-
-
-With regards to the adapting and of adding of components, there was a conceptual difference in the workflows that needed to be understood as well. Eventually, the product configurators end result needs to correspond with a product number that identifies that specific configuration and / or product. This can be done quite easily by combining the numbers X-X-X (Chair Colour - Frame Number - Frame Colour). The nature of the new way of doing things means that configurations are hierarchical. A frame has to have a material and that defines the number and colour of the frame. The nature of having a property means that once adding another frame type, it can automatically inherit the property from the other frames. This means that if the chair colour and frame number and frame colour have the proper numbers, they can automatically generate a product number on the go, without specifying them.\newline
-In the old situation, there was one image per configuration. This means that every time a component was added, someone had to specify the product number. As such, all the product numbers had to be entered manually (either in the file name of the image, or in the back-end) which in turn meant that every single configuration had to exist as a product in the configurator. In this case, the observed configurator was the Slimfitted configurator Peppr made earlier which used Magento as a CMS to handle the products. The software could have been written differently to handle automation of product numbers, but this could also result in overfitting.\newline
+\subsection {Is the technology new small enough?}
+\subsection {Is the technology new quick enough?}
+\subsection {Is the technology compatible with the users browsing preferences?}

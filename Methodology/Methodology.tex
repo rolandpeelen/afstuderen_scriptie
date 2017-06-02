@@ -54,6 +54,17 @@ While always difficult to estimate the exact requirements upfront, building a pr
 \subsection{Technical Requirements}
 Technical requirements are tricky in this case, as the prototype should be flexible and setting hard demands on for instance load times or uptimes, would interfere with the experiment. The most important thing is to see wether or not the functional requirements can be integrated and at what cost. The question for now is 'if' it is implementable, not when or how. As such, the technical requirements will be left unspecified.
 
+\subsection{UX Development}
+The first focus for this experiment is to check wether or not a WebGL product configurator will work from a technical point of view. The second component is if it is 'usable' as well. Next to working, the configurator has to work well. With regards to this, there are three points that need highlighting.
+\subsubsecion{Size}
+Keeping the size of the configurator in terms of downloading the models and textures small is important. More and more people are using tables and phones to browse the internet and in a time were there are still loads of data capped subscriptions available, the data burden on the user should be as small as possible.
+
+\subsubsecion{Speed}
+In conjunction with, and as a direct result from, the size of the application will affect how quickly it operates. But apart from the actual loading of the application, the usage should be quick as well. This will be done by optimising the 3d models to be the lowest possible size they can be while still remaining to be of a high enough quality to be a competitor to the pre-rendered images.
+
+\subsubsecion{Interface}
+The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype will use regular buttons, html and css for styling, with javascript for interaction. These technologies are widely used and adapting the interface to a more user friendly one can be done in a later stage. There is no use in designing a great interface only to find out building the prototype is not technically possible.
+
 \subsection{Technology Stack}
 Now that the requirements are set, the technology stack can be chosen. Below are the three most important components for this stack. The 3d section (\ref{subsub: 3d}) is where is explained if and if so which framework is necessary for the front-end of the application to handle and render the 3d files in realtime. In the front-end section (\ref{subsub: frontEnd}) several front-end setups shall be discussed. An explanation of why there is no need for a back-end in this prototype will be given in the back-end section (\ref{subsub: backEnd})
 
@@ -335,17 +346,10 @@ This question was answered by combining the experience taken from building the p
 \subsection{What are the cost differences for development?}
 To answer this question properly, a division in setup / creation costs, maintenance costs, and upgrade costs (adding components and adapting the configurator for other clients) was made. To determine the setup / creation costs, a start was made by estimating the time needed on both projects. The previously used example was used for both estimates. Combining these estimates with the hourly rates as specified by Peppr (which they claim are inline with the market) for both the development of the visuals as the development of the application makes for an estimate in cost.\newline
 For the maintenance costs there were two major components that determined pricing. The first being the upgrade cycle for a CMS. The second being the upgrade cycle for a fully custom piece of software. To pin down the costs for the upgrade cycles, the average NPM and Bower upgrade cycle was checked. Combining those with average server / deployment costs which are both needed for a CMS configurator and custom software configurator, a conclusion with regards to those costs could be made.\newline
-Lastly, and this is the place were Peppr anticipated the biggest wins in terms of costs, a costs difference for adding extra options to the configurator and completely adapting it to a new situation had to be made. This was done by comparing the time specified by Peppr to add an extra component to the configurator to the time it took them to create on in the new situation. \newline
+Lastly, and this is the place were Peppr anticipated the biggest wins in terms of costs, a costs difference for adding extra options to the configurator and completely adapting it to a new situation had to be made. There was a conceptual difference in the workflows that needed to be understood as well. Eventually, the product configurators end result needs to correspond with a product number that identifies that specific configuration and / or product. This can be done quite easily by combining the numbers X-X-X (Chair Colour - Frame Number - Frame Colour). The nature of the new way of doing things means that configurations are hierarchical. A frame has to have a material and that defines the number and colour of the frame. The nature of having a property means that once adding another frame type, it can automatically inherit the property from the other frames. This means that if the chair colour and frame number and frame colour have the proper numbers, they can automatically generate a product number on the go, without specifying them.\newline
+In the old situation, there was one image per configuration. This means that every time a component was added, someone had to specify the product number. As such, all the product numbers had to be entered manually (either in the file name of the image, or in the back-end) which in turn meant that every single configuration had to exist as a product in the configurator. In this case, the observed configurator was the Slimfitted configurator Peppr made earlier which used Magento as a CMS to handle the products. The software could have been written differently to handle automation of product numbers, but this could also result in overfitting.\newline
+As soon as this conceptual difference was looked at, the time differences in workflows were analysed to see the differences. \newline
 These three properties combined answered the question.
-% Estimate time for both projects
-% Find 3d pricing
-% Find developer pricing for CMS
-% Find developer pricing for custom
-% Check server costs
-% Check CMS average upgrade cyclus
-% Check NPM package average upgrade cyclus
-% Check main NPM package upgrade cyclus
-% Initial, Server costs, Upgrade costs
 
 %----------------------------------------------------------------------------------------
 %   What are the differences in Workflows
