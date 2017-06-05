@@ -6,16 +6,17 @@
 \chapter{Methodology}
 \label{chapter:methodology}
 \section{Introduction}
-Developing a product configurator is challenging. Building it using 3d technology may be even harder. When doing a small literature study for the theoretical framework, it became clear that there is a lot of research done into the computer science behind the proposed technology (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Next to that, loads of research has been done on the User Experience side of (web)applications (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is right at the intersection of the computer science side and user experience site. None of the found research highlighted the intersection. This means that some of the questions outlined below will need to be answered in by means of experiments
-Some can only be answered using this experimental type of setting. However, there are also some questions that could be answered using interviews or a literary study. But building a prototype was necessary and as these questions could also be answered with the help of the prototype, trying to find the answers in literature does not make sense.
-Basically, all questions that have to do with the development cycle, can be answered using this experimental type of research. Questions regarding the UX used a combination of literature and experimentation (as we need to define certain standards). The start of this section will be a deep dive into the methodology behind building the prototype, followed by the ways of researching the development and user experience research objectives.
+Developing a product configurator is challenging. Building it using 3d technology may be even harder. When doing a small literature study for the theoretical framework, it became clear that there is a lot of research done into the computer science behind the proposed technology proposed in this thesis (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Next to that, loads of research has been done on the User Experience side of (web)applications (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is right at the intersection of the computer science side and user experience site. None of the found research highlighted the intersection. This means that some of the research objectives need to be answered by means of experiments
+Some can only be answered using this experimental type of setting. However, there are also a couple of questions that could be answered using interviews or a literary study. But building a prototype was necessary and as these questions could also be answered with the help of the prototype, trying to find the answers in literature does not make sense.
+Basically, all questions that have to do with the development cycle, can be answered using this experimental type of research. Questions regarding the UX used a combination of literature and experimentation (literature for the need to define certain standards). The start of this section will be a plunge into the methodology behind building the prototype, followed several methods of researching the development and user experience research objectives.
 
 %----------------------------------------------------------------------------------------
 %   Experimental Prototype
 %----------------------------------------------------------------------------------------
 \section{Prototype Preparation}
 \subsection{Introduction}
-To keep the prototype as simple as possible, an analysis of the requirements will be made. After which, the development software stack will be chosen and the development will be started. As a rough example, the example used in the theoretical framework shall be used. Most of the workflow in the build of this prototype shall be inherited from Pepprs current workflow.
+\label{sub:prototypeIntroduction}
+To keep the prototype as simple as possible, an analysis of the requirements was made, after which, the development software stack was chosen and the development was started. As a rough example, the example used in the theoretical framework was used here as well. Most of the workflow in the build of this prototype was inherited from Peppr's current workflow. For clarification, here is the same example used in the introduction.
 
 \say{
 A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 3 different subframes. Two of the subframes are steel and can be either black or plain. The last frame is mostly made out of wood.
@@ -24,7 +25,7 @@ A chair manufacturer wants a product configurator for one of their most popular 
 \subsection{Requirements}
 
 \subsection{Functional Requirements}
-Looking at the outline above, there are basically two things the configurator needs to do; switch models (for frames) and switch colours (for both frames and seat). This should all be wrapped in a user interface where the user can change the colours and models. Some other things inherent to product configurators are needed as well. The requirements are as follows.
+Looking at the outline in Section \ref{sub:prototypeIntroduction}, there are basically two things the configurator needs to do; switch models (for frames) and switch colours (for both frames and seat). This should all be wrapped into a user interface where the user can change the colours and models. Some other things, inherent to product configurators, are needed as well. The requirements are as follows:
 
 \begin{itemize}
 	\item As a user, I want to be able to change the colour of the chair, in order to customise the product.
@@ -54,29 +55,29 @@ From here, some user-stories for the back-end can be made.
 While it is difficult to estimate the exact requirements upfront, building a product configurator prototype using this short set of functional requirements should be sufficient to answer the research questions. 
 
 \subsection{Technical Requirements}
-Technical requirements are difficult, as the prototype should be flexible and setting hard demands on for instance load times or uptime, would interfere with the nature of the experiment. The most important thing is to see wether or not the functional requirements can be integrated and at what cost. The question for now is 'if' the technology is implementable, not when or how. As such, the technical requirements will be left unspecified.
+Technical requirements are difficult, as the prototype should be flexible and setting hard demands on, for instance, load times or uptime would interfere with the nature of the experiment. The most important thing is to see whether or not the functional requirements can be integrated and at what cost. The question for now is 'if' the technology is implementable, not when or how. As such, the technical requirements will be left unspecified.
 
 \subsection{UX Development}
-The first focus for this experiment is to check wether or not a WebGL product configurator will work from a technical point of view. The second component is if it is 'usable' as well. Next to working, the configurator has to work well. With regards to this, there are three points that need highlighting.
+The first focus for this experiment is to check whether or not a WebGL product configurator works from a technical point of view. The second component is if it is 'usable' as well. It does not need to 'just' work, the configurator has to \textit{work well} . With regards to this, there are three points that need highlighting.
 \subsubsection{Size}
-Keeping the size of the configurator in terms of downloading the models and textures small is important. More and more people are using tables and phones to browse the internet and in a time were there are still loads of data capped subscriptions available, the data burden on the user should be as small as possible.
+Keeping the size of the configurator with regards to downloading the models and textures small is important. More and more people are using tablets and phones to browse the internet and in a time where there are still loads of data capped subscriptions available, the data burden on the user should be as small as possible.
 
 \subsubsection{Speed}
-In conjunction with, and as a direct result from, the size of the application will affect how quickly it operates. But apart from the actual loading of the application, the usage should be quick as well. This will be done by optimising the 3d models to be the lowest possible size they can be while still remaining to be of a high enough quality to be a competitor to the pre-rendered images.
+In conjunction with and as a direct result from, the size of the application will affect how quickly it operates. Apart from the actual loading of the application, the usage should be quick as well. This will be done by optimising the 3d models to be the lowest possible size they can be while still remaining high enough quality so they can compete with pre-rendered images.
 
 \subsubsection{Interface}
-The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype will use regular buttons, html and css for styling, with javascript for interaction. These technologies are widely used and adapting the interface to a more user friendly one can be done in a later stage. There is no use in designing a great interface only to find out building the prototype is not technically possible.
+The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype uses regular buttons, html and css for styling, with javascript for interaction. These are relatively standard and widely used across websites. As there is no use in designing a great interface only to find out building the prototype is not technically possible, the interface will stay relatively basic but will have the option to be expanded upon.
 
 \subsection{Technology Stack}
 Now that the requirements are set, the technology stack can be chosen. Below are the three most important components for this stack. In the 3d section (\ref{subsub: 3d}) is explained which framework is necessary for the front-end of the application to handle and render the 3d files in realtime. In the front-end section (\ref{subsub: frontEnd}) several front-end setups will be discussed. An explanation of why there is no need for a back-end in this prototype will be given in the back-end section (\ref{subsub: backEnd})
 
 \subsubsection{3d}
 \label{subsub: 3d}
-To display and render 3d models in browser, one can directly use the webGL api (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). Having little experience with these libraries, the decision on which framework to use was based on the amount of times users 'starred' (liked) a library on Github. Babylon was starred 4479 times, ThreeJS 32.763 times. Next to that, there are over 18.000 code changes on the ThreeJS and only a bit more than 6.600 on the Babylon Framework. This made ThreeJS the clear victor.
+To display and render 3d models in browser, one can directly use the webGL api (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). As Peppr has little experience with these libraries, the decision on which framework to use was based on the amount of times users 'starred' (liked) a library on Github (a site to host code). Babylon was starred 4479 times, ThreeJS 32.763 times. Next to that, there are over 18.000 code changes (commits) on the ThreeJS and only a bit more than 6.600 on the Babylon Framework. This made ThreeJS the clear victor.
 
 \subsubsection{Front-end}
 \label{subsub: frontEnd}
-Apart from the 3d specific side of the front-end, things like styling buttons and setting HTML syntax should be handled as well. Both of these are easily chosen. Basic HTML 5 will suffice for the document structure, while SCSS / SASS (\cite{scss}) is used for styling. SCSS is preferred over CSS as it supports nesting, functions and variables. So in CSS, one would write something like this;
+Apart from the 3d specific side of the front-end, things like styling buttons and setting HTML syntax should be handled as well. Both of these are easily chosen. Basic HTML 5 will suffice for the document structure, while SCSS / SASS (\cite{scss}) is used for styling. SCSS is preferred over CSS as it supports nesting, functions and variables. So in CSS, one would write something like this:
 
 \begin{lstlisting}[language=CSS]
 .button {
@@ -99,7 +100,7 @@ Apart from the 3d specific side of the front-end, things like styling buttons an
 \end{lstlisting}
 
 \clearpage
-While in SCSS, one would do the following. While it takes up slightly more lines of code, the obvious advantage is readability. The second advantage is that one can specify colours and variables in a slingle place and change the look of an entire application with just these variables.
+While in SCSS, one would do the following. While it takes up slightly more lines of code, one obvious advantage is readability. Another advantage is that one can specify colours and variables in a slingle place and change the look of an entire application with just a couple of variables ("\$button-clr" and "\$button-clr-success" in this case).
 
 \begin{lstlisting}[language=CSS]
 $button-clr: #333;
@@ -123,7 +124,7 @@ $button-clr-success: #00ff00;
 }
 \end{lstlisting}
 
-So for displaying the components to change the configuration, SCSS and HTML 5 will do. For loading the 3d models, ThreeJS will be used. The only component in this stack that is not accounted for, is data and data flow. How does the ThreeJS component know that an HTML 5 button was just pressed? There are numerous of ways to handle data flow within an application, MVC, MVP, MVVM (\cite{MVCMVPMVVM}) and many Javascript front-end frameworks to choose from (\cite{javascriptAnno2016}). This means choosing a framework to use is difficult. In case of this prototype Peppr thought it would be best to use that which they are familiar with and have used in a variety of projects; Angular. At the time of writing Angular 2 has just been released out of beta but support for it with the upcoming version of Angular 4 (they skipped version 3) do not make it suitable for building this prototype.
+So for displaying the components to change the configuration, SCSS and HTML 5 will do. For loading the 3d models, ThreeJS will be used. The only component in this stack that is not accounted for, is data and data flow. How does the ThreeJS component know that an HTML 5 button was just pressed? There are numerous ways to handle data flow within an application, MVC, MVP, MVVM (\cite{MVCMVPMVVM}) and many Javascript front-end frameworks to choose from (\cite{javascriptAnno2016}). This means choosing a framework and architecture to use is difficult. In case of this prototype Peppr thought it would be best to use that which they are familiar with and have used in a variety of projects; Angular. At the time of writing, Angular 2 has just been released out of beta but support for it with the upcoming version of Angular 4 (they skipped version 3) do not make it suitable for building this prototype.
 There is a bit of a learning curve to Angular and performance is one of its biggest short-comings. The performance issues Angular deals with are mostly due to the data binding and DOM watching. This is something the prototype will not be suffering from as there will be little to no required binding of data as the frame buffer where the 3d models are rendered are inside of a 'canvas' element. Within this element, there will be no DOM watching.
 
 \subsubsection{Back-end}
@@ -374,10 +375,13 @@ This was done by recording network activity while loading the application for th
 ​\begin{enumerate}
 \item {Initial Page Load}
 \item{5 colour changes (different)}
-\item {2 colour changes (switch back and forth) - This is to check how Chrome caches the objects}
+\item {2 colour changes (switch back and forth)}
 \item {2 component changes (different)}
-\item {2 component changes (switch back and forth) - This is to check how Chrome caches the objects}
+\item {2 component changes (switch back and forth)}
 \end{enumerate}
+
+The first page load is simply to compare the two configurators' base load. The 5 colour changes is a way to simulate the user trying to pick a colour. The same thing counts for the 2 component change. The others, were switching back and forth between two objects, is to see how the configurators handle caching. If the browser caches the images or models, it does not have to reload the model and thus, it saves bandwidth.
+There are a few things to note on this method, these will be explored in the discussion in Section \ref{chapter:discussion}.
 
 % Record network activity for three other product configurators that have a comparable setup
 % Record network activity for OpenGL version
@@ -397,6 +401,7 @@ To check this, loading and rendering times were recorded in as described below. 
 \end{enumerate}
 
 Another important factor for how quick the technology is, is the frames per second the graphics card can handle for the different devices. Testing this was done using a mobile low speed device (Apple iPhone 6 - 2014, retina display), a middle speed notebook (Apple Macbook - 2015, 1.1Ghz Intel Core M with Intel HD graphics, 2304 x 1440 resolution), and a high speed desktop computer (Apple Mac Pro 2013 - dual Xeon 2.7Ghz with dual AMD Firepro 500 graphics cards on two Dell 4k displays). ThreeJS statistics display was pulled from the ThreeJS example files to measure the FPS.
+
 ​\begin{enumerate}
 \item {Frame 01 - Turntable}
 \item {Frame 01 - Interacting}
@@ -406,12 +411,12 @@ Another important factor for how quick the technology is, is the frames per seco
 \item {Frame 03 - Interacting}
 \end{enumerate}
 
-
 %----------------------------------------------------------------------------------------
 %   Is the technology compatible with the users browsing preferences?
 %----------------------------------------------------------------------------------------
 \subsection{Is the technology compatible with the user's browsing preferences?}
-To test this, a browser testing tool called 'Browserstack' was used. They have something called a 'live' feature, which lets one test an application while looking at an actual device screen, unfortunately, the iPhone 7 was not supported in this manner, but as it is the latest of Apple's smartphones, it had to be included in the test. The following browsers / devices were tested:
+To test this, a browser testing tool called 'Browserstack' was used, they have a selection of latest browsers and something called a 'live' feature, which lets one test an application while looking at an actual device screen, unfortunately, the iPhone 7 was not supported in this manner (only while running in a simulator), but as it is the latest of Apple's smartphones, it had to be included in the test. The following browsers / devices were tested:
+\label{subsub:browsingprefs}
 ​\begin{enumerate}
 \item {Android: Samsung Galaxy S7}
 \item {Android: Google Pixel}
@@ -427,7 +432,7 @@ To test this, a browser testing tool called 'Browserstack' was used. They have s
 \item {MacOS Sierra: Chrome 58}
 \end{enumerate}
 
-The primary focus of the test was wether or not the application was compatible with the browsing preferences. The following things were tested for every device:
+The primary focus of the test was whether or not the application was compatible with the browsing preferences. The following things were tested for every device:
 ​\begin{enumerate}
 \item {Did it render the chair?}
 \item {Is the user able to switch colours?}

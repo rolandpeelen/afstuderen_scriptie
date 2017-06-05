@@ -12,31 +12,33 @@
 Developing a product configurator is by any measure no easy feat. Building it with realtime 3d technology may be even harder. The following three questions should be answered in this thesis.
 
 \subsection {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
-WebGL renders the loaded models in realtime using software specified shaders. As seen in the analysis of the workflows in section \ref{subsub:differencesInWorkflow}, not only the rendering section disappeared in the workflow, but also the post production, compression and image planning. This meant the ability to eliminate all issues was there. There are some other points to consider though, which shall be discussed in detail in section \ref{discuss:developmentElimination}.
+WebGL renders the loaded models in realtime using software specified shaders. As seen in the analysis of the workflows in Section \ref{subsub:differencesInWorkflow}, not only the rendering section disappeared in the workflow, but also the post production, compression and image planning. This meant the ability to eliminate all issues was there. There are some other points to consider though, which shall be discussed in detail in Section \ref{discuss:developmentElimination}.
 
 \subsection{What are the cost differences for development?}
 \subsubsection{Creation}
-A breakdown of the time estimates can be found in attachment \ref{attachment:creationTime}. While massive savings are made in the graphics / 3d department, the software department will need to spend more time working on the application. Doing everything internally at an hourly rate of €85, the total difference for the example application is €1260.83, a saving of 8.6\%. The interesting thing to note is the following: The more 3d work needs to be done, the more savings are made. In the example application there is not a whole lot of 3d modeling being done, so savings are relatively small. The software part will not be much bigger in another configurator with loads more 3d work, so the more complex the 3d part, the bigger the savings.
+A breakdown of the time estimates can be found in Attachment \ref{attachment:creationTime}. While massive savings are made in the graphics / 3d department, the software department will need to spend more time working on the application. Doing everything internally at an hourly rate of €85, the total difference for the example application is €1260.83, a saving of 8.6\%. The interesting thing to note is the following: The more 3d work needs to be done, the more savings are made. In the example application there is not a whole lot of 3d modeling being done, so savings are relatively small. The software part will not be much bigger in another configurator with loads more 3d work, so the more complex the 3d part, the bigger the savings.
 
 \subsubsection{Maintenance}
-The average upgrade cycle for the CMS used in the SlimFitted configurator was 46 days (see \ref{attachment:magentoUpgradeCycle} - \cite{magentoReleaseHistory}). The average upgrade cycle for Angular was 31 days (see \ref{attachment:angularUpgradeCycle} - \cite{angularReleaseHistory}). This means slightly different things though. In the CMS version, this would mean that a technically inclined person (either from Peppr, or at the client) has to push an 'upgrade' button in the CMS. With non-breaking changes (i.e. changes in the subversions so the last X in X.X.X), this will not cause any issues. With breaking changes, they might pose an issue where a developer may have to enter and fix some things.\newline
-For the custom version, this means a different thing. While one could opt to only implement full version (i.e. X.X), this is generally considered to be a bad idea. Keeping software up-to-date is better. As such, a developer would have to look at the code ever month, upgrade the version, rebuild the application, test for bugs and bring it to production. Though the updates happen every month, the critical changes and breaking changes (whereby the application changes to such an extend that it may not work anymore) happening once very year or so (\ref{attachment:angularMajor}). This means every month a developer has to spend about an hour or two updating the application, and every year a bit more (4 to 8 hours).
-
+The average upgrade cycle for the CMS used in the SlimFitted configurator was 46 days (see Attachment \ref{attachment:magentoUpgradeCycle} - \cite{magentoReleaseHistory}). The average upgrade cycle for Angular was 31 days (see Attachment \ref{attachment:angularUpgradeCycle} - \cite{angularReleaseHistory}). This means slightly different things though. In the CMS version, this would mean that a technically inclined person (either from Peppr, or at the client) has to push an 'upgrade' button in the CMS. With non-breaking changes (i.e. changes in the subversions so the last X in X.X.X), this will not cause any issues. With breaking changes, they might pose an issue where a developer may have to enter and fix some things.\newline
+For the custom version, this means a different thing. While one could opt to only implement full versions (i.e. X.X), this is generally considered to be a bad idea. Keeping software completely up-to-date is better. As such, a developer would have to look at the code at least every month, upgrade the version, rebuild the application, test for bugs and bring it to production. Though the updates happen every month, the critical and breaking changes (whereby the application changes to such an extend that it may not work anymore) happen once very year (Attachment \ref{attachment:angularMajor}). This means every month a developer has to spend about an hour or two updating the application, and every year a bit more (4 to 8 hours).
 
 \subsubsection{Components \& Colours}
+Attachment \ref{attachment:addingNewColour} shows the time difference when adding a new colour to the configurator. In the current workflow, the artist has to start with a check on the image planning as the new colour may need to have loads of images. Then the new colour has to be shaded properly. The shaded then has to be added to every single color file. In this case the assumption was made that a file would be created for every single colour. As such, in this case, merely copying that file and making the new colour would make it work. The files need to be rendered and post production needs to be done. The end result is 6 new images. Those have to be uploaded to the administration part of the configurator and then be integrated. All-in-all, the estimate is that this takes 5 hours.\newline
+In the WebGL workflow, there is no work that needs to be done in 3d. The only thing needed is adding the colour to the administrative back-end. Estimated at 15 minutes\newline
+Adding a component shows a different and yet familiar look. Attachment \ref{attachment:addingNewComponent} shows the estimate for adding a new component. In the current workflow, as with adding a colour, a check on the image planning is the start. After that, the new component (a new frame type) can be modeled. The shading part is where it starts getting a bit more time consuming. The split in files was made based on the colour of the chair. This means there is a file for every colour and adding a frame to the set needs to be done in all different files (25 times). This then needs to be rendered out and post-produced. As each frame has 2 different colours, there are 50 new images. After that, all images need to be uploaded and added to a set. Total estimate is 27 hours and 10 minutes.
+In the webGL workflow, there is less work overall. The object needs to be modeled. It takes less time to do so however, as the object can be made with less detail. The performance of 3d models in realtime environments like WebGL is better when objects have less polygons. The upside is that it is also quicker to make. The downside is less detail. In the current workflow, the effects of those extra polygons is present, but negligible. The total time it would cost to create and add a new component to the system would take 1 hour and 40 minutes.
+
 
 \subsection {What are the differences in Workflows}
 \label{subsub:differencesInWorkflow}
 Breaking down the old workflow into different sections gave the following:
 \begin{enumerate}
-	\item {\textit{Graphics}}
 	\item {Image Planning}
 	\item {Modeling}
 	\item {Lighting / Shading}
 	\item {Rendering}
 	\item {Post-Production}
 	\item {Compression}
-	\item {\textit{Software}}
 	\item {Functional Requirements}
 	\item {Technical Requirements}
 	\item {UX Development}
@@ -46,9 +48,7 @@ Breaking down the old workflow into different sections gave the following:
 
 While the new workflow gave us the following:
 \begin{enumerate}
-	\item {\textit{Graphics}}
 	\item {Modeling}
-	\item {\textit{Software}}
 	\item {Functional Requirements}
 	\item {Technical Requirements}
 	\item {UX Development}
@@ -67,5 +67,18 @@ As for the lighting / shading, the new workflow is different in that it is all d
 Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.
 
 \subsection {Is the technology new small enough?}
+All page loads can be found in Attachment \ref{attachment:initialLoadSlimFitted} through \ref{attachment:2differentComponentsWebGL} while an overview can be found in Attachment \ref{attachment:pageLoadSize}. There are some interesting things happening here. For one, the initial page load is actually smaller than the initial page load for the SlimFitted version (4.2mb for the WebGL version and 6.7mb for the SlimFitted). This is partly due to pre-loading. The SlimFitted configurator pre-loads all different versions of a colour as soon as it is clicked. This is done to make the configurator feel quicker. \newline
+When looking at the 5 colour changes, the page load on the SlimFitted configurator goes up to 33.9mb, while the WebGL stays at 4.2mb. The reason for this difference is two-fold. On the one hand, the SlimFitted configurator pre-loads all of the colours and loads 5 different colours. The second part is that the WebGL configurator applies a different material to the 3d model, only changing one property with a line of code. The WebGL configurator does not need to load anything in order to do that. As such, the used bandwidth stays the same.\newline
+The same thing counts for the 2 colour change when splitting back and fourth. Caching the images works as expected and the second set of images is loaded, but when switching back to the initial colour, the browser uses the cached versions and does that change does not increase any bandwidth.\newline
+As soon as actual model changes are happening, there is a difference. In the SlimFitted version the behavior is as expected. As it has pre-loaded all different configurations, there is no extra bandwidth used to change to a different version. The WebGL version does not pre-load other frames, as such, it has to download the frame on request, adding to the bandwidth. In this case the bandwidth went up to 10.2mb when two changes were made. \newline
+The last change measured load is the one when switching back and forth between 2 components. The SlimFitted configurator behaved like above as it has preloaded everything. The WebGL configurator does the same thing as it does above as well. However, in this case, as we are going back to a previously downloaded model, this means that no caching has occured.
+
+
 \subsection {Is the technology new quick enough?}
+There are two pieces of information to review within this question. The first is regarding to the page load and how it translates to time, the second is how many frames per second are displayed in the WebGL configurator. In Attachment \ref{attachment:pageLoadTime}, the page load with and without throttling can be found. The initial page load for the SlimFitted configurator is around 2 seconds, while the one for the WebGL configurator is around 1 second. This includes rendering the actual page. When simulated on a 4g connection, this translates to roughly 14 seconds for the SlimFitted Configurator and 9 seconds for the WebGL version. Going even further and testing on a simulated 3d connection, the SlimFitted configurator loads in 1 minut and 12 seconds, while the WebGL version did it in roughly. The full set of data can be found in Attachment \ref{attachment:pageLoadTime}. \newline
+The second part of this question is displayed in Attachment \ref{attachment:fps}. The Mac Pro remained very consistent hitting 60fps on all accounts (this is interesting, more on that in Chapter \ref{chapter:discussion}). The Macbook averaged out on 27fps and the iPhone on 19fps. Both Macbook and iPhone fluctuated a little in fps while the Mac Pro remained consistend.
+
 \subsection {Is the technology compatible with the user's browsing preferences?}
+In Attachments \ref{attachment:GalaxyS7} through \ref{attachment:Windows10Firefox}, screenshots can be found with the running application. In \ref{attachment:compatibility}, an overview can be found of the different options tested. There were no problems found with regards to compatibility.
+
+

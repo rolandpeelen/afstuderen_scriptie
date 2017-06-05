@@ -43,16 +43,16 @@ Product configurators may have to deal with an exponentially growing set of opti
 
 To calculate the full amount of options ($y$), we can use the following formula:
  
-\[ y1 = \alpha \cdot \beta \cdot \gamma\]
-\[ y1 = 25 \cdot 3 \cdot 2\]
-\[ y1 = 150\]
+\[ y_1 = \alpha \cdot \beta \cdot \gamma\]
+\[ y_1 = 25 \cdot 3 \cdot 2\]
+\[ y_1 = 150\]
 
-Adding just one extra colour option to the seat more adds 6 extra renders (26 \cdot 3 \cdot 2). While this does not seem like much, these renders are built from several different files. This means an artist has to open 6 different files and do the edit 6 times.
+Adding just one extra colour option to the seat more adds 6 extra renders ($26 \cdot 3 \cdot 2$). While this does not seem like much, these renders are built from several different files. This means an artist has to open 6 different files and do the edit 6 times.
 In some cases one might be able to get around it using layered images. In this case, splitting up the chair into a layer that contains the seat and one that contains the frame will get us the following formula:
 
-\[ y2 = \alpha + (\beta \cdot \gamma)\]
-\[ y2 = 25 + (3 \cdot 2) \]
-\[ y2 = 31\]
+\[ y_2 = \alpha + (\beta \cdot \gamma)\]
+\[ y_2 = 25 + (3 \cdot 2) \]
+\[ y_2 = 31\]
 
 This decreases the amount of renders drastically. Unfortunately, while this works here, in some cases this is not possible. Sometimes, one of the pieces of the model (frame for instance) is both in front and behind other objects. This makes it difficult to create an image set for those pieces. For instance, when there is a second seat that is transparent at certain points. In that case, it needs to show the frame through the seat, this means a second image set is needed for the frames. The biggest issue in this case however (and why it will not work for this configurator) is that the frame will have reflections of the chair. So when the colour of the chair changes, the reflections should be updated as well. As such, while adding the frame to a separate layer is a possibility, it would still need a version for every seat colour. Also, creating new layers does add complexity and constraints. Adding additional options later on might prove difficult when they overlap with existing layers.
 \newline
@@ -132,21 +132,21 @@ Peppr opts to use third party render-engines for their projects, mostly due to t
 
 Refractions are even more difficult because of the Index of Refraction. This index specifies change of angle in a lightray when it goes from one material to another (\cite{refractiveIndex}). Water (at 20\degree C) for instance, has an IOR of 1.333 (\cite{waterIOR}). This means that, next to the light rays bouncing, they can also change direction.
 
-The third and last part that makes rendering images a lengthy task is anti-aliasing. Anti-aliasing is a way of making the images 'smooth'. It has to do with the square nature of pixels. A diagonal line will not look smooth if it is just one line of pixels. Instead, the pixels directly surrounding it get a semi-translucent fill, which makes the line look smooth. The blending of colours (while not overdoing it) is the anti-aliasing part.
+The third and last part that makes rendering images a lengthy task is anti-aliasing. Anti-aliasing is a way of making the images 'smooth'. It has to do with the square nature of pixels. A diagonal line will not look smooth if it is just one line of pixels. Instead, the pixels directly surrounding it get a semi-translucent fill, which makes the line look smooth. The blending of colours (while not overdoing it) is the anti-aliasing part, this is a very slow process that demands high computing powers.
 
-Peppr uses these intricate render-engines to fine-tune the render-settings. For studio setups, where direct lights are the most important light sources, Peppr might choose to use a set of settings where the secondary bounces of light are of lesser quality than an interior scene, where most light comes from the light bouncing on the floor (mostly indirect).
+Peppr uses these intricate render-engines to fine-tune the render-settings. For studio setups, where direct lights are the most important light sources, Peppr might choose to use a set of settings where the secondary bounces of light are of lesser quality than, for instance, a 3d interior scene, where most light comes from the light bouncing on the floor (indirect).
 \newline
 \newline
 \textit{Automation}
 \newline
-Sometimes it is easier to render out the whole sequence with every configuration. Other times, it is easier to render just one point-of-view at a time. In the case of the shirt configurator, every shirt had many different collars, sleeves, buttons, but also colours. There are numerous ways of splitting this up, automating the process as much as possible. Most 3d applications allow for animations. By changing one aspect of the model for every rendered frame and rendering it out as an image sequence, the rendering process can be partly automated. The problem with this is that it will always be a choice of lesser evils. While rendering the sequence, it is important to have the most changes possible rendered at once. In the shirt configurator case, this meant splitting it up so that there is a file for every colour. This means the file structure is somewhat logical (a file for every colour) and changing one aspect is relatively easy. Unfortunately, this is by no means ideal. Some changes have to be done 25 times (one for every colour).
+Sometimes it is easier to render the whole sequence with every configuration. Other times, it is easier to render just one point-of-view at a time. In the case of the shirt configurator, every shirt had many different collars, sleeves, buttons, but also colours. There are numerous ways of splitting this up, automating the process as much as possible. Most 3d modeling applications have a way to animated models, either frame-by-frame or using blending. By changing one aspect of the model for every frame and rendering it out as an image sequence, the rendering process can be partly automated. The result of this is a sequence of images where one aspect of the model is changed with every image. The problem with this is that it will always be a choice of lesser evils. While rendering the sequence, it is key to look at the biggest common denominator and use that as a base. In the shirt configurator case, this meant splitting it up so that there is a file for every colour. This means the file structure is somewhat logical (a file for every colour) and changing one aspect is relatively easy. Unfortunately, this is by no means ideal. Some changes have to be done 25 times (one for every colour).
 
 
 %----------------------------------------------------------------------------------------
 %   Post Production
 %----------------------------------------------------------------------------------------
 \subsubsection{Post Production}
-Every 3d model needs a bit of post production. One of the reasons is simply to make the image look better using colour corrections. Another is when the model needs layers. The layers are rendered as a black and white map of the parts that will be needed in that specific layer. This is the step where the images would be split into those layers. In case of the shirt configurator this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure they would have one file per colour so they could easily copy changes from one set of colours to another. In figure \ref{figure:post_production}, the background has been removed and some slight colour corrections have been made to make the colour stand out a bit more.
+Every 3d model needs a bit of post production. There are two main reasons for this, one is to make the image look better using colour corrections, the other when the model is rendered using layers and those need to be split into several image files. The layers are rendered as a black and white map of the parts that will be needed in that specific layer. This is the step where the images would be split into those layers. In case of the shirt configurator this has partly been automated. Using the same animation principles highlighted in the 'Render' section, Peppr made sure the post-production files would have all the options for for a single colour shirt so they could easily copy changes from one set of colours to another. In Figure \ref{figure:post_production}, the background has been removed and some minor colour corrections have been made to make the colour stand out a bit more.
 \newline
 
 \begin{figure}
@@ -159,30 +159,20 @@ Every 3d model needs a bit of post production. One of the reasons is simply to m
 %   Compression
 %----------------------------------------------------------------------------------------
 \subsubsection{Compression}
-Using images on the web, especially on bigger resolution displays, small file sizes are important. Current mobile data speeds are not helping, but the trend towards contracts that do not have a data cap helps. As of yet though, laying a 50mb download on the user when opening a site is not a good idea. According to the W3C guidelines, the file size should not exceed 20 kilobytes (\cite{pageFileSizeLimit}). This is were compression comes in. Every image is compressed for a fast download, while remaining good quality. The 20 kilobytes stated by the W3C guidelines are unfortunately not an option as one image is probably bigger than that, but a best effort to make the images as tiny as possible is still required.
-A couple of things can be done to achieve this. First and foremost the image should be the proper size. The rendered image is 2000 x 2000 pixels (w x h). The images for the shirt configurator by Peppr were only required to be 800 x 500. Making the image 800 x 800 reduced it from 445kb to 91kb. This is a big change in itself, but  proper compression can take this even further. Using an application like ImageOptim (\cite{imageOptim}), the size is further reduced to a mere 68kb. The savings from 91kb down to 68kb do not sound like much, but when there is an image set of hundreds of images, shaving 25\% off of the filesize counts.
-
-
-%----------------------------------------------------------------------------------------
-%   Aims
-%----------------------------------------------------------------------------------------
-\subsubsection{Research objectives}
-\begin{enumerate}
-	\item {Is it possible to eliminate all issues with regards to rendering?}
-	\item {How easy is it to add new options to the configurator compared to the existing configurators?}
-\end{enumerate}
+When using the final images on the web (which was the case in this instant), small file sizes are important. Laying a 50mb download on the user when opening a site is not a good idea, this will be slow and will not be nice for users that have a datacap on their subscription. According to the W3C guidelines, the file size should not exceed 20 kilobytes (\cite{pageFileSizeLimit}). This is were compression comes in. Every image is compressed for a fast download, while remaining good quality. The 20 kilobytes stated by the W3C guidelines are unfortunately not an option as one image is probably bigger than that, but a best effort to make the images as tiny as possible is still required.
+A couple of things can be done to achieve this. First and foremost the image should be the proper size. The rendered image is 2000 x 2000 pixels (w x h). The images for the shirt configurator by Peppr were only required to be 800 x 500. Making the image 800 x 800 reduced it from 445kb to 91kb. This is a big change, but  proper compression can take this even further. Using an application like ImageOptim (\cite{imageOptim}), the size is further reduced to a mere 68kb. The savings from 91kb down to 68kb do not sound like much, but when there is an image set of hundreds of images, shaving 25\% off of the filesize counts.
 
 %----------------------------------------------------------------------------------------
 %   Software
 %----------------------------------------------------------------------------------------
 \subsection{Software}
-Now that the graphics process has been described, it is time to deep dive into the software development cycle. In general, the software and graphics development happen simultaneously with both working in tandem to make sure they work with each other properly when finished.
+Now that the graphics process has been described, it is time to dive into the software development cycle. While described in 
 ​
 %----------------------------------------------------------------------------------------
 %   Functional Requirements
 %----------------------------------------------------------------------------------------
 \subsubsection{Functional Requirements}
-Functional requirements help map out required functionality of an application. In an agile (\cite{agileUserStories}) working environment, these are 'user stories'. Peppr prefers the term requirements. They do generally use the same notation. \newline
+Functional requirements help map out required functionality of an application. In an agile (\cite{agileUserStories}) working environment, these are 'user stories'. Peppr prefers the term requirements. They generally use the same notation. \newline
 
 \say{\textit{As a <type of user>, I want <some goal>, so that <some reason>}}\newline
 
@@ -194,7 +184,7 @@ In the context of the configurator specified above, a requirement could be: \new
 %   Technical Requirements
 %----------------------------------------------------------------------------------------
 \subsubsection{Technical Requirements}
-Contrary to popular belief, these requirements are not the implementation details of the functional requirements. They are the requirements to the system itself. The technical requirements handle things like performance, availability and security. Some put these in a list \cite{agileTechnicalRequirements}, but Peppr uses the same format as the user stories. \newline
+Contrary to popular belief, these requirements are not the implementation details of the functional requirements. They are the requirements of the system itself. The technical requirements handle things like performance, availability and security. In the official agile requirements, they are put in to a summarized list \cite{agileTechnicalRequirements}, but Peppr opts to use the same format as the user stories. \newline
 
 
 \say{\textit{A \textbf{<type of system>} should \textbf{<do something>} so that \textbf{<some reason>}.}}\newline
@@ -207,12 +197,12 @@ Peppr uses this to differentiate between different types of systems. An example 
 %   CMS
 %----------------------------------------------------------------------------------------
 \subsubsection{CMS}
-A content management system has basic functionality built in (like user management, file handling). It does however, require  the developer to work in the way the system intended. The other option is to go with a system that is written from the ground up. It will be much leaner and quicker when deployed, but will not be as mature as a popular CMS. So if the system is not built right, it may result in a buggy experience for the end user. In Peppr's case, a CMS called Magento was used during implementation. One thing to keep in mind. In case of a custom application, a back-end needs to be developed as well.
+A content management system (CMS) has basic functionality built in (like user management, file handling). It does however, requires the developer to work in the way the system intended. The other option is to go with a system that is written from the ground up. It will be much leaner and quicker when deployed, but will not be as mature as a popular CMS. So if the system is not built right, it may result in a buggy experience for the end user. In Peppr's case, a CMS called Magento was used during implementation. One thing to keep in mind: In case of a custom application, a back-end needs to be developed as well.
 %----------------------------------------------------------------------------------------
 %   UX Development
 %----------------------------------------------------------------------------------------
 \subsubsection{UX Development}
-While the term 'UX' gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of customising a product. It is how they learn to use the product configurator. How the application can help the user in the best possible way to do so. Don Normal (\cite{userExperience}) says: \newline
+While the term 'UX' gets thrown around a lot, the UX (User Experience) covers not only the UI of the application. It is a broader term to describe how users undergo the experience of using, in this case, the product configurator. It is how they learn to use the product configurator. Next to that, is should cover how the application can help the user in the best possible way to do so. For one, so the user can complete a configuration, but also that he / she does so with joy. Don Normal (\cite{userExperience}) says: \newline
 \say{\textit{The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own, a joy to use. True user experience goes far beyond giving customers what they say they want, or providing checklist features.}} \newline
 In other words, the user experience is not only about helping the user to meet his or her goal. It is to go beyond that, and make the experience joyful.
 
@@ -220,27 +210,17 @@ In other words, the user experience is not only about helping the user to meet h
 %   Back-End Development
 %----------------------------------------------------------------------------------------
 \subsubsection{Back-End Development}
-Techopedia (\cite{backendDevDefinition}) states that a back-end developer's task is to develop and maintain a logical or computational back-end for a website. Focussing on C++, C\#, Java, or another high-level programming language. Another Definition (\cite{backendDevDefinition}) states back-ends are mostly developed using either Ruby or Python.
+Techopedia (\cite{backendDevDefinition}) states that a back-end developer's task is to develop and maintain a logical or computational back-end for a website. Focussing on C++, C\#, Java or another high-level programming language. Another Definition (\cite{backendDevDefinition}) states back-ends are mostly developed using either Ruby or Python.
 In reality, any programming language that can interact with a database can act as a back-end. For instance, the 'Dollar Shave Club' uses 6 languages in their infrastructure (\cite{dollarShaveClubBackEnd}). 'Uber', uses a completely different stack (\cite{uberBackEnd}).
-Peppr generally uses a microservices architecture for their apps (\cite{microservices}). This pattern allows the use of different applications. So, Peppr can build each application using a specific language and with a specific target in mind. So imagine a configurator needs to stack images but also needs a realtime chatbot. Peppr will be able to handle the high concurrency using something like Elixr (\cite{elixr}). The realtime chatbot will then be made with Firebase, a realtime socket service (\cite{firebase}).
+Peppr generally uses a microservices architecture for their apps (\cite{microservices}). This pattern allows the use of different applications. So, Peppr can build each application using a specific language and with a specific target in mind. Imagine a configurator needs to stack images but also needs a realtime chatbot. Peppr will be able to handle the high concurrency using something like Elixr (\cite{elixr}). The realtime chatbot will then be made with Firebase, a realtime socket service (\cite{firebase}).
 
 %----------------------------------------------------------------------------------------
 %   Front-End Development
 %----------------------------------------------------------------------------------------
 \subsubsection{Front-End Development}
-According to Wikipedia, a Front-End Developer (\cite{frontEndDevDefinition}) produces the client-side interface. Wikipedia states that they use HTML, CSS and Javascript. However, anno 2016, Front-End Development has become quite a bit more than just that (\cite{javascriptAnno2016}). For relatively complex projects like configurators, building a front-end can be a daunting task. In a single page web application, you will want to serve the changes to the user instantly, without a page refresh. This requires a so-called asynchronous approach. 
+According to Wikipedia, a Front-End Developer (\cite{frontEndDevDefinition}) produces the client-side interface. Wikipedia states that they use HTML, CSS and Javascript. However, anno 2016, Front-End Development has become quite a bit more than just that (\cite{javascriptAnno2016}). For relatively complex projects like configurators, building a front-end can be a daunting task. In a single page web application, one wants to serve the changes to the user instantly, without a page refresh. This requires a so-called asynchronous approach. 
 Building an asynchronous application can be done in many ways. The most convenient way is to build a Single-Page-Application (SPA). This gives the user a desktop-like experience (\cite{singlePageApplications}). As stated on Wikipedia, there are some caveats to this, like search engine optimisation, speed and browser history. Fortunately, there are frameworks to help build an SPA. Anno 2017, the field of Front-End Development is clouded with frameworks to help build these types of applications. MeteorJS, React, Angular, Vue and many more (\cite{frontEndJavascriptFrameworks} ).
-Peppr develops most of their applications using Angular. They found that code maintenance and separation of concerns are best realised using an Model-View-Controller (MVC) type setup (more on that later). And they decided to use the AngularJS framework to create that setup.
-
-%----------------------------------------------------------------------------------------
-%   Aims
-%----------------------------------------------------------------------------------------
-\subsubsection{Research objectives}
-\begin{enumerate}
-	\item {What are the cost differences for development?}
-	\item {Is the new technology small enough?}
-	\item {Is the new technology quick enough?}
-\end{enumerate}
+Peppr develops most of their applications using Angular. They found that code maintenance and separation of concerns are best realised using a Model-View-Controller (MVC) type setup (more on that later). And they decided to use the AngularJS framework to create that setup.
 
 
 %----------------------------------------------------------------------------------------
@@ -248,24 +228,16 @@ Peppr develops most of their applications using Angular. They found that code ma
 %----------------------------------------------------------------------------------------
 \clearpage
 \section{OpenGL \& WebGL}
-Peppr stated the technology that possibly holds the answer is OpenGL and its web counterpart; WebGL.
-The first version of OpenGL was released March 2011 (\cite{openGLsite}). It is a software interface to allow programmers to interact with graphics hardware (\cite{openGLSpecification}). It is essentially an API acting as a middle man between software and hardware. In practice, this means that programmers will need only little (to no) hardware knowledge wile still being able to tap into the hardware calculation capacity. Normally, starting up an OpenGL application, it creates a window inside of the application that ties into the framebuffer (\cite{framebuffer}), basically a piece of RAM memory containing the bitmap. The application then holds a GL context, and the OpenGL commands can be used to modify and interact with the contents.
+Peppr suggested the technology that possibly holds the answer to a better configurator is OpenGL and its web counterpart; WebGL.
+The first version of OpenGL was released March 2011 (\cite{openGLsite}). It is a software interface to allow programmers to interact with graphics hardware (\cite{openGLSpecification}). It is essentially an API acting as a middle man between software and hardware. In practice, this means that programmers will need only little (to no) hardware knowledge while still being able to tap into the hardware calculation capacity. Normally, starting up an OpenGL application, it creates a window inside of the application that ties into the framebuffer (\cite{framebuffer}), basically a piece of RAM memory containing the bitmap. The application then holds a GL context (basically all the OpenGL state data for this frame buffer), and the OpenGL commands can be used to modify and interact with the contents.
 
-To use OpenGL on the web, one needs an API that interacts with OpenGL. This can be done server-side, with the result of the graphics hardware framebuffer being sent to the user (\cite{CRRS}). This means that any language parseable on a server that can send data out and has an OpenGL enabled graphics card, can be used. Even though this article stems from 2008, the problems stated with latency still exist today, even when taking their suggested and tested optimisations into consideration. Next to that, servers that have graphics cards are relatively expensive. Another option is client-side rendering. With the increase in speed for customer technology and the rise of smartphone usage, the amount of devices that have a graphics card and can use this technology increases. Unfortunately, it is not possible for (most) webbrowsers to directly communicate with the OpenGL framebuffer. Fortunately, there is a solution; WebGL.
+To use OpenGL on the web, one needs an API that interacts with OpenGL. This can be done server-side, with the result of the graphics hardware framebuffer being sent to the user (\cite{CRRS}). This means that any language parseable on a server that can send data out and has an OpenGL enabled graphics card, can be used. Even though this article stems from 2008, the problems stated with latency still exist today, even when taking their suggested and tested optimisations into consideration. Next to that, servers that have graphics cards are relatively expensive. Another option is client-side rendering. With the increase in speed for customer technology and the rise of smartphone usage, the amount of devices that have a graphics card and can use this technology increases. Unfortunately, it is not possible for (most) webbrowsers to directly communicate with the OpenGL framebuffer. Fortunately, there is a solution: WebGL.
 
 \say{WebGL is a cross-platform, royalty-free web standard for a low-level 3D graphics API based on OpenGL ES 2.0, exposed through the HTML5 Canvas element as Document Object Model interfaces.}
 \cite{webGL}
 
 WebGL technology renders from the graphics hardware (just like OpenGL). The key difference is that the API is exposed to an HTML5 canvas element. This means the framebuffer is not opened into an application window, but into an HTML5 canvas element. While this solves the issue of running GL content client-side, GLSL (the language used to interact with WebGL \& OpenGL) does not make it into the Stack Overflows Annual Survey (\cite{stackoverflowDeveloperSurvey}). This does imply it would be hard (and expensive) to find competent developers that can built an application using this technology.
 Fortunately, Peppr found a library that makes this easier. It uses the most popular language in the survey (Javascript). "Three.js", as the library is called, filled the last gap in client-side OpenGL / WebGL content. It supplies the option to code WebGL content with javascript, so there is no need for GLSL. The question remains, while javascript itself is adopted in most modern browsers (\cite{javascriptSupport}), will the three.js library work bug free in those browsers?
-
-%----------------------------------------------------------------------------------------
-%   Aims
-%----------------------------------------------------------------------------------------
-\subsubsection{Research objectives}
-\begin{enumerate}
-	\item {Is the technology compatible with the user's browsing preferences?}
-\end{enumerate}
 
 
 \newpage

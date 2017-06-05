@@ -3,24 +3,31 @@
 %----------------------------------------------------------------------------------------
 \chapter{Research Objectives}
 \section{Introduction}
-Peppr wants to know wether or not a WebGL product configurator that directly shows 3d models instead of images is a viable alternative to their current product configurators.. Not only in development but also in end user experience. To answer this, a deep dive into their current workflow and possible new technology has been done. In that dive, numerous questions arised that should help answer the main research objective. They are outlined below. Most of the objectives are open questions for which it is hard to specify a set of requirements for when that goal is met. They way these questions are answered is described in gread detail in chapter \ref{chapter:methodology}.
+Peppr wants to know wgether or not a WebGL product configurator that directly shows 3d models instead of images, is a viable alternative to their current product configurators. Not only in development but also in end user experience. To answer this, a dive into their current workflow and possible new technology is done. In that dive, numerous questions arised that should help answer the main research objective. They are outlined below. Most of the objectives are open questions for which it is hard to specify a set of requirements for when that goal is met. They way these questions are answered is described in gread detail in chapter \ref{chapter:methodology}.
 %----------------------------------------------------------------------------------------
 %   Development
 %----------------------------------------------------------------------------------------
 \section{Development}
 Developing a product configurator is challenging. Building it with realtime 3d technology may be even harder. The following three questions should be answered in this thesis.
-​\begin{enumerate}
-\item {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
-\item{What are the cost differences for development?}
-\item {What are the differences in Workflows}
-\end{enumerate}
+\subsubsection {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
+From the dive into the graphics section, there were some difficulties found with optimizing the image set and flexibility needed to add further components. It seemed making things easier when creating the configurator (using layers if possible) made it harder to add things later on and vice versa. A good test to see if WebGL configurators may be better is to see if these issues still exist.
+
+\subsubsection{What are the cost differences for development?}
+To assert whether or not Peppr's clients will benefit from the WebGL configurators, they not only have to be usable, but also cost efficient. If any, the difference in cost is a big factor in answering the main objective of this thesis.
+
+\subsubsection {What are the differences in Workflows}
+Looking at the differences in workflow between the current workflow and WebGL workflow may give some surprises. It may influence the way Peppr needs to attract staff or needs further expertise to do these types of project in the future.
 
 %----------------------------------------------------------------------------------------
 %   User Experience
 %----------------------------------------------------------------------------------------
 \section{User Experience}
-Apart from the actual development of the configurator, the user experience is a huge part of whether using WebGL configurators is viable or not. Even if the development is cheaper, when users cannot use the application, problems will arise and the old method may prove to be a better option.\begin{enumerate}
-\item {Is the technology new small enough?}
-\item {Is the technology new quick enough?}
-\item {Is the technology compatible with the user's browsing preferences?}
-\end{enumerate}
+Apart from the actual development of the configurator, the user experience is a huge part of whether using WebGL configurators is viable or not. Even if the development is cheaper, when users cannot use the application problems will arise and the old method may prove to be a better option.
+\subsubsection {Is the technology new small enough?}
+The current setup uses images for the representation of the configuration. The new way used 3d models. It may well be that these 3d models are of much bigger size than their image counterparts.
+
+\subsubsection {Is the technology new quick enough?}
+This question is similar to the previous one and while it in part is answered by that question, there is a second part to the speed of the application. The WebGL workflow requires for a user's device to render the configurator in realtime. There is the option that the device is not quick enough to render it might prove it to be difficult to make the configurator user friendly.
+
+\subsubsection {Is the technology compatible with the user's browsing preferences?}
+The option that the technology is not yet adapted in a mature enough manure for the user should not be ruled out.

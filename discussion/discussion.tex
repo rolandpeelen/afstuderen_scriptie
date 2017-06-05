@@ -1,19 +1,26 @@
 \chapter{Discussion}
+\label{chapter:discussion}
+\section{Introduction}
+When creating the prototype and researching the differences, some assumptions had to be made and some liberties had to be taken. Below is an outline of those. These should be taken into consideration when review this thesis.
+
+%----------------------------------------------------------------------------------------
+%   Configurator
+%----------------------------------------------------------------------------------------
+\section{Configurator}
+Comparing a configurator that was built as a prototype to a full fledged application does have some implications with which testing is hard. The first being that the application is just that, there is no website build around it that has to be loaded. The page load in terms of speed and size will be affected by this. The second is that all the data is mocked via a DataConstant. This means all the data that the application needs is readily available in the front-end. Normally, this would be fetched from an API, adding something like 300ms per request. As each dataservice would handle its own requests, there could be as many as 6 services simultaneously asking for data (in the startup cycle). At the time of writing and with the current state of the prototype, this could add as much as 1.8 seconds to the total load time as request are not handled in parallel. Http2 will solve this issue (\cite{latency}).\newline
+
+
 %----------------------------------------------------------------------------------------
 %   Development
 %----------------------------------------------------------------------------------------
 \section{Development}
-Developing a product configurator is by any measure no easy feat. Building it with realtime 3d technology may be even harder. The following three questions should be answered in this thesis.
-
 \subsection {Is it possible to eliminate all issues (time and automation) with regards to rendering?}
 \label{discuss:developmentElimination}
-WebGL renders the loaded models in realtime using software specified shaders. There was no rendering needed. This meant the ability to eliminate all issues was there. There are some other points to consider though, which shall be discussed in detail in section 
-
-This question was answered by combining the experience taken from building the prototype and the information given by Peppr. They helped outlining the current workflow so a good comparison between the current process and the hypothesized new process could be made.
-
+The elimination for all the rendering issues was possible in this case. This was mostly due to the fact that all needs for the shaders were met with the shaders from ThreeJS. Unfortunately, this might not always be the case. If the end result is not realistic enough, there is a way to pre-render the images while remaining a 3d model. This uses a technique called 'texture baking'. What in essence happens is that the model is rendered from every possible angle and the result from those renders is mapped onto the object, resulting in a textured 3d object that already has shadows and basic reflections mapped onto itself. A detailed explanation can be found in Article \cite{textureBaking}. While this is an option to make things more realistic, the burden on the user to download all the pre-rendered textures is bigger and it also means all issues with regards to image automation and rendering have returned.
 
 \subsection{What are the cost differences for development?}
-\subsection {What are the differences in Workflows}
+For consistency, the assumption was made that the files in the rendering were split up per colour. One could also opt to split them up with frames. This would make the amount of editing needed when adding another component less, but adding another colour greater. As specified before, it is and will remain a choice of lesser evils.\newline
+Looking at the maintenance cost, there is an increase in the amount of times an upgrade has to be done. This is however in the case Peppr opts to build a configurator for each of their clients. Peppr could also opt to make the configurator as a 'Service' whereby every client embeds a configurator on their website and Peppr maintains the application on their own servers. That way, every customer would get a configurator served from one codebase and instead of checking and upgrading all of their customers configurators, Peppr would have to do this in one place.
 
 %----------------------------------------------------------------------------------------
 %   User Experience
@@ -22,5 +29,14 @@ This question was answered by combining the experience taken from building the p
 Apart from the development cycle, the user experience is a huge part of whether using these types of configurators is viable or not. Even if the development is way cheaper, if users cannot use the application, problems will arise and the old method may prove to be a better option.
 
 \subsection {Is the technology new small enough?}
+On the surface it looks like comparing the images of the SlimFitted configurator to the WebGL configurator is an unfair test as both are completely different configurators. However, while exchanging the chairs to a 3d model of the shirt may result in a file size increase for the model. Doing the opposite and exchanging the images of the configurator to a version of the chair does not. The resolution and quality of the file should remain comparable to the one of the configurator.\newline
+In case the option to not preload the images for the SlimFitted configurator was made, the differences in file size would have been smaller. When building that configurator the choice was made because the images are swapped and when removing the first image to swap it with the second, there was a small gap where there would be no component displayed. This made the application feel slow. It could have been solved in two ways, the first being to block the whole window of the application while it is loading the other component (which was found not to be user friendly), the second being to pre-load all possible configurations as soon as a colour was chosen. There are other ways, like pre-loading only when the user goes to a next step, but those proved to be difficult and costly to implement. \newline
+There may be a possibility to make the 3d models smaller and have the browser cache them. This is an option that has been left unexplored for this thesis.
+
 \subsection {Is the technology new quick enough?}
+In all screenshots taken from Subsection \ref{subsub:browsingprefs}, there is also an fps count. They are much lower than the test results found in our results. The reason for this is that because these screenshots are taken mostly from actual devices running somewhere else in the world, they would have to be running some sort of screen capturing software. These types of software do have a hit on performance and it would not be surprising if this accounts for the difference in FPS.
+
 \subsection {Is the technology compatible with the user's browsing preferences?}
+The browsers used in the examples are the ones taken from the top of the lines at Browserstack. This means most latest browsers and devices are tested. As chrome, firefox and edge are all automatically updated, one can assume most users are running the last versions. The same thing counts for all the devices in the list. This assumption however has not been tested in this thesis. One could argue the necessity of this. On the one hand it is necessary to test it on the browser the users are using right now. On the other hand, as this is a first step in implementing this technology, chances are that by the time the software is actually implemented, current versions (and thus tested versions) are already surpassed with more modern versions.
+
+
