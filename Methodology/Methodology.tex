@@ -138,6 +138,8 @@ The data will be mocked using Angular's 'Constants' for the prototype. A constan
 \section{The prototype}
 \subsection{Introduction}
 The following section is a thorough description of the application architecture. A brief look into the workings of ThreeJS and its requirements will be first, following with an overview of the application's file structure, build process and automation setup for development. Finally, a section describing the architecture of the application.
+The prototype developed for these results can be found here: \url{http://peppr-configurator.herokuapp.com/}
+
 
 \subsection{ThreeJS}
 ThreeJS is an API that has some basic requirements to make it work (\cite{ThreeJSgettingStarted}). In the following sections we will outline the basic things we need to get started.
@@ -400,7 +402,7 @@ To check this, loading and rendering times were recorded in as described below. 
 \item {Extrapolated page loading times with sizes specified in \ref{subsub:techSmall}}
 \end{enumerate}
 
-Another important factor for how quick the technology is, is the frames per second the graphics card can handle for the different devices. Testing this was done using a mobile low speed device (Apple iPhone 6 - 2014, retina display), a middle speed notebook (Apple Macbook - 2015, 1.1Ghz Intel Core M with Intel HD graphics, 2304 x 1440 resolution), and a high speed desktop computer (Apple Mac Pro 2013 - dual Xeon 2.7Ghz with dual AMD Firepro 500 graphics cards on two Dell 4k displays). ThreeJS statistics display was pulled from the ThreeJS example files to measure the FPS.
+Another important factor for how quick the technology is, is the frames per second the graphics card can handle for the different devices. Testing this was done using a mobile low speed device (Apple iPhone 6 - 2014, retina display), a middle speed notebook (Apple Macbook - 2015, 1.1Ghz Intel Core M with Intel HD graphics, 2304 x 1440 resolution), and a high speed desktop computer (Apple Mac Pro 2013 - dual Xeon 2.7Ghz with dual AMD Firepro 500 graphics cards on two Dell 4k displays). ThreeJS statistics display was pulled from the ThreeJS example files to measure the FPS, it is in the online version of the configurator, but as it is just for this experiment, it has been left out of the description of the architecture of the application.
 
 ​\begin{enumerate}
 \item {Frame 01 - Turntable}
