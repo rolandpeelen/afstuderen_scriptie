@@ -4,30 +4,32 @@
 %  Introduction
 %----------------------------------------------------------------------------------------
 \chapter{Methodology}
+\label{chapter:methodology}
 \section{Introduction}
-Developing a product configurator is by any means no easy feat. Building it using 3d technology may be even harder. When doing a small documentary analysis to get and set a proper theoretical framework, it became abundantly clear that there is a lot of research done into the computer science behind the proposed technology (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Next to that, loads of research has been done into the User Experience side of (web)applications (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is quite specific and at this intersection of UX and Computer Science, there is little to no prior research. This means that some of the questions outlined below will need to be answered in an experimental way. There are a couple that can only be answered using this experimental type of setting. However, there are also some questions that could be answered using interviews or a documentary analysis. But with the need of actually building a prototype, going that way would be harder than to device an experiment using the prototype.
-Basically, all questions that have to do with the development cycle, can be answered using this experimental type of research. Questions regarding the UX mostly will follow a combination of multiple methods (as we need to define certain standards). The start of this section will be a deep dive into the methodology behind building the prototype, followed by the ways of researching the development and user experience research objectives.
+Developing a product configurator is challenging. Building it using 3d technology may be even harder. When doing a small literature study for the theoretical framework, it became clear that there is a lot of research done into the computer science behind the proposed technology (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Next to that, loads of research has been done on the User Experience side of (web)applications (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is right at the intersection of the computer science side and user experience site. None of the found research highlighted the intersection. This means that some of the questions outlined below will need to be answered in by means of experiments
+Some can only be answered using this experimental type of setting. However, there are also some questions that could be answered using interviews or a literary study. But building a prototype was necessary and as these questions could also be answered with the help of the prototype, trying to find the answers in literature does not make sense.
+Basically, all questions that have to do with the development cycle, can be answered using this experimental type of research. Questions regarding the UX used a combination of literature and experimentation (as we need to define certain standards). The start of this section will be a deep dive into the methodology behind building the prototype, followed by the ways of researching the development and user experience research objectives.
 
 %----------------------------------------------------------------------------------------
 %   Experimental Prototype
 %----------------------------------------------------------------------------------------
 \section{Prototype Preparation}
 \subsection{Introduction}
-To keep the prototype as simple as possible, an analysis of the requirements will be made. After which a development stack shall be chosen and the development will be started. As a rough example, the example used in the theoretical framework shall be used. Most of the workflow in the build of this prototype shall be inherited from Pepprs current Software Workflow.
+To keep the prototype as simple as possible, an analysis of the requirements will be made. After which, the development software stack will be chosen and the development will be started. As a rough example, the example used in the theoretical framework shall be used. Most of the workflow in the build of this prototype shall be inherited from Pepprs current workflow.
 
 \say{
-A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 4 different subframes. Two of the subframes are steel and can be either black or plain. The other two have wooden elements and have four wood colour options.
+A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 3 different subframes. Two of the subframes are steel and can be either black or plain. The last frame is mostly made out of wood.
 }
 
 \subsection{Requirements}
 
 \subsection{Functional Requirements}
-Looking at the outline above, there are basically two things the configurator needs to do; switch models (for frames) and switch colours (for both frames and chair itself). This should (logically) all be wrapped in a user interface where the user can switch the colours and models with their cursors. Some other things, inherit to product configurators are needed as well. To map these requirements in a way Peppr would do, these would amount to the following;
+Looking at the outline above, there are basically two things the configurator needs to do; switch models (for frames) and switch colours (for both frames and seat). This should all be wrapped in a user interface where the user can change the colours and models. Some other things inherent to product configurators are needed as well. The requirements are as follows.
 
 \begin{itemize}
-	\item As an end-user, I want a friendly way to change the colour of the chair
-	\item As an end-user, I want a friendly way to change the model of the frame
-	\item As an end-user, I want to see my newly build configurator in enough ways to make a proper assertion as to wether or not I would buy this object
+	\item As a user, I want to be able to change the colour of the chair, in order to customise the product.
+	\item As a user, I want to be able to change the colour of the frame, in order to customise the product.
+	\item As a user, I want to see the resulting chair from multiple perspectives, so that I can decide whether I am satisfied with the end result.
 \end{itemize}
 
 Dissecting these user-stories, some conclusions can be made as to what the front-end application of the system should do.
@@ -35,24 +37,24 @@ Dissecting these user-stories, some conclusions can be made as to what the front
 	\item As a front-end, I need to be able to load 3d models into my scene
 	\item As a front-end, I need a way to switch 3d models
 	\item As a front-end, I need a way to have materials on the 3d models
-	\item As a front-end, I need to show the 3d model realistic enough so the end-user can make a buy / do not buy choice
+	\item As a front-end, I need to show the 3d model in a realistic manner so the end-user can make a buy / do not buy choice
 	\item As a front-end, I need to have a way for the user to navigate the scene and see the model from several points-of-view
-	\item As a front-end, I need a way to know what colours the chair might have, so I can show the user his / her options
-	\item As a front-end, I need a way to keep track of what models are in my scene, so I can apply the colour to the right object
-	\item As a front-end, I need a way to keep track of the current configuration, so switching between different configurator options will keep the current configuration
+	\item As a front-end, I need a way to know which colours the chair might have, so I can show the user his / her options
+	\item As a front-end, I need a way to keep track of models in my scene, so I can apply the colour to the right object
+	\item As a front-end, I need a way to keep track of the current configuration, so I do not accidentally reset my configuration
 \end{itemize}
 
 From here, some user-stories for the back-end can be made.
 \begin{itemize}
 	\item As a back-end, I need to be able to supply 3d models to the front-end
-	\item As a back-end, I need to show the front-end what options are available (both for models, as well as colours)
+	\item As a back-end, I need to show the front-end what options are available (both for models and colours)
 	\item As a back-end, I need to supply multiple 3d models if any configuration requires more than one model for a subset
 \end{itemize}
 
-While always difficult to estimate the exact requirements upfront, building a product configurator prototype using this short set of functional requirements should be sufficient to answer the research questions. 
+While it is difficult to estimate the exact requirements upfront, building a product configurator prototype using this short set of functional requirements should be sufficient to answer the research questions. 
 
 \subsection{Technical Requirements}
-Technical requirements are tricky in this case, as the prototype should be flexible and setting hard demands on for instance load times or uptimes, would interfere with the experiment. The most important thing is to see wether or not the functional requirements can be integrated and at what cost. The question for now is 'if' it is implementable, not when or how. As such, the technical requirements will be left unspecified.
+Technical requirements are difficult, as the prototype should be flexible and setting hard demands on for instance load times or uptime, would interfere with the nature of the experiment. The most important thing is to see wether or not the functional requirements can be integrated and at what cost. The question for now is 'if' the technology is implementable, not when or how. As such, the technical requirements will be left unspecified.
 
 \subsection{UX Development}
 The first focus for this experiment is to check wether or not a WebGL product configurator will work from a technical point of view. The second component is if it is 'usable' as well. Next to working, the configurator has to work well. With regards to this, there are three points that need highlighting.
@@ -66,15 +68,15 @@ In conjunction with, and as a direct result from, the size of the application wi
 The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype will use regular buttons, html and css for styling, with javascript for interaction. These technologies are widely used and adapting the interface to a more user friendly one can be done in a later stage. There is no use in designing a great interface only to find out building the prototype is not technically possible.
 
 \subsection{Technology Stack}
-Now that the requirements are set, the technology stack can be chosen. Below are the three most important components for this stack. The 3d section (\ref{subsub: 3d}) is where is explained if and if so which framework is necessary for the front-end of the application to handle and render the 3d files in realtime. In the front-end section (\ref{subsub: frontEnd}) several front-end setups shall be discussed. An explanation of why there is no need for a back-end in this prototype will be given in the back-end section (\ref{subsub: backEnd})
+Now that the requirements are set, the technology stack can be chosen. Below are the three most important components for this stack. In the 3d section (\ref{subsub: 3d}) is explained which framework is necessary for the front-end of the application to handle and render the 3d files in realtime. In the front-end section (\ref{subsub: frontEnd}) several front-end setups will be discussed. An explanation of why there is no need for a back-end in this prototype will be given in the back-end section (\ref{subsub: backEnd})
 
 \subsubsection{3d}
 \label{subsub: 3d}
-To display and render 3d models in browser, one can directly use the webGL api (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). Having little to no experience with these libraries, the decision on which framework to use was made based on the amount of stars on Github. Babylon was starred 4479 times, ThreeJS 32.763 times, making ThreeJS the clear victor. Next to that, there are over 18.000 commits on the ThreeJS and only a bit more than 6.600 on the Babylon Framework.
+To display and render 3d models in browser, one can directly use the webGL api (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). Having little experience with these libraries, the decision on which framework to use was based on the amount of times users 'starred' (liked) a library on Github. Babylon was starred 4479 times, ThreeJS 32.763 times. Next to that, there are over 18.000 code changes on the ThreeJS and only a bit more than 6.600 on the Babylon Framework. This made ThreeJS the clear victor.
 
 \subsubsection{Front-end}
 \label{subsub: frontEnd}
-Apart from the 3d specific side of the front-end, things like styling buttons and setting HTML syntax should be handled as well. Both of these are easily chosen, basic HTML 5 will suffice for the lather, while an SCSS / SASS (\cite{scss}) is used for styling. SCSS has the advantage over CSS in that it has the ability to nest components, and use functions and variables. So in CSS, one would write something like this;
+Apart from the 3d specific side of the front-end, things like styling buttons and setting HTML syntax should be handled as well. Both of these are easily chosen. Basic HTML 5 will suffice for the document structure, while SCSS / SASS (\cite{scss}) is used for styling. SCSS is preferred over CSS as it supports nesting, functions and variables. So in CSS, one would write something like this;
 
 \begin{lstlisting}[language=CSS]
 .button {
@@ -97,7 +99,7 @@ Apart from the 3d specific side of the front-end, things like styling buttons an
 \end{lstlisting}
 
 \clearpage
-While in SCSS, one would do the following. While it takes up slightly more lines of code, the obvious advantages are readability, but also that one can specify colours and variables in one place and change the look of an entire application with just these variables.
+While in SCSS, one would do the following. While it takes up slightly more lines of code, the obvious advantage is readability. The second advantage is that one can specify colours and variables in a slingle place and change the look of an entire application with just these variables.
 
 \begin{lstlisting}[language=CSS]
 $button-clr: #333;
@@ -121,38 +123,38 @@ $button-clr-success: #00ff00;
 }
 \end{lstlisting}
 
-So for displaying the control components, SCSS and HTML 5 will do. For the 3d, ThreeJS will be used. The only component in this stack that is not accounted for, is data and data flow. How does the ThreeJS component know that an HTML 5 button was just pressed? There are loads of ways to handle data flow within an application, MVC, MVP, MVVM (\cite{MVCMVPMVVM}) and loads of Javascript front-end frameworks to choose from (\cite{javascriptAnno2016}). While the lather article explains the state of front-end development quite humorously, there is some truth to this. This means choosing a framework to use is tricky. In case of this prototype Peppr thought it would be best to use that which they are familiar with and have used in a variety of projects; Angular. At the time of writing Angular 2 has just been released out of beta, but support for it with the relatively quick upcoming version of Angular 4 (they skipped version 3) do not make it suitable for building this prototype.
-There is a bit of a learning curve to Angular and performance is one of its biggest short-comings. The performance issues Angular deals with are mostly due to the data binding and DOM watching. This is something the prototype will not be bottlenecking on as there will be little to no required binding of data as the frame buffer for the 3d output will be rendered to a Canvas element, in which there are no Angular watchers.
+So for displaying the components to change the configuration, SCSS and HTML 5 will do. For loading the 3d models, ThreeJS will be used. The only component in this stack that is not accounted for, is data and data flow. How does the ThreeJS component know that an HTML 5 button was just pressed? There are numerous of ways to handle data flow within an application, MVC, MVP, MVVM (\cite{MVCMVPMVVM}) and many Javascript front-end frameworks to choose from (\cite{javascriptAnno2016}). This means choosing a framework to use is difficult. In case of this prototype Peppr thought it would be best to use that which they are familiar with and have used in a variety of projects; Angular. At the time of writing Angular 2 has just been released out of beta but support for it with the upcoming version of Angular 4 (they skipped version 3) do not make it suitable for building this prototype.
+There is a bit of a learning curve to Angular and performance is one of its biggest short-comings. The performance issues Angular deals with are mostly due to the data binding and DOM watching. This is something the prototype will not be suffering from as there will be little to no required binding of data as the frame buffer where the 3d models are rendered are inside of a 'canvas' element. Within this element, there will be no DOM watching.
 
 \subsubsection{Back-end}
 \label{subsub: backEnd}
-The back-end in the prototypal form only needs to deliver data. In normal use cases, Peppr builds a RESTful (or 'representational state transfer' \cite{RESTful} ) API (Application Programming Interface) that delivers a JSON response. So the front-end sends out a request (POST, PUT, GET or DELETE), the API handles that request, does what is asked from it and responses with either a response code, or requested data. The response is formatted in JSON. 
-For the prototype, the data will be mocked using Angular's 'Constants'. A constant in Angular is basically a javascript object from which data can be pulled. To remain working in an MVC style framework, dataproviders or services (in the frontend) will fetch the needed data from the constant and delivered it where it needs. The API response times will not affect loading times too much. If a simulation of said delay is needed, the services together with Angular's \$timeout will allow a delay to be programmed into the response.
+The back-end in its prototypal form only needs to deliver data. In normal use cases, Peppr builds a RESTful (or 'representational state transfer' \cite{RESTful} ) Application Programming Interface (API) that delivers a JSON response. So the front-end sends out a request (POST, PUT, GET or DELETE), the API handles that request, does what is asked from it and sends a response with either a code, requested data, or both. The response is formatted in JSON. 
+The data will be mocked using Angular's 'Constants' for the prototype. A constant in Angular is basically a javascript object from which data can be pulled. To remain working in an MVC style framework, dataproviders or services (in the frontend) will fetch the needed data from the constant and deliver it where it needed. The API response times will not affect loading times too much. If a simulation of said delay is needed, the services together with Angular's \$timeout will allow a delay to be programmed into the response.
 
 %----------------------------------------------------------------------------------------
 %   The Prototype
 %----------------------------------------------------------------------------------------
 \section{The prototype}
 \subsection{Introduction}
-The following section will house a thorough description of the application architecture. A brief look into the workings of ThreeJS and its requirements will be first, following with an overview of the applications file structure, build process and automation setup for development. Finally, a section describing the Architecture of the application.
+The following section is a thorough description of the application architecture. A brief look into the workings of ThreeJS and its requirements will be first, following with an overview of the application's file structure, build process and automation setup for development. Finally, a section describing the architecture of the application.
 
 \subsection{ThreeJS}
-ThreeJS is an API that has some basic requirements to make it work (\cite{ThreeJSgettingStarted}). It is not much, but in the following sections we will outline the basic things we need to get started.
+ThreeJS is an API that has some basic requirements to make it work (\cite{ThreeJSgettingStarted}). In the following sections we will outline the basic things we need to get started.
 \subsubsection{Scene}
-A scene is the place that holds all of the other objects. Everything that is rendered by ThreeJS is placed inside the scene. The scene is eventually passed into the renderer. This also means there is only one scene that is rendered.
+A scene is an object that holds all of the other objects. Everything that is rendered by ThreeJS is placed inside the scene. The scene is eventually passed into the renderer. This also means there is only one scene that is rendered.
 \subsubsection{Camera \& Controls}
 The camera not only specifies the view, but just like a real camera, it also specifies things like the FOV (Field Of View) and focus distance. The controls are taken straight from the ThreeJS documentation (\cite{ThreeJSgettingStarted}) and control the panning speed, maximum distance, speed dampening factor, etc. These two things combined make sure the user can pan around an object and see it from every imaginable angle.
 \subsubsection{Renderer}
-The renderer get the scene and uses the WebGL context to convert is from a 3 dimensional state to a 2 dimensional state. Basically, it computes all lights, shadows, reflections and refractions in realtime and parses it into an image the user sees.
-\subsubsection{Object \& Material loader}
-The loaders are for the objects and materials. The '.OBJ' file format will be used to load 3d models and while the loader does support '.OBJ's accompanying '.MTL' material file format, the materials will be created on the fly so they can be tweaked easier.
+The renderer gets the scene and uses the WebGL context to convert it from a 3 dimensional state to a 2 dimensional state. Basically, it computes all lights, shadows, reflections and refractions in realtime and parses it into an image the user sees.
+\subsubsection{Object \& Material Loader}
+The loaders are for the objects and materials. The '.OBJ' file format will be used to load 3d models and while the loader does support the '.MTL' material file format, the materials will be created on the fly so they can be tweaked more easily.
 \newline
 The reason for highlighting these specific components is that these (amongst others) are split up into Angular Services for separation of concerns.
 
 \subsection{Scaffolding, Build and Automation}
-This section highlights the overall structure of the project without going in too much depth with regards to the architecture or code.
+This section shows the overall structure of the project without going too much indepth with regards to the architecture or code.
 \subsubsection{Scaffolding}
-To scaffold the application with the correct folder structure and dependencies, a Yeoman (\cite{yeoman}) setup was used. Yeoman is the 'THE WEB'S SCAFFOLDING TOOL FOR MODERN WEBAPPS'. It can be used to startup projects and to maintain best practices with regards to the aforementioned. In this case, a scaffolding configuration that is inline with the in-official Angular Styleguide was used (\cite{johnPapa}). The basic file structure it creates is as following;
+To scaffold the application with the correct folder structure and dependencies, a Yeoman (\cite{yeoman}) setup was used. Yeoman is 'the we's scaffolding tool for modern webapps' (self proclaimed). It can be used to start up projects and to maintain best practices. In this case, a scaffolding configuration that is in line with the in-official Angular Styleguide was used (\cite{johnPapa}). The basic file structure it creates is follows below.
 
 \begin{lstlisting}[language=CSS]
   bower.json --> Bower package management file
@@ -209,21 +211,21 @@ To scaffold the application with the correct folder structure and dependencies, 
   src/app/index.route.js   --> Base route file for Angular's UI-Router
 \end{lstlisting}
 
-Loads of these files can be removed as soon as the generator is finished. The most important part reason for using this generator is that the file structure itself and basic automation is setup.
+Lots of these files can be removed as soon as the generator is finished. The most important reason for using this generator is that the file structure itself and basic automation is made without any work.
 
 \subsubsection{Package Management}
-To manage 'plugins' used both during the development cycle (to minify javascript files for instance) and during production (for a stylized popup window), package managers are being used. The most important reason for this, is that when the project is moved from one location to another (from developer to developer, or development to production) the proper packages can be installed. The packages themselves become quite large. So keeping a reference to the packages makes the setup quicker. Next to that, the version control software used does not have to keep track of the actual packages, just of the reference to the package.
+To manage 'plugins' used both during the development cycle (to minify javascript files for instance) and during production, package managers are being used. The most important reason for this is that when the project is moved from one location to another (from developer to developer, or development to production) the proper packages can be installed. The packages themselves get quite large. So keeping a reference to the packages makes the setup faster. Apart from that, the version control software used does not have to keep track of the actual packages, just of the reference to the package.
 
 \subsubsection{Build Pipeline}
-Normally, development cycles have three stages; development, staging and production. In development, the developers work on a project from their machines on local networks and the whole web application is served from a local server running on the developers machine. This poses some possible issues once moving to production as, once things are running on production, there is a bug, it might be either the code that does it, but also the moving of the environment or even the build process itself. That is where the staging environment comes in. This is an intermediary environment, on the internet, which is used to test the product in a live-like environment. The environment uses the build files and the production server and database (albeit, an anonymized version running separate for obvious reasons).
+Normally, development cycles have three stages; development, staging and production. In development the developers work on a project from their machines on local networks and the whole web application is served from a local server running on said machine. This poses some issues once moving to production as, once things are running on production, there is a bug, it might be either the code that does it, but also the moving of the environment or even the build process itself. That is where the staging environment comes in. This is an intermediary environment, on the internet, which is used to test the product in a live-like environment. The environment uses the build files and the production server and database (albeit an anonymized version running separately for obvious reasons).
 \newline
-The local development environment is fully built to be as quick as possible. All javascript files are loaded in the way they are typed, none of them are compressed or minified. As soon as the developer makes a change, the application notices a change in files, updates the build and refreshes the browser(s). In this case, the generator used Gulp for this part of the automation process.
+The local development environment is built to be as fast as possible. All javascript files are loaded in the way they are typed, none of them are compressed or minified. As soon as developers make a change, the application notices a change in files, updates the build and refreshes the browser(s). In this case, the generator used Gulp for this part of the automation process.
 \newline
-When moving from the local environment to the staging or production environment, the set of javascript files are taken, minified and uglified and put into a separate 'build' or 'dist' (short for distribution) folder. The minifying removes all spaces and line-endings, while the uglyfying makes all variables shorter. This makes the files loads smaller and quicker to load. The same thing happens to the SCSS files.\newline
-The nature of the application in this case is that it is a so called SPA (Single Page Application). It uses a javascript router to detect for changes in URL or state and loads the corresponding HTML accordingly. In the build process, this needs a special treatment. All the HTML files are changed to inlined javascript files and made into one big template file for optimized caching.\newline
-Lastly, all these files need to be injected into the 'index.html' file so they are loaded. Gulp handles this as well and combines all javascript files into one, same for SCSS files and then injects them into the 'index.html'.\newline
-As soon as the build process is completed, it is ready for deployment on a webserver. In this case, the configurator was deployed to 'Heroku' (\cite{heroku}). Heroku takes a big chunk out of setting up a webserver for deployment. As they say: 'Setting up, operating and maintaining your own platform is not where the race is won. Avoid the risk and complexity, and dedicate your energy to what really matters: building great apps.'. In essence, their servers are split up and run applications for you. Heroku provides the developers with a command line interface to push their applications to the servers, or to connect with a version control system like Github for automatic deployments. The lather was used in this project. To serve the application itself, a tiny webserver application is still needed though. For the prototype, a Node based Express server was used.\newline
-From staging, the application can be tested. As soon as the tests are completed and the application is ready to go in production, the code from the staging or development branch is simply pushed over to the master (or production) branch in version control and Heroku takes it from there.
+When moving from the local environment to the staging or production environment, the set of javascript files are taken, minified and uglified and put into a separate 'build' or 'dist' (short for distribution) folder. The 'minifying' removes all spaces and line-endings, while the 'uglyfying' makes all variables shorter. This makes the files smaller and quicker to load. The same thing happens to the SCSS files.\newline
+The nature of the application in this case is that it is a so called SPA (Single Page Application). It uses a javascript router to detect for changes in URL or state and loads the corresponding HTML accordingly. In the build process, this needs a special treatment. All the HTML files are changed to inline javascript files and made into one big template file for optimized caching.\newline
+Lastly, all these files need to be injected into the 'index.html' file so they are loaded. Gulp handles this as well and combines all javascript files into one. The same thing counts for SCSS files, after which both javascript and css files are intjected into the 'index.html'.\newline
+As soon as the build process is completed, it is ready for deployment on a webserver. In this case, the configurator was deployed to 'Heroku' (\cite{heroku}). Heroku takes a big chunk out of setting up a webserver for deployment. In essence, their servers are setup to run an application for you. Heroku provides the developers with a command line interface to push their applications to the servers, or to connect with a version control system like Github for automatic deployments. The second was used in this project. To serve the application itself, a tiny webserver application is still needed though. For the prototype, a Node based Express server was used.\newline
+From staging, the application can be tested. As soon as the tests are completed and the application is ready to go in production, the code from the staging or development branch is pushed to the master (or production) branch in version control and Heroku takes it from there.
 
 \subsection{Architecture}
 \subsubsection{Introduction}
@@ -408,7 +410,7 @@ Another important factor for how quick the technology is, is the frames per seco
 %----------------------------------------------------------------------------------------
 %   Is the technology compatible with the users browsing preferences?
 %----------------------------------------------------------------------------------------
-\subsection{Is the technology compatible with the users browsing preferences?}
+\subsection{Is the technology compatible with the user's browsing preferences?}
 To test this, a browser testing tool called 'Browserstack' was used. They have something called a 'live' feature, which lets one test an application while looking at an actual device screen, unfortunately, the iPhone 7 was not supported in this manner, but as it is the latest of Apple's smartphones, it had to be included in the test. The following browsers / devices were tested:
 ​\begin{enumerate}
 \item {Android: Samsung Galaxy S7}
