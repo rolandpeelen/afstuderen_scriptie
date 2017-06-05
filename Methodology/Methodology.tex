@@ -6,9 +6,9 @@
 \chapter{Methodology}
 \label{chapter:methodology}
 \section{Introduction}
-Developing a product configurator is challenging. Building it using 3d technology may be even harder. When doing a small literature study for the theoretical framework, it became clear that there is a lot of research done into the computer science behind the proposed technology proposed in this thesis (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Next to that, loads of research has been done on the User Experience side of (web)applications (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is right at the intersection of the computer science side and user experience site. None of the found research highlighted the intersection. This means that some of the research objectives need to be answered by means of experiments
-Some can only be answered using this experimental type of setting. However, there are also a couple of questions that could be answered using interviews or a literary study. But building a prototype was necessary and as these questions could also be answered with the help of the prototype, trying to find the answers in literature does not make sense.
-Basically, all questions that have to do with the development cycle, can be answered using this experimental type of research. Questions regarding the UX used a combination of literature and experimentation (literature for the need to define certain standards). The start of this section will be a plunge into the methodology behind building the prototype, followed several methods of researching the development and user experience research objectives.
+Developing a product configurator is challenging. Building it using 3d technology may be even harder. When doing the literature study for the theoretical framework, it became clear that there is a lot of research done into the computer science behind the technology proposed in this thesis (\cite{openGLsite}, \cite{microservices}, \cite{heteregoneousComputingTechniques}). Loads of research has been done on the User Experience side of (web)applications as well, (\cite{nielsonNormanReports}). Unfortunately, the main question that needs to be answered is right at the intersection of the computer science side and user experience site. None of the found research highlighted the intersection. This means that some of the research objectives need to be answered by means of experiment.
+Some could only be answered using this experimental setting while others could be answered using interviews or a literary study. However, as building a prototype was necessary and as these questions can also be answered (probably even better) with the help of the prototype, trying to find the answers in literature did not make sense.
+Basically, all questions that have to do with the development cycle, were answered using this experimental type of research. Questions regarding the UX used a combination of literature and experimentation (literature for the need to define certain standards). The start of this section will be a plunge into the methodology behind building the prototype, followed several methods of researching the development and user experience research objectives.
 
 %----------------------------------------------------------------------------------------
 %   Experimental Prototype
@@ -19,7 +19,7 @@ Basically, all questions that have to do with the development cycle, can be answ
 To keep the prototype as simple as possible, an analysis of the requirements was made, after which, the development software stack was chosen and the development was started. As a rough example, the example used in the theoretical framework was used here as well. Most of the workflow in the build of this prototype was inherited from Peppr's current workflow. For clarification, here is the same example used in the introduction.
 
 \say{
-A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 3 different subframes. Two of the subframes are steel and can be either black or plain. The last frame is mostly made out of wood.
+A chair manufacturer wants a product configurator for one of their most popular chairs. It has 25 different colour options and has 3 different subframes. Two of the subframes are steel and can be either black or plain. The last frame is made out of wood.
 }
 
 \subsection{Requirements}
@@ -66,14 +66,14 @@ Keeping the size of the configurator with regards to downloading the models and 
 In conjunction with and as a direct result from, the size of the application will affect how quickly it operates. Apart from the actual loading of the application, the usage should be quick as well. This will be done by optimising the 3d models to be the lowest possible size they can be while still remaining high enough quality so they can compete with pre-rendered images.
 
 \subsubsection{Interface}
-The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype uses regular buttons, html and css for styling, with javascript for interaction. These are relatively standard and widely used across websites. As there is no use in designing a great interface only to find out building the prototype is not technically possible, the interface will stay relatively basic but will have the option to be expanded upon.
+The interface normally contributes a great deal to the user experience of an application. The prototype will however focus on the limiting factors of the application. The prototype uses regular buttons, html and css for styling, with javascript for interaction. These are standard and widely used across websites. As there is no use in designing a great interface only to find out building the prototype is not technically possible, the interface will stay relatively basic but will have the option to be expanded upon.
 
 \subsection{Technology Stack}
 Now that the requirements are set, the technology stack can be chosen. Below are the three most important components for this stack. In the 3d section (\ref{subsub: 3d}) is explained which framework is necessary for the front-end of the application to handle and render the 3d files in realtime. In the front-end section (\ref{subsub: frontEnd}) several front-end setups will be discussed. An explanation of why there is no need for a back-end in this prototype will be given in the back-end section (\ref{subsub: backEnd})
 
 \subsubsection{3d}
 \label{subsub: 3d}
-To display and render 3d models in browser, one can directly use the webGL api (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). As Peppr has little experience with these libraries, the decision on which framework to use was based on the amount of times users 'starred' (liked) a library on Github (a site to host code). Babylon was starred 4479 times, ThreeJS 32.763 times. Next to that, there are over 18.000 code changes (commits) on the ThreeJS and only a bit more than 6.600 on the Babylon Framework. This made ThreeJS the clear victor.
+To display and render 3d models in browser, one can directly use the WebGL API (\cite{webGL}). However, there are frameworks that make most of the work easier. There are loads of libraries that offer 3d capabilities in browsers, but the two most popular frameworks are ThreeJS (\cite{threejs}) and Babylon (\cite{babylon}). As Peppr has little experience with these libraries, the decision on which framework to use was based on the amount of times users 'starred' (liked) a library on Github (a site to host code). Babylon was starred 4479 times, ThreeJS 32.763 times. Next to that, there are over 18.000 code changes (commits) on the ThreeJS and only a bit more than 6.600 on the Babylon Framework. This made ThreeJS the clear victor.
 
 \subsubsection{Front-end}
 \label{subsub: frontEnd}
@@ -100,7 +100,7 @@ Apart from the 3d specific side of the front-end, things like styling buttons an
 \end{lstlisting}
 
 \clearpage
-While in SCSS, one would do the following. While it takes up slightly more lines of code, one obvious advantage is readability. Another advantage is that one can specify colours and variables in a slingle place and change the look of an entire application with just a couple of variables ("\$button-clr" and "\$button-clr-success" in this case).
+While in SCSS, one would do the following. It takes up slightly more lines of code but there are advantages. One is readability. Another one is that one can specify colours and variables in a single place and change the look of an entire application with just a couple of variables ("\$button-clr" and "\$button-clr-success" in this case). This all adds to the third and probably most important advantage, maintainability. The easier code is to read and to edit, the easier it is to maintain an application.
 
 \begin{lstlisting}[language=CSS]
 $button-clr: #333;
